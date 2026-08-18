@@ -1,0 +1,2726 @@
+---
+title: "Compendium FOA235"
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-depth: 3
+    code-fold: false
+editor: visual
+---
+
+## Getting started
+
+RStudio is an environment for working with the programming language **R**. During the course, you will use RStudio to write code, work with data, perform analyses, and create graphs. This guide introduces the most important things you need to know to start coding in R.
+
+You will normally write your code in a **script file** rather than directly in the Console.
+
+Posit Cloud (formerly RStudio Cloud) lets you run RStudio in your browser with no local installation required.
+
+### 1. Create an account
+
+1.  Go to [posit.cloud](https://posit.cloud) and click **Sign Up**.
+2.  Choose the **Free** plan (or another plan if you need more compute/storage).
+3.  Sign up with an email address, Google account, or your existing shinyapps.io login.
+
+### 2. Find your workspace
+
+After logging in, you land in **Your Workspace** — a personal space only you can see and work in. If the left sidebar with the workspace menu isn't visible, click the menu icon in the top-left corner to open it.
+
+### 3. Create a new RStudio project
+
+1.  Click **New Project** (top right of Your Workspace).
+2.  Select **New RStudio Project** from the dropdown.
+3.  Wait about 30 seconds — a full RStudio IDE will load in your browser, exactly like the desktop version.
+4.  Rename the project by clicking "Untitled Project" at the top of the page and typing a new name.
+
+### 4. Get familiar with the RStudio layout
+
+To create a new script: **File → New File → R Script**
+
+Once it loads, you'll see the same four-pane RStudio interface:
+
+-   **Source** (top-left): where you write and edit scripts (`.R` files).
+-   **Console** (bottom-left): where code runs and results print immediately.
+-   **Environment/History** (top-right): shows variables and objects currently in memory.
+-   **Files/Plots/Packages/Help** (bottom-right): browse files, view plots, manage packages.
+
+**Try it yourself:** write `1 + 1` in the script file. Place the cursor on the same line as `1 + 1`, and then run the line by pressing `Ctrl/Cmd + Enter`.
+
+### 5. Install and load packages
+
+In RStudio, **packages** are collections of additional functions and tools that extend what R can do. The important distinction is between installing and loading a package:
+
+-   **Install a package** = download it to your computer. You normally only need to do this **once**.
+
+-   **Load a package** = make the installed package available in your **current R session**. You need to do this **each time you restart R/RStudio** and want to use it.
+
+In the console write:
+
+``` r
+# Install a package
+install.packages("tidyverse")
+
+# Load a package 
+library(tidyverse)
+```
+
+The main difference from RStudio installed on your own computer is where the package is installed. In a web solution, R is running on a server or cloud environment rather than directly on your computer.
+
+One practical complication is that, depending on how the Posit environment is configured, packages may already be installed, or installations may not persist when the environment/session is reset.
+
+### 6. Upload or save your work
+
+During the course, you will work with data files provided through Canvas.
+
+If you are using a web-based Posit/RStudio environment, you first need to upload the files to your working environment.
+
+You can inspect the files available to R with:
+
+```{r}
+list.files()
+```
+
+If your file appears in the result, R can see it.
+
+-   Upload files via the **Files** pane (**Upload** button) — useful for datasets (`.csv`, etc.).
+-   Everything in a Posit Cloud project auto-saves to that project's cloud storage; return to it anytime from Your Workspace.
+-   **Try it yourself:** Upload the files from Canvas that you will use during the course, and check whether you can access them in your R session.
+
+### 7. Know the free-tier limits
+
+The free plan includes a monthly cap on compute hours and limited RAM/storage per project. If a project stalls or runs slowly, check your usage under **Account → Plans** and consider upgrading if you outgrow it. However, there should be enough space for the entire course.
+
+------------------------------------------------------------------------
+
+## Your first R code
+
+R can be used as a calculator. Press the **"Run Current Chunk"** button in the upper-right corner of the grey box.
+
+```{r}
+1 + 1
+```
+
+You can also perform other calculations:
+
+```{r}
+10 - 4
+5 * 3
+20 / 4
+2^3
+```
+
+### 1. Creating objects
+
+In R, you can store values in **objects**.
+
+The assignment operator `<-` means "store the value on the right in the object on the left."
+
+```{r}
+x <- 10
+```
+
+The object `x` now contains the value `10`.
+
+To see the value, run:
+
+```{r}
+x
+```
+
+You can use objects in calculations:
+
+```{r}
+x <- 10
+y <- 5
+
+x + y
+```
+
+**Try it yourself:** Create two objects called `a` and `b`. Give them any numerical values you want and calculate their sum. You can also type this directly into the Console at the bottom of the screen.
+
+### 2. Working with vectors
+
+A vector is a collection of values.
+
+The function `c()` combines values into a vector.
+
+```{r}
+ages <- c(21, 25, 19, 32, 28)
+```
+
+You can inspect the vector by running:
+
+```{r}
+ages
+```
+
+R contains many useful functions for working with numerical data.
+
+```{r}
+mean(ages)
+median(ages)
+min(ages)
+max(ages)
+sd(ages)
+```
+
+**Try it yourself:** Create a vector containing five numbers and calculate its mean and standard deviation.
+
+### 3. Functions
+
+A **function** performs an operation.
+
+Functions usually follow this structure:
+
+``` r
+function_name(argument)
+```
+
+For example:
+
+```{r}
+mean(c(10, 20, 30))
+```
+
+Here:
+
+-   `mean()` is the function.
+-   `c(10, 20, 30)` is the argument supplied to the function.
+
+Some functions have several arguments.
+
+```{r}
+round(3.14159, digits = 2)
+```
+
+### 4. Comments
+
+Comments are notes in your code that R does not execute.
+
+A comment starts with `#`.
+
+```{r}
+# Calculate the average
+mean(c(10, 20, 30))
+```
+
+Comments are useful for explaining what your code does.
+
+### 5. Reading data into R
+
+A common file format is CSV.
+
+You can read a CSV file using:
+
+```{r, eval=FALSE}
+mydata <- read.csv("mydata.csv")
+```
+
+The data are now stored in an object called `mydata`.
+
+To inspect the first rows:
+
+```{r, eval=FALSE}
+head(mydata)
+```
+
+To see the structure of the dataset:
+
+```{r, eval=FALSE}
+str(mydata)
+```
+
+### 6. Working with a data frame
+
+A data frame is one of the most common ways to store datasets in R.
+
+Here is a small example:
+
+```{r}
+students <- data.frame(
+  name = c("Anna", "Ben", "Carlos"),
+  age = c(22, 25, 21),
+  score = c(78, 85, 91)
+)
+
+students
+```
+
+You can select one variable using `$`:
+
+```{r}
+students$score
+```
+
+You can then calculate, for example, the average score:
+
+```{r}
+mean(students$score)
+```
+
+### 7. Creating a simple figures/plots
+
+Base R can create figures/plots with functions such as `hist()`.
+
+```{r}
+scores <- c(55, 62, 68, 71, 73, 75, 78, 82, 85, 91)
+
+hist(scores)
+```
+
+If you use `ggplot2`, which is included in the tidyverse, you can create figures/plots using `ggplot()`.
+
+```{r, eval=FALSE}
+library(tidyverse)
+
+ggplot(students, aes(x = score)) +
+  geom_histogram()
+```
+
+You will learn more about figures/plots later in the course.
+
+### 8. Running several lines of code
+
+You can run one line by placing the cursor on the line and pressing:
+
+-   **Windows:** `Ctrl + Enter`
+-   **Mac:** `Cmd + Enter`
+
+You can also select several lines and use the same shortcut to run all selected lines.
+
+For example:
+
+```{r}
+x <- 5
+y <- 10
+z <- x + y
+
+z
+```
+
+It is often useful to run your script **from top to bottom**. Later lines may depend on objects created earlier in the script.
+
+### 9. Reading error messages
+
+Errors are a normal part of programming.
+
+For example, this code produces an error because the object does not exist:
+
+```{r, error=TRUE}
+my_number + 10
+```
+
+An error message does not mean that you have failed. It tells you that R could not execute the command.
+
+When you get an error:
+
+1.  Read the error message.
+2.  Check the spelling of object and function names.
+3.  Check brackets, parentheses, quotation marks, and commas.
+4.  Check whether the object you are using has already been created.
+5.  Run earlier parts of your script if necessary.
+
+### 10. R is case-sensitive
+
+R distinguishes between uppercase and lowercase letters.
+
+These are different object names:
+
+```{r}
+score <- 10
+Score <- 20
+
+score
+Score
+```
+
+For this reason, be careful with capitalization.
+
+### 11. Good coding habits
+
+A few habits will make working with R much easier:
+
+-   Write your code in a script rather than only in the Console.
+-   Give objects clear and meaningful names.
+-   Use comments to explain important steps.
+-   Save your script regularly.
+-   Keep your data files and code organized.
+-   Run your script from top to bottom occasionally to check that everything works.
+-   Read error messages carefully rather than immediately deleting the code.
+
+### 12. Final exercise
+
+Create a new R script and complete the following tasks:
+
+1.  Create an object called `height` and store your height in centimeters.
+2.  Create an object called `weight` and store a weight in kilograms.
+3.  Create a vector containing five numerical values.
+4.  Calculate the mean of the vector.
+5.  Calculate the standard deviation of the vector.
+6.  Add comments explaining what your code does.
+7.  Run the complete script from top to bottom.
+
+Example:
+
+```{r}
+# Store two values
+height <- 180
+weight <- 75
+
+# Create a vector
+values <- c(10, 15, 20, 25, 30)
+
+# Calculate descriptive statistics
+mean(values)
+sd(values)
+```
+
+### 13. Key takeaway
+
+You do not need to memorize every R command.
+
+The most important things at the beginning are to understand how to:
+
+-   write and run code,
+-   create objects,
+-   use functions,
+-   work with files and data,
+-   load packages,
+-   and interpret the output R gives you.
+
+You will become more comfortable with R by using it repeatedly throughout the course.
+
+------------------------------------------------------------------------
+
+## Introduction to Data Manipulation
+
+The `dplyr` package is one of the main tools we will use for data manipulation in R. It is part of the `tidyverse` and provides a set of functions that make it easier to transform, organize, and summarize data.
+
+These functions are often called **verbs** because each function describes an action that we want R to perform on our data:
+
+-   `filter()` — keep selected rows
+-   `arrange()` — reorder rows
+-   `distinct()` — find unique rows or values
+-   `count()` — count observations
+-   `select()` — keep selected columns
+-   `rename()` — rename columns
+-   `relocate()` — move columns
+-   `mutate()` — create or transform columns
+-   `group_by()` — divide observations into groups
+-   `summarize()` — calculate summaries
+-   `slice_*()` — select rows by position or value
+
+The purpose of this guide is to introduce these verbs and show how they can be combined into a data-analysis workflow.
+
+### 1. Preparing the R session
+
+#### 1.1 Clear the Global Environment
+
+We begin by removing any objects currently stored in the Global Environment. This gives us a clean R session.
+
+```{r}
+rm(list = ls())
+```
+
+> **Note:** You do not normally need to clear your environment every time you work in R. We do it here so that everyone starts the exercise from the same point.
+
+#### 1.2 Load the packages
+
+Next, load the packages that we need.
+
+```{r}
+# Install the packages first if they are not already installed:
+# install.packages("tidyverse")
+# install.packages("palmerpenguins")
+# install.packages("ggthemes")
+
+library(tidyverse)
+library(palmerpenguins)
+library(ggthemes)
+```
+
+Remember the difference between **installing** and **loading** a package:
+
+-   `install.packages()` installs a package in your R environment.
+-   `library()` loads an installed package into the current R session.
+
+You normally install a package only when needed, but you load it again when starting a new R session.
+
+### 2. The penguins dataset
+
+In this guide, we will use the `penguins` dataset from the `palmerpenguins` package.
+
+The dataset contains measurements for penguins observed on three islands in the Palmer Archipelago, Antarctica.
+
+We create an object called `df` containing the data:
+
+```{r}
+df <- penguins
+```
+
+`df` is short for **data frame**. You will often see this name used in examples, although in your own analyses it is usually better to give datasets more descriptive names.
+
+#### 2.1 Inspect the data
+
+Before manipulating a dataset, we should understand what it contains.
+
+Look at the first few observations:
+
+```{r}
+head(df)
+```
+
+We can also produce a summary:
+
+```{r}
+summary(df)
+```
+
+Another useful function is:
+
+```{r}
+glimpse(df)
+```
+
+`glimpse()` provides a compact overview of the dataset, including the variables, their data types, and some of their values.
+
+**Try it yourself:** Run `head(df)`, `summary(df)`, and `glimpse(df)`. How many variables are in the dataset? Which variables are numerical and which are categorical?
+
+### 3. dplyr verbs
+
+Most `dplyr` verbs follow the same basic logic:
+
+1.  The first argument is a **data frame or tibble**.
+2.  The remaining arguments describe what should be done, usually by referring directly to variable names without quotation marks.
+3.  The result is a new data frame or tibble.
+
+For example:
+
+```{r}
+filter(df, species == "Adelie")
+```
+
+With the pipe operator, we can write the same operation as:
+
+```{r}
+df |>
+  filter(species == "Adelie")
+```
+
+We will use the pipe syntax throughout this guide.
+
+### 4. Verbs that work with rows
+
+Several important `dplyr` verbs primarily determine **which observations (rows)** appear in the resulting dataset or the order in which they appear.
+
+#### 4.1 `filter()` — select rows
+
+`filter()` keeps observations that satisfy one or more conditions.
+
+For example, suppose we want penguins with a body mass greater than 4,200 grams:
+
+```{r}
+df |>
+  filter(body_mass_g > 4200)
+```
+
+The original variables remain, but only rows satisfying the condition are returned.
+
+We can use several comparison operators:
+
+| Operator | Meaning                  |
+|:---------|:-------------------------|
+| `>`      | greater than             |
+| `<`      | less than                |
+| `>=`     | greater than or equal to |
+| `<=`     | less than or equal to    |
+| `==`     | equal to                 |
+| `!=`     | not equal to             |
+
+Notice that **two equal signs**, `==`, are used when testing whether two values are equal.
+
+#### 4.2 Multiple conditions
+
+We can provide more than one condition:
+
+```{r}
+df |>
+  filter(
+    species == "Adelie",
+    body_mass_g > 4000
+  )
+```
+
+Here, both conditions must be satisfied.
+
+We can also explicitly use `&` for **and** and `|` for **or**:
+
+```{r}
+df |>
+  filter(species == "Adelie" | species == "Gentoo")
+```
+
+#### 4.3 Saving the result
+
+So far, R has displayed the result without changing `df`.
+
+If we want to save the filtered data, we assign the result to a new object:
+
+```{r}
+heavy_penguins <- df |>
+  filter(body_mass_g > 4200)
+
+summary(heavy_penguins)
+```
+
+This is an important principle:
+
+> `dplyr` does not normally change your original dataset. If you want to keep the result of an operation, assign it to an object using `<-`.
+
+**Try it yourself:** Create a new dataset containing only penguins with a body mass greater than 4,500 g. Give the new dataset a meaningful name and use `summary()` to check the result.
+
+#### 4.4 `arrange()` — reorder rows
+
+`arrange()` changes the order of observations.
+
+For example:
+
+```{r}
+df |>
+  arrange(body_mass_g)
+```
+
+This sorts the penguins from the lowest to the highest body mass.
+
+To sort in descending order, use `desc()`:
+
+```{r}
+df |>
+  arrange(desc(body_mass_g))
+```
+
+We can sort using multiple variables:
+
+```{r}
+df |>
+  arrange(species, body_mass_g)
+```
+
+R first sorts by `species` and then by `body_mass_g` within each species.
+
+**Try it yourself:** Arrange the dataset so that the heaviest penguins appear first.
+
+#### 4.5 `distinct()` — find unique values
+
+`distinct()` keeps unique rows or combinations of values.
+
+To see which species occur in the dataset:
+
+```{r}
+df |>
+  distinct(species)
+```
+
+We can also examine unique combinations:
+
+```{r}
+df |>
+  distinct(species, island)
+```
+
+This tells us which species–island combinations occur in the data.
+
+#### 4.6 `count()` — count observations
+
+`count()` counts the number of observations in different categories.
+
+```{r}
+df |>
+  count(species)
+```
+
+To sort the result so that the most common category appears first:
+
+```{r}
+df |>
+  count(species, sort = TRUE)
+```
+
+We can count combinations of categories as well:
+
+```{r}
+df |>
+  count(species, island)
+```
+
+**Try it yourself:** Use `count()` to determine how many penguins were observed on each island.
+
+### 5. Verbs that work with columns
+
+There are four particularly useful verbs for working with variables (columns):
+
+-   `mutate()` creates or transforms columns.
+-   `select()` determines which columns are present.
+-   `rename()` changes column names.
+-   `relocate()` changes the position of columns.
+
+#### 5.1 `mutate()` — create new variables
+
+`mutate()` creates new variables from existing variables.
+
+For example, body mass is measured in grams. We can create a new variable measured in kilograms:
+
+```{r}
+df |>
+  mutate(mass_kg = body_mass_g / 1000)
+```
+
+We can create several variables in the same `mutate()` call:
+
+```{r}
+df |>
+  mutate(
+    mass_kg = body_mass_g / 1000,
+    flipper_length_m = flipper_length_mm / 1000
+  )
+```
+
+Newly created variables can immediately be used to create additional variables:
+
+```{r}
+df |>
+  mutate(
+    mass_kg = body_mass_g / 1000,
+    flipper_length_m = flipper_length_mm / 1000,
+    mass_length_ratio = mass_kg / flipper_length_m
+  )
+```
+
+#### 5.2 Keeping only variables used by `mutate()`
+
+The `.keep` argument controls which existing variables are retained.
+
+```{r}
+df |>
+  mutate(
+    mass_kg = body_mass_g / 1000,
+    flipper_length_m = flipper_length_mm / 1000,
+    .keep = "used"
+  )
+```
+
+Here, `.keep = "used"` keeps the variables used in the calculations together with the newly created variables.
+
+**Try it yourself:** Create a variable called `bill_length_cm` that converts `bill_length_mm` from millimeters to centimeters.
+
+#### 5.3 `select()` — select columns
+
+`select()` determines which variables are included.
+
+```{r}
+df |>
+  select(species, island, body_mass_g)
+```
+
+Only these three variables are returned.
+
+We can also remove a variable using `-`:
+
+```{r}
+df |>
+  select(-year)
+```
+
+`select()` has several useful helpers. For example:
+
+```{r}
+df |>
+  select(starts_with("bill"))
+```
+
+This selects variables whose names begin with `"bill"`.
+
+#### 5.4 `rename()` — rename columns
+
+`rename()` changes the names of variables.
+
+The syntax is:
+
+``` r
+rename(new_name = old_name)
+```
+
+For example:
+
+```{r}
+df |>
+  rename(location = island)
+```
+
+The values do not change; only the variable name changes.
+
+#### 5.5 `relocate()` — move columns
+
+`relocate()` changes the order of variables.
+
+```{r}
+df |>
+  relocate(species, body_mass_g)
+```
+
+This moves `species` and `body_mass_g` to the beginning of the dataset.
+
+You can also specify where variables should be moved:
+
+```{r}
+df |>
+  relocate(body_mass_g, .after = species)
+```
+
+### 6. The pipe operator `|>`
+
+One of the most important ideas in modern R programming is the **pipe operator**:
+
+``` r
+|>
+```
+
+The pipe takes the result on its **left** and passes it to the function on its **right**.
+
+For example:
+
+```{r}
+df |>
+  filter(species == "Adelie")
+```
+
+can be read as:
+
+> "Take `df`, **then** filter it to keep Adelie penguins."
+
+The pipe becomes especially useful when we want to perform several operations.
+
+```{r}
+df |>
+  filter(species == "Adelie") |>
+  arrange(desc(body_mass_g)) |>
+  select(species, island, body_mass_g)
+```
+
+You can read this from top to bottom:
+
+> Take `df`,\
+> **then** keep only Adelie penguins,\
+> **then** arrange them from heaviest to lightest,\
+> **then** keep the variables species, island, and body mass.
+
+This makes code easier to read as a sequence of data-processing steps.
+
+#### 6.1 Why use pipes?
+
+Consider this analysis:
+
+```{r}
+df |>
+  filter(species == "Adelie") |>
+  group_by(island) |>
+  summarize(
+    mean_body_mass = mean(body_mass_g, na.rm = TRUE)
+  )
+```
+
+It performs three operations:
+
+1.  Keep only Adelie penguins.
+2.  Group them according to island.
+3.  Calculate the mean body mass for each island.
+
+The pipe allows us to express the complete analysis as one readable sequence.
+
+#### 6.2 The same analysis step by step
+
+We could instead save every intermediate result:
+
+```{r}
+# Step 1: Filter the data
+penguins_adelie <- df |>
+  filter(species == "Adelie")
+
+# Step 2: Group by island
+penguins_grouped <- penguins_adelie |>
+  group_by(island)
+
+# Step 3: Calculate the mean for each group
+penguins_summary <- penguins_grouped |>
+  summarize(
+    mean_body_mass = mean(body_mass_g, na.rm = TRUE)
+  )
+
+# Inspect the result
+penguins_summary
+```
+
+This approach is longer, but it can sometimes be useful when learning because you can inspect the result after each step.
+
+As you become more comfortable with R, you will often combine these steps using pipes.
+
+### 7. Grouping and summarizing data
+
+So far, we have mostly manipulated individual rows and columns. `dplyr` becomes particularly powerful when we want to perform calculations for **groups of observations**.
+
+Two central functions are:
+
+-   `group_by()` — defines groups.
+-   `summarize()` — calculates summary statistics.
+
+#### 7.1 `group_by()` — define groups
+
+Suppose we want to perform calculations separately for each penguin species.
+
+```{r}
+df |>
+  group_by(species)
+```
+
+`group_by()` does not visibly change the observations. Instead, it tells `dplyr` that subsequent operations should be performed **within each group**.
+
+For example:
+
+```{r}
+df |>
+  group_by(species) |>
+  summarize(
+    mean_body_mass = mean(body_mass_g, na.rm = TRUE)
+  )
+```
+
+Instead of calculating one mean for all penguins, R calculates one mean for each species.
+
+#### 7.2 Missing values and `na.rm = TRUE`
+
+Some measurements in the penguins dataset are missing.
+
+Try:
+
+```{r}
+mean(df$body_mass_g)
+```
+
+The result is `NA` because the variable contains missing values.
+
+We can tell `mean()` to remove missing observations before performing the calculation:
+
+```{r}
+mean(df$body_mass_g, na.rm = TRUE)
+```
+
+For this reason, you will frequently see `na.rm = TRUE` when calculating summary statistics.
+
+#### 7.3 `summarize()` — calculate summaries
+
+We can calculate several statistics at once:
+
+```{r}
+df |>
+  group_by(species) |>
+  summarize(
+    avg_flipper_length = mean(flipper_length_mm, na.rm = TRUE),
+    avg_body_mass = mean(body_mass_g, na.rm = TRUE),
+    n = n()
+  )
+```
+
+Here:
+
+-   `mean()` calculates the group means.
+-   `n()` counts the number of observations in each group.
+
+We can group by more than one variable:
+
+```{r}
+df |>
+  group_by(species, sex) |>
+  summarize(
+    avg_body_mass = mean(body_mass_g, na.rm = TRUE),
+    n = n()
+  )
+```
+
+**Try it yourself:** Calculate the average body mass for penguins on each island. Also report the number of observations on each island.
+
+#### 7.4 `ungroup()` — remove grouping
+
+Grouping can remain attached to a dataset if you save a grouped result.
+
+You can explicitly remove the grouping using:
+
+```{r}
+df |>
+  group_by(species) |>
+  ungroup()
+```
+
+This returns the data to an ungrouped form.
+
+### 8. Combining several verbs
+
+The real power of `dplyr` comes from combining simple verbs.
+
+Suppose we want to answer:
+
+> **Among Adelie penguins weighing more than 3,500 g, what is the average body mass on each island?**
+
+We can translate the question into a sequence of operations:
+
+```{r}
+df |>
+  filter(
+    species == "Adelie",
+    body_mass_g > 3500
+  ) |>
+  group_by(island) |>
+  summarize(
+    avg_body_mass = mean(body_mass_g, na.rm = TRUE),
+    n = n()
+  ) |>
+  arrange(desc(avg_body_mass))
+```
+
+Notice that each line has a clear purpose:
+
+1.  `filter()` — which observations do we want?
+2.  `group_by()` — which groups do we want to compare?
+3.  `summarize()` — what statistics do we want to calculate?
+4.  `arrange()` — how should the result be ordered?
+
+This way of thinking is useful when solving more complex data-analysis problems.
+
+### 9. Practice
+
+Use the `penguins` data to complete the following tasks.
+
+#### Exercise 1: `filter()`
+
+Keep only Gentoo penguins.
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 2: `filter()` with multiple conditions
+
+Keep only Gentoo penguins with a body mass greater than 5,000 g.
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 3: `arrange()`
+
+Arrange all penguins from the longest to the shortest flipper.
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 4: `select()`
+
+Create a result containing only:
+
+-   `species`
+-   `island`
+-   `flipper_length_mm`
+-   `body_mass_g`
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 5: `mutate()`
+
+Create a new variable called `mass_kg` containing body mass in kilograms.
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 6: `group_by()` and `summarize()`
+
+Calculate the average body mass for each species.
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 7: Several verbs
+
+Find the average body mass of **female penguins on each island**.
+
+Your result should also report the number of observations used for each island.
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 8: Data manipulation and visualization
+
+Create a scatterplot of body mass and flipper length containing only Gentoo penguins.
+
+```{r}
+# Write your code here
+
+```
+
+### 10. Key takeaway
+
+You do not need to memorize all `dplyr` functions immediately. Instead, focus on understanding the logic of the most important verbs:
+
+| Question                        | Verb          |
+|:--------------------------------|:--------------|
+| Which observations do I want?   | `filter()`    |
+| In what order?                  | `arrange()`   |
+| Which variables do I want?      | `select()`    |
+| Do I need a new variable?       | `mutate()`    |
+| Do I need to rename a variable? | `rename()`    |
+| Do I want to compare groups?    | `group_by()`  |
+| Do I want summary statistics?   | `summarize()` |
+| Do I want category counts?      | `count()`     |
+
+The most important skill is learning to translate a question into a **sequence of simple operations**.
+
+For example:
+
+```{r}
+df |>
+  filter(species == "Gentoo") |>
+  group_by(island) |>
+  summarize(
+    mean_mass = mean(body_mass_g, na.rm = TRUE),
+    n = n()
+  ) |>
+  arrange(desc(mean_mass))
+```
+
+Read from top to bottom, the code tells a story:
+
+> Start with the data → select the observations → define the groups → calculate the statistics → organize the result.
+
+That is the basic logic behind data manipulation with `dplyr`.
+
+------------------------------------------------------------------------
+
+## Introduction to Data Cleaning
+
+Before we can analyze data, we usually need to **clean and prepare it**.
+
+Real-world business data are rarely perfect. A dataset may contain:
+
+-   unclear variable names,
+-   variables that are not relevant to the analysis,
+-   incorrect values,
+-   missing values,
+-   variables stored using the wrong data type, and
+-   categories that need to be reorganized.
+
+The goal of data cleaning is to create a dataset that is **consistent, understandable, and ready for analysis**.
+
+In this guide, we will work through a simple data-cleaning process in **Posit Cloud**.
+
+### 1. Prepare your R session
+
+#### 1.1 Clear the Global Environment
+
+We begin with an empty Global Environment so that everyone starts from the same point.
+
+```{r}
+rm(list = ls())
+```
+
+This removes objects that you have previously created in the current R session.
+
+> **Note:** You do not always need to clear the Global Environment when working in R. We do it here for teaching purposes.
+
+#### 1.2 Load the packages
+
+We will mainly use functions from the `tidyverse`.
+
+```{r}
+# If tidyverse is not already installed, run this once:
+# install.packages("tidyverse")
+
+library(tidyverse)
+```
+
+The `tidyverse` includes packages such as `dplyr` and `ggplot2`, so we do not need to load those packages separately.
+
+### 2. Upload and import the data
+
+#### 2.1 Organize your files in Posit Cloud
+
+Download the dataset from Canvas.
+
+In your Posit Cloud project, create a folder called:
+
+``` text
+Data
+```
+
+Upload the dataset to this folder.
+
+Keeping your data in a separate folder makes your project easier to organize. Your project might look something like this:
+
+``` text
+My Project/
+├── Data/
+│   └── L1_klusterdata.csv
+└── data_cleaning.qmd
+```
+
+The file path in your R code must match the location and name of the uploaded file.
+
+#### 2.2 Import the data
+
+We can import a CSV file using `read_csv()`:
+
+```{r}
+df <- read_csv("Data/L1_klusterdata.csv")
+```
+
+We store the imported data in an object called `df`.
+
+Take a first look at the data:
+
+```{r}
+head(df)
+```
+
+You can also click on `df` in the **Environment** pane in Posit Cloud to open the dataset in the data viewer.
+
+### 3. Always inspect your data first
+
+Before cleaning anything, we should understand what the dataset looks like.
+
+A useful first step is:
+
+```{r}
+summary(df)
+```
+
+We can also inspect the structure of the dataset:
+
+```{r}
+glimpse(df)
+```
+
+And check its dimensions:
+
+```{r}
+dim(df)
+```
+
+`dim()` reports the number of **rows** and **columns**.
+
+#### **3.1 Try it yourself:** Look carefully at the output. What seems unusual?
+
+Consider the following:
+
+-   Are the variable names clear?
+-   Are all variables relevant?
+-   Are the variables stored using appropriate data types?
+-   Are there missing values (`NA`)?
+-   Are there values that appear impossible or incorrectly coded?
+-   Are there unusually large or small values?
+
+> **Important:** Data cleaning should not mean automatically deleting unusual observations. First ask **why** a value looks unusual and whether there is a reasonable justification for changing or removing it.
+
+### 4. Rename variables
+
+Clear and consistent variable names make code easier to read.
+
+First, inspect the current variable names:
+
+```{r}
+names(df)
+```
+
+Some names in our dataset are difficult to work with. We can rename them using `rename()`.
+
+The syntax is:
+
+``` text
+new_name = old_name
+```
+
+First, test the changes without saving them:
+
+```{r}
+df |>
+  rename(
+    age = `Ålder (år)`,
+    income = `Inkomst#kr`,
+    group = Grupp,
+    codex = KodX,
+    measurement = `Mätning?`
+  ) |>
+  head()
+```
+
+If everything looks correct, save the result as a new dataset called `df_clean`:
+
+```{r}
+df_clean <- df |>
+  rename(
+    age = `Ålder (år)`,
+    income = `Inkomst#kr`,
+    group = Grupp,
+    codex = KodX,
+    measurement = `Mätning?`
+  )
+```
+
+Notice that we have kept the original dataset `df`. This is a good habit: **do not overwrite your raw data unnecessarily**.
+
+Check the new variable names:
+
+```{r}
+names(df_clean)
+```
+
+### 5. Keep relevant variables
+
+Datasets often contain variables that are not needed for a particular analysis.
+
+Suppose we only need:
+
+-   `age`
+-   `income`
+-   `group`
+
+We can select these variables using `select()`:
+
+```{r}
+df_clean |>
+  select(age, income, group)
+```
+
+Alternatively, we can remove specific variables:
+
+```{r}
+df_clean |>
+  select(-codex, -measurement)
+```
+
+These commands only display the result. They do not change `df_clean`.
+
+To save the variables we want:
+
+```{r}
+df_clean <- df_clean |>
+  select(age, income, group)
+```
+
+Check the result:
+
+```{r}
+summary(df_clean)
+```
+
+**Try it yourself:** Compare `names(df)` and `names(df_clean)`. Which variables were removed?
+
+### 6. Check data types
+
+Different variables contain different types of information.
+
+For this course, two particularly important types are:
+
+-   **Numeric variables** — numbers for which numerical calculations are meaningful, such as age, income, sales, or price.
+-   **Categorical variables** — observations belonging to categories, such as customer segment, region, or product type.
+
+R may also import text as a **character** variable.
+
+Check the structure:
+
+```{r}
+glimpse(df_clean)
+```
+
+Our `group` variable represents categories. If R has imported it as text (`<chr>`), we can convert it to a **factor**.
+
+#### 6.1 Convert text to a factor
+
+```{r}
+df_clean |>
+  mutate(group = as.factor(group)) |>
+  pull(group) |>
+  levels()
+```
+
+`levels()` shows the categories of the factor.
+
+#### 6.2 Ordered and unordered factors
+
+There are two useful kinds of categorical variables:
+
+-   **Nominal:** categories have no natural order, such as region or product type.
+-   **Ordinal:** categories have a meaningful order, such as low, medium, and high.
+
+Our groups have a natural order:
+
+``` text
+Ung → Medel → Äldre
+```
+
+We can therefore create an **ordered factor**:
+
+```{r}
+df_clean |>
+  mutate(
+    group = factor(
+      group,
+      levels = c("Ung", "Medel", "Äldre"),
+      ordered = TRUE
+    )
+  ) |>
+  pull(group) |>
+  levels()
+```
+
+The categories in the original dataset are Swedish. We can also give them English labels:
+
+```{r}
+df_clean |>
+  mutate(
+    group = factor(
+      group,
+      levels = c("Ung", "Medel", "Äldre"),
+      labels = c("Young", "Middle-aged", "Older"),
+      ordered = TRUE
+    )
+  )
+```
+
+For this guide, we will save the English labels:
+
+```{r}
+df_clean <- df_clean |>
+  mutate(
+    group = factor(
+      group,
+      levels = c("Ung", "Medel", "Äldre"),
+      labels = c("Young", "Middle-aged", "Older"),
+      ordered = TRUE
+    )
+  )
+```
+
+Check the result:
+
+```{r}
+summary(df_clean)
+```
+
+```{r}
+levels(df_clean$group)
+```
+
+### 7. Identify incorrectly coded values
+
+Next, look at the numerical variables again:
+
+```{r}
+summary(df_clean)
+```
+
+Suppose we know that `income` represents annual income in SEK.
+
+A negative income in this particular dataset may indicate that the observation was incorrectly coded.
+
+We can investigate what happens if we keep only non-negative values:
+
+```{r}
+df_clean |>
+  filter(income >= 0) |>
+  summary()
+```
+
+Notice that we have **not saved the result yet**. We are first investigating the data.
+
+### 8. Use visualizations to inspect numerical variables
+
+Summary statistics are useful, but visualizations can make unusual values much easier to identify.
+
+Let's inspect income with a histogram.
+
+```{r}
+df_clean |>
+  ggplot(aes(x = income)) +
+  geom_histogram() +
+  scale_x_continuous(
+    labels = scales::label_number(big.mark = " ")
+  ) +
+  labs(
+    title = "Distribution of income",
+    x = "Income (SEK)",
+    y = "Number of observations"
+  ) +
+  theme_minimal()
+```
+
+Look carefully at the histogram.
+
+Are there observations that appear very far from the rest of the data?
+
+#### 8.1 Investigate suspicious values
+
+Suppose our knowledge of the dataset tells us that:
+
+-   negative values are coding errors, and
+-   values above SEK 2,500,000 are also incorrectly coded.
+
+Before changing the dataset, we can visualize the data after applying these rules:
+
+```{r}
+df_clean |>
+  filter(income >= 0) |>
+  filter(income <= 2500000) |>
+  ggplot(aes(x = income)) +
+  geom_histogram(binwidth = 50000) +
+  scale_x_continuous(
+    labels = scales::label_number(big.mark = " ")
+  ) +
+  labs(
+    title = "Distribution of income after filtering",
+    x = "Income (SEK)",
+    y = "Number of observations"
+  ) +
+  theme_minimal()
+```
+
+This is a useful workflow:
+
+> **Inspect → identify a problem → test a cleaning rule → inspect again → save the change.**
+
+#### 8.2 Save the filtered data
+
+Once we are satisfied that these values represent coding errors, we can save the changes:
+
+```{r}
+df_clean <- df_clean |>
+  filter(income >= 0) |>
+  filter(income <= 2500000)
+```
+
+Check the result:
+
+```{r}
+summary(df_clean)
+```
+
+> **Business analytics principle:** An extreme value is not automatically an error. A customer spending ten times more than other customers may be unusual but completely real. Remove or correct observations only when you have a defensible reason for doing so.
+
+### 9. Create new variables
+
+Data cleaning and preparation can also involve creating variables that are more useful for analysis.
+
+#### 9.1 Create a categorical variable from a numerical variable
+
+Suppose we want to divide customers into two age categories:
+
+-   50 years or younger
+-   older than 50 years
+
+We can use `cut()`:
+
+```{r}
+df_clean |>
+  mutate(
+    age_category = cut(
+      age,
+      breaks = c(0, 50, Inf),
+      labels = c("50 or younger", "Over 50")
+    )
+  )
+```
+
+#### 9.2 Create a binary variable
+
+Sometimes we want to represent two categories using `0` and `1`.
+
+For example:
+
+```{r}
+df_clean |>
+  mutate(
+    age_over_50 = if_else(age > 50, 1, 0)
+  )
+```
+
+Here:
+
+-   `0` = age 50 or younger
+-   `1` = age over 50
+
+#### 9.3 Save both variables
+
+We can create both variables in a single `mutate()`:
+
+```{r}
+df_clean <- df_clean |>
+  mutate(
+    age_category = cut(
+      age,
+      breaks = c(0, 50, Inf),
+      labels = c("50 or younger", "Over 50")
+    ),
+    age_over_50 = if_else(age > 50, 1, 0)
+  )
+```
+
+Check the new variables:
+
+```{r}
+summary(df_clean)
+```
+
+### 10. Missing values (`NA`)
+
+Real datasets often contain missing information.
+
+R represents missing values as:
+
+``` text
+NA
+```
+
+`NA` means that the value is **not available**.
+
+#### 10.1 Count missing values
+
+To count missing values in each variable:
+
+```{r}
+colSums(is.na(df_clean))
+```
+
+To count the total number of missing values in the entire dataset:
+
+```{r}
+sum(is.na(df_clean))
+```
+
+You can also calculate how many rows contain at least one missing value:
+
+```{r}
+sum(!complete.cases(df_clean))
+```
+
+#### 10.2 Inspect rows with missing values
+
+Before deleting anything, it is useful to see which observations contain missing data:
+
+```{r}
+df_clean |>
+  filter(if_any(everything(), is.na))
+```
+
+#### 10.3 Remove missing values
+
+One simple approach is to remove every row containing at least one missing value.
+
+Using `drop_na()`:
+
+```{r}
+df_clean |>
+  drop_na() |>
+  summary()
+```
+
+Again, we first inspect the result.
+
+If we decide that complete-case analysis is appropriate for this exercise, we can save it:
+
+```{r}
+df_clean <- df_clean |>
+  drop_na()
+```
+
+> **Important:** Removing all observations with missing values is not always the best solution. In real business analysis, you should first consider **why the data are missing** and how much information would be lost. Here we use `drop_na()` to introduce a simple cleaning procedure.
+
+### 11. Inspect the cleaned dataset
+
+We should never assume that our cleaning worked correctly. Always inspect the data again.
+
+#### 11.1 Summary
+
+```{r}
+summary(df_clean)
+```
+
+#### 11.2 Structure
+
+```{r}
+glimpse(df_clean)
+```
+
+#### 11.3 Dimensions
+
+```{r}
+dim(df_clean)
+```
+
+How many observations and variables remain?
+
+### 12. Check numerical variables visually
+
+#### 12.1 Income
+
+```{r}
+df_clean |>
+  ggplot(aes(x = income)) +
+  geom_histogram(binwidth = 50000) +
+  scale_x_continuous(
+    labels = scales::label_number(big.mark = " ")
+  ) +
+  labs(
+    title = "Distribution of income",
+    x = "Income (SEK)",
+    y = "Number of observations"
+  ) +
+  theme_minimal()
+```
+
+#### 12.2 Age
+
+```{r}
+df_clean |>
+  ggplot(aes(x = age)) +
+  geom_histogram() +
+  labs(
+    title = "Distribution of age",
+    x = "Age (years)",
+    y = "Number of observations"
+  ) +
+  theme_minimal()
+```
+
+Ask yourself:
+
+-   Does the distribution look reasonable?
+-   Are there still suspicious values?
+-   Are the minimum and maximum values plausible?
+
+### 13. Check categorical variables
+
+For categorical variables, we usually want to know:
+
+-   Which categories exist?
+-   How many categories are there?
+-   How many observations belong to each category?
+
+#### 13.1 Check the levels
+
+For one factor:
+
+```{r}
+levels(df_clean$group)
+```
+
+For several factors:
+
+```{r}
+df_clean |>
+  select(group, age_category) |>
+  map(levels)
+```
+
+#### 13.2 Frequency tables
+
+For one variable:
+
+```{r}
+table(df_clean$group)
+```
+
+For several variables:
+
+```{r}
+df_clean |>
+  select(group, age_category, age_over_50) |>
+  map(table)
+```
+
+You can also use `count()`:
+
+```{r}
+df_clean |>
+  count(group)
+```
+
+### 14. Final data check
+
+Before saving the cleaned dataset, answer the following questions:
+
+1.  How many observations and variables does `df_clean` contain?
+
+2.  Which variables are numerical?
+
+3.  Which variables are categorical?
+
+4.  What are the minimum, mean, and maximum values of the numerical variables?
+
+5.  Which categories are present in the categorical variables?
+
+6.  How many levels does each factor contain?
+
+7.  Are there any missing values left?
+
+8.  Click `df_clean` in the **Environment** pane in Posit Cloud and inspect the data. Does the structure look reasonable?
+
+9.  What changes did we make compared with the original dataset?
+
+10. Why did we make each of these changes?
+
+### 15. Save the cleaned dataset
+
+We now have two versions of our data:
+
+-   `df` — the original imported data
+-   `df_clean` — the cleaned data
+
+This is useful because we have preserved the original dataset.
+
+Save the cleaned dataset as a new CSV file:
+
+```{r}
+write_csv(
+  df_clean,
+  "Data/df_clean.csv"
+)
+```
+
+The file should now appear in the `Data` folder in the **Files** pane in Posit Cloud.
+
+Do not overwrite the original raw data file.
+
+### 16. The complete data-cleaning workflow
+
+The individual steps in this guide can be summarized as:
+
+``` text
+1. Import the raw data
+          ↓
+2. Inspect the data
+          ↓
+3. Rename unclear variables
+          ↓
+4. Keep relevant variables
+          ↓
+5. Check and correct data types
+          ↓
+6. Investigate incorrect or suspicious values
+          ↓
+7. Create useful new variables
+          ↓
+8. Investigate missing values
+          ↓
+9. Inspect the cleaned data again
+          ↓
+10. Save a new cleaned dataset
+```
+
+A good general principle is:
+
+> **Never clean data blindly. Inspect the data, understand the problem, make a justified change, and then check the result.**
+
+### 17. Key functions from this guide
+
+| Task                        | Function                        |
+|:----------------------------|:--------------------------------|
+| Import a CSV file           | `read_csv()`                    |
+| Inspect the first rows      | `head()`                        |
+| Inspect structure           | `glimpse()`                     |
+| Get summary statistics      | `summary()`                     |
+| Check rows and columns      | `dim()`                         |
+| Rename variables            | `rename()`                      |
+| Select variables            | `select()`                      |
+| Create/change variables     | `mutate()`                      |
+| Convert to a factor         | `factor()`                      |
+| Filter observations         | `filter()`                      |
+| Check missing values        | `is.na()`                       |
+| Remove missing observations | `drop_na()`                     |
+| Create a histogram          | `ggplot()` + `geom_histogram()` |
+| Count categories            | `count()` or `table()`          |
+| Save a CSV file             | `write_csv()`                   |
+
+The goal is not to memorize every function immediately. Focus on understanding the **data-cleaning process** and why each step is performed.
+
+------------------------------------------------------------------------
+
+## Introduction to Plots
+
+Data visualization is an important part of business analytics.
+
+A good plot can help us:
+
+-   understand the distribution of a variable,
+-   identify unusual observations,
+-   compare groups,
+-   explore relationships between variables,
+-   and communicate results clearly.
+
+In this guide, we will use the `ggplot2` package in R.
+
+`ggplot2` is part of the `tidyverse` and is based on a simple idea:
+
+> **We build a plot step by step by adding layers.**
+
+The main building blocks are:
+
+1.  **Data** — which dataset should be used?
+2.  **Aesthetics** — which variables should be mapped to x, y, color, shape, etc.?
+3.  **Geoms** — how should the data be represented?
+4.  **Scales** — how should colors, axes, and other visual properties be displayed?
+5.  **Labels** — what should the title, subtitle, axis labels, and legend labels say?
+6.  **Themes** — how should the final plot look?
+
+### 2. Prepare your project in Posit Cloud
+
+#### 2.1 Upload course data
+
+In this course, we will mainly work with `.csv` files.
+
+In your Posit Cloud project, create a folder called:
+
+``` text
+Data
+```
+
+Upload your course datasets to this folder.
+
+A simple project structure could look like this:
+
+``` text
+My Project/
+├── Data/
+│   └── example_data.csv
+└── data_visualization.qmd
+```
+
+Keeping your data in a separate folder makes the project easier to organize.
+
+#### 2.2 Clear the Global Environment
+
+For this exercise, we start with an empty R session.
+
+```{r}
+rm(list = ls())
+```
+
+> **Note:** You do not always need to clear the Global Environment. We do it here so that everyone starts from the same point.
+
+### 3. Load the packages
+
+We will use the following packages:
+
+```{r}
+# Install the packages first if needed:
+# install.packages("tidyverse")
+# install.packages("palmerpenguins")
+# install.packages("ggthemes")
+
+library(tidyverse)
+library(palmerpenguins)
+library(ggthemes)
+```
+
+The `tidyverse` already includes both `ggplot2` and `dplyr`.
+
+The `palmerpenguins` package contains the example dataset we will use.
+
+The `ggthemes` package provides additional themes and color scales.
+
+### 4. The penguins dataset
+
+We begin by creating an object called `df` containing the `penguins` dataset:
+
+```{r}
+df <- penguins
+```
+
+The dataset contains measurements for penguins observed on three islands in the Palmer Archipelago, Antarctica.
+
+Important variables include:
+
+-   `species` — penguin species
+-   `island` — island where the penguin was observed
+-   `bill_length_mm` — bill length in millimeters
+-   `bill_depth_mm` — bill depth in millimeters
+-   `flipper_length_mm` — flipper length in millimeters
+-   `body_mass_g` — body mass in grams
+-   `sex` — sex
+-   `year` — year of observation
+
+#### 4.1 Inspect the data
+
+Before creating a plot, always inspect the data.
+
+```{r}
+summary(df)
+```
+
+You can also use:
+
+```{r}
+glimpse(df)
+```
+
+Try to identify:
+
+-   which variables are numerical,
+-   which variables are categorical,
+-   whether there are missing values,
+-   and which variables might be interesting to compare.
+
+### 5. Building a plot step by step
+
+We will now build a scatterplot showing the relationship between:
+
+-   **flipper length**
+-   **body mass**
+
+The goal is to understand how a `ggplot2` figure is constructed.
+
+#### Step 1: Create an empty plot
+
+The most basic `ggplot()` call is:
+
+```{r}
+ggplot(data = df)
+```
+
+This creates an empty plotting area.
+
+At this point, R knows **which dataset** we want to use, but it does not yet know:
+
+-   which variables to display,
+-   or how to display them.
+
+#### Step 2: Map variables to the axes
+
+We use `aes()` to define the **aesthetic mappings**.
+
+```{r}
+ggplot(
+  data = df,
+  mapping = aes(
+    x = flipper_length_mm,
+    y = body_mass_g
+  )
+)
+```
+
+Now R knows that:
+
+-   `flipper_length_mm` should be shown on the x-axis,
+-   `body_mass_g` should be shown on the y-axis.
+
+However, we still have not told R **how** the observations should be drawn.
+
+#### Step 3: Add a geometry
+
+A **geom** tells `ggplot2` how the data should be represented.
+
+For a scatterplot, we use:
+
+``` r
+geom_point()
+```
+
+```{r}
+ggplot(
+  data = df,
+  mapping = aes(
+    x = flipper_length_mm,
+    y = body_mass_g
+  )
+) +
+  geom_point()
+```
+
+We now have a scatterplot.
+
+Each point represents one observation in the dataset.
+
+> In `ggplot2`, we use `+` to add layers to the plot.
+
+#### Step 4: Add color
+
+We can map another variable to color.
+
+For example, we can use different colors for different penguin species:
+
+```{r}
+ggplot(
+  data = df,
+  mapping = aes(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    color = species
+  )
+) +
+  geom_point()
+```
+
+Because `species` is inside `aes()`, color is now **mapped to a variable**.
+
+This means that each species receives a different color.
+
+#### Step 5: Add shape
+
+Color is useful, but it is often better to use more than one visual cue.
+
+We can also map `species` to point shape:
+
+```{r}
+ggplot(
+  data = df,
+  mapping = aes(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    color = species,
+    shape = species
+  )
+) +
+  geom_point()
+```
+
+This makes the groups easier to distinguish.
+
+It is especially useful when:
+
+-   the plot is printed in grayscale,
+-   the audience includes people with color-vision deficiencies,
+-   or several groups are visually similar.
+
+#### Step 6: Use a colorblind-friendly palette
+
+We can improve the color scale using the `ggthemes` package:
+
+```{r}
+ggplot(
+  data = df,
+  mapping = aes(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    color = species,
+    shape = species
+  )
+) +
+  geom_point() +
+  scale_color_colorblind()
+```
+
+This changes the color scale while keeping the data and geometry unchanged.
+
+#### Step 7: Add a trend line
+
+We can add a smooth line showing the relationship between the variables.
+
+For a linear relationship, we can use:
+
+``` r
+geom_smooth(method = "lm")
+```
+
+```{r}
+ggplot(
+  data = df,
+  mapping = aes(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    color = species,
+    shape = species
+  )
+) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_colorblind()
+```
+
+Because `species` is mapped globally inside `ggplot()`, the color grouping also affects `geom_smooth()`.
+
+The result is therefore **one regression line for each species**.
+
+#### Step 8: Global and local aesthetic mappings
+
+This is an important idea in `ggplot2`.
+
+Mappings placed inside the main `ggplot()` call are **global**.
+
+They are inherited by later layers.
+
+For example:
+
+``` r
+ggplot(
+  data = df,
+  aes(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    color = species
+  )
+)
+```
+
+means that all later geoms will normally use `color = species`.
+
+But sometimes we only want an aesthetic to apply to one layer.
+
+In that case, we move it into the specific geom.
+
+#### Step 9: One trend line across all species
+
+Suppose we want:
+
+-   points to have different colors and shapes by species,
+-   but only **one overall regression line**.
+
+We can write:
+
+```{r}
+ggplot(
+  data = df,
+  mapping = aes(
+    x = flipper_length_mm,
+    y = body_mass_g
+  )
+) +
+  geom_point(
+    mapping = aes(
+      color = species,
+      shape = species
+    )
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = FALSE
+  ) +
+  scale_color_colorblind()
+```
+
+Now:
+
+-   x and y are global mappings,
+-   color and shape apply only to the points,
+-   the regression line is fitted across all observations.
+
+This difference between **global** and **local** mappings is very useful when building more complex plots.
+
+#### Step 10: Add titles and labels
+
+A plot should be understandable without requiring the reader to inspect the code.
+
+Use `labs()` to add labels:
+
+```{r}
+ggplot(
+  data = df,
+  mapping = aes(
+    x = flipper_length_mm,
+    y = body_mass_g
+  )
+) +
+  geom_point(
+    mapping = aes(
+      color = species,
+      shape = species
+    )
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = FALSE
+  ) +
+  scale_color_colorblind() +
+  labs(
+    title = "Body mass and flipper length",
+    subtitle = "Adelie, Chinstrap, and Gentoo penguins",
+    x = "Flipper length (mm)",
+    y = "Body mass (g)",
+    color = "Species",
+    shape = "Species"
+  )
+```
+
+A useful rule is:
+
+> A reader should understand what the plot shows by looking at the plot itself.
+
+#### Step 11: Add a theme
+
+Themes control the overall visual appearance of a plot.
+
+For example:
+
+```{r}
+ggplot(
+  data = df,
+  mapping = aes(
+    x = flipper_length_mm,
+    y = body_mass_g
+  )
+) +
+  geom_point(
+    mapping = aes(
+      color = species,
+      shape = species
+    )
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = FALSE
+  ) +
+  scale_color_colorblind() +
+  labs(
+    title = "Body mass and flipper length",
+    subtitle = "Adelie, Chinstrap, and Gentoo penguins",
+    x = "Flipper length (mm)",
+    y = "Body mass (g)",
+    color = "Species",
+    shape = "Species"
+  ) +
+  theme_minimal()
+```
+
+Some commonly used built-in themes include:
+
+``` r
+theme_minimal()
+theme_classic()
+theme_bw()
+```
+
+Themes change the appearance of the plot, but not the underlying data.
+
+### 6. The basic structure of a ggplot
+
+A useful template is:
+
+``` r
+ggplot(
+  data = DATA,
+  mapping = aes(
+    x = X_VARIABLE,
+    y = Y_VARIABLE
+  )
+) +
+  GEOM() +
+  SCALE() +
+  labs(...) +
+  THEME()
+```
+
+You will not always use every component.
+
+The important idea is that we build the plot **layer by layer**.
+
+### 7. Common types of figures/plots
+
+Different questions require different types of plots.
+
+#### 7.1 Scatterplot
+
+Use a scatterplot to examine the relationship between two numerical variables.
+
+```{r}
+ggplot(
+  data = df,
+  aes(
+    x = flipper_length_mm,
+    y = body_mass_g
+  )
+) +
+  geom_point()
+```
+
+#### 7.2 Histogram
+
+Use a histogram to examine the distribution of one numerical variable.
+
+```{r}
+ggplot(
+  data = df,
+  aes(x = body_mass_g)
+) +
+  geom_histogram()
+```
+
+You can control the bin width:
+
+```{r}
+ggplot(
+  data = df,
+  aes(x = body_mass_g)
+) +
+  geom_histogram(binwidth = 250)
+```
+
+#### 7.3 Bar chart
+
+Use a bar chart to count observations in categories.
+
+```{r}
+ggplot(
+  data = df,
+  aes(x = species)
+) +
+  geom_bar()
+```
+
+`geom_bar()` automatically counts the number of observations in each category.
+
+#### 7.4 Boxplot
+
+Use a boxplot to compare the distribution of a numerical variable across groups.
+
+```{r}
+ggplot(
+  data = df,
+  aes(
+    x = species,
+    y = body_mass_g
+  )
+) +
+  geom_boxplot()
+```
+
+This is useful when comparing distributions across categories.
+
+### 8. Mapping versus setting an aesthetic
+
+This distinction is very important.
+
+#### 8.1 Mapping
+
+If an aesthetic should depend on a variable, put it **inside `aes()`**:
+
+```{r}
+ggplot(
+  df,
+  aes(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    color = species
+  )
+) +
+  geom_point()
+```
+
+Here, different species receive different colors.
+
+#### 8.2 Setting
+
+If you want every point to have the same appearance, put the setting **outside `aes()`**:
+
+```{r}
+ggplot(
+  df,
+  aes(
+    x = flipper_length_mm,
+    y = body_mass_g
+  )
+) +
+  geom_point(
+    alpha = 0.5,
+    size = 2
+  )
+```
+
+Here:
+
+-   every point has the same transparency,
+-   every point has the same size.
+
+A useful rule is:
+
+> **Inside `aes()` = connect a visual property to a variable.**\
+> **Outside `aes()` = give all observations the same visual property.**
+
+### 9. Missing values in plots
+
+The penguins dataset contains some missing values.
+
+If a variable used in a plot contains `NA`, `ggplot2` may remove those observations and display a warning.
+
+We can remove missing values before plotting:
+
+```{r}
+df |>
+  filter(
+    !is.na(flipper_length_mm),
+    !is.na(body_mass_g)
+  ) |>
+  ggplot(
+    aes(
+      x = flipper_length_mm,
+      y = body_mass_g
+    )
+  ) +
+  geom_point()
+```
+
+This makes the data-processing step explicit.
+
+### 10. Combining `dplyr` and `ggplot2`
+
+`dplyr` and `ggplot2` work very well together.
+
+We can first manipulate the data and then send the result directly to `ggplot()`.
+
+For example:
+
+```{r}
+df |>
+  filter(
+    !is.na(flipper_length_mm),
+    !is.na(body_mass_g)
+  ) |>
+  ggplot(
+    aes(
+      x = body_mass_g,
+      y = flipper_length_mm
+    )
+  ) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(se = FALSE)
+```
+
+There is one important detail:
+
+> Use `|>` between **data-processing steps**, but use `+` to add **layers to a ggplot**.
+
+In other words:
+
+``` r
+data |>
+  dplyr_verb() |>
+  ggplot(...) +
+  geom_...() +
+  theme_...()
+```
+
+The switch from `|>` to `+` happens when we begin adding layers to the plot.
+
+### 11. Filter first, plot second
+
+Suppose we only want Adelie penguins.
+
+We can filter the data before plotting:
+
+```{r}
+df |>
+  filter(species == "Adelie") |>
+  ggplot(
+    aes(
+      x = body_mass_g,
+      y = flipper_length_mm
+    )
+  ) +
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
+This illustrates an important workflow:
+
+> **Manipulate the data first → visualize the resulting data second.**
+
+### 12. Create plots for business questions
+
+The same logic applies when working with business data.
+
+For example:
+
+-   **Sales and advertising spending** → scatterplot
+-   **Customer income** → histogram
+-   **Sales by region** → bar chart
+-   **Customer spending across segments** → boxplot
+-   **Revenue over time** → line chart
+
+The important question is not:
+
+> "Which plot looks nice?"
+
+Instead ask:
+
+> **What question am I trying to answer, and which plot makes that pattern easiest to see?**
+
+### 13. Practice exercises
+
+#### Exercise 1: Scatterplot
+
+Create a scatterplot with:
+
+-   `bill_length_mm` on the x-axis
+-   `bill_depth_mm` on the y-axis
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 2: Add color
+
+Modify the plot so that observations are colored by `species`.
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 3: Add shape
+
+Map both color and shape to `species`.
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 4: Histogram
+
+Create a histogram showing the distribution of `body_mass_g`.
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 5: Bar chart
+
+Create a bar chart showing the number of observations for each species.
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 6: Boxplot
+
+Create a boxplot comparing body mass across species.
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 7: Filter and plot
+
+Keep only Gentoo penguins and create a scatterplot of:
+
+-   body mass
+-   flipper length
+
+```{r}
+# Write your code here
+
+```
+
+#### Exercise 8: Improve the plot
+
+Take one of your previous plots and add:
+
+-   a title,
+-   a subtitle,
+-   clear axis labels,
+-   a theme.
+
+```{r}
+# Write your code here
+
+```
+
+### 14. Key functions
+
+| Task                          | Function           |
+|:------------------------------|:-------------------|
+| Start a plot                  | `ggplot()`         |
+| Map variables                 | `aes()`            |
+| Scatterplot                   | `geom_point()`     |
+| Histogram                     | `geom_histogram()` |
+| Bar chart                     | `geom_bar()`       |
+| Boxplot                       | `geom_boxplot()`   |
+| Add a trend line              | `geom_smooth()`    |
+| Add labels                    | `labs()`           |
+| Change theme                  | `theme_minimal()`  |
+| Filter data                   | `filter()`         |
+| Add plot layers               | `+`                |
+| Connect data-processing steps | `|>`               |
+
+### 15. Key takeaway
+
+A `ggplot2` figure is built step by step.
+
+A useful way to think about the process is:
+
+``` text
+Data
+  ↓
+Variables
+  ↓
+Geometry
+  ↓
+Color / shape / size
+  ↓
+Additional layers
+  ↓
+Labels
+  ↓
+Theme
+```
+
+For example:
+
+```{r}
+df |>
+  filter(!is.na(body_mass_g)) |>
+  ggplot(
+    aes(
+      x = flipper_length_mm,
+      y = body_mass_g
+    )
+  ) +
+  geom_point(
+    aes(
+      color = species,
+      shape = species
+    )
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = FALSE
+  ) +
+  scale_color_colorblind() +
+  labs(
+    title = "Body mass and flipper length",
+    x = "Flipper length (mm)",
+    y = "Body mass (g)",
+    color = "Species",
+    shape = "Species"
+  ) +
+  theme_minimal()
+```
+
+Read the code from top to bottom:
+
+> Start with the data → prepare the observations → choose the variables → draw the points → add a trend line → improve the colors → add labels → apply a theme.
+
+That is the basic logic of data visualization with `ggplot2`.
+
+------------------------------------------------------------------------

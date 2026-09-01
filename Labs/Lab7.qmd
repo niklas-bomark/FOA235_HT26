@@ -1,0 +1,590 @@
+---
+title: "Lab7"
+---
+
+## Introduction
+
+In the previous lab, we introduced **supervised learning** and the basic predictive modeling workflow. We learned how to:
+
+1.  identify an outcome variable;
+2.  identify predictor variables;
+3.  split the data into training and test data;
+4.  fit a linear regression model using training data;
+5.  make predictions;
+6.  calculate prediction errors;
+7.  evaluate predictive performance using test data.
+
+In this lab, we take the next step. In practice, we usually have **several possible models**. Some models are simple, while others include more predictors or more complex relationships.
+
+We will turn to multiple regression analysis. Read Sections 3.2 and 3.3 in *An Introduction to Statistical Learning - with Applications in R* before working with the lab. Also read relevant parts of Chapter 6 in *An Introduction to Statistical Learning - with Applications in R* before working with the lab.
+
+In this lab we will extend our modeling workflow to include **model comparison and model selection**. The workflow will be:
+
+**Business problem → Split data → Fit candidate models → Compare models → Select one model → Evaluate on test data → Business decision**
+
+We will continue to split the data into:
+
+-   **training data** — used to fit and compare models;
+-   **test data** — used to evaluate how well the selected model predicts new observations.
+
+### Learning objectives
+
+After completing this lab, you should be able to:
+
+-   explain the difference between training and test data;
+-   fit several regression models;
+-   calculate and compare training errors;
+-   compare alternative models;
+-   select a model based on training performance and other relevant considerations;
+-   evaluate the selected model using test data;
+-   visualize prediction errors;
+-   translate model performance into a business recommendation.
+
+### Prepare the R session
+
+```{r}
+# Clear Environment
+rm(list = ls())
+
+# Load packages
+library(tidyverse)
+
+source("../Functions/EDA_functions.R")
+source("../Functions/linear_regression_functions.R")
+```
+
+### Import the Data
+
+We continue with a sales prediction problem. The company wants to predict `sales` using information about its marketing activities, prices, competitors, and customers.
+
+```{r}
+df <- read.csv("../Data/regression_data2.csv")
+```
+
+Take a first look at the data.
+
+```{r}
+
+
+
+```
+
+Inspect the descriptive statistics.
+
+```{r}
+
+
+
+```
+
+#### Questions
+
+1.  How many observations are in the dataset?
+2.  Which variable is the outcome variable?
+3.  Which variables could potentially be used as predictors?
+4.  Why might using several predictors improve our predictions?
+
+### Explore the Data
+
+Before building models, we should understand the variables in our data and the relationships between them. One way to explore these relationships is to create a correlation matrix.
+
+Correlation measures the strength and direction of the linear relationship between two variables. Correlation values range from -1 to 1:
+
+-   values close to 1 indicate a strong positive relationship;
+-   values close to -1 indicate a strong negative relationship;
+-   values close to 0 indicate a weak or no linear relationship.
+
+A correlation matrix allows us to quickly examine these relationships across several variables at the same time.
+
+```{r}
+
+
+
+```
+
+Visualize some important relationships with a scatterplot. Let's choose marketing and sales first, and then price and sales. You can easily change the variables.
+
+```{r}
+
+
+
+```
+
+```{r}
+
+
+
+```
+
+#### Questions
+
+1.  Which variables appear to be related to sales?
+2.  Which relationships appear positive?
+3.  Which relationships appear negative?
+4.  Are there predictors that appear to contain little information about sales?
+
+### Training and Test Data
+
+As in the previous lab, we divide the data into **training data** and **test data**.
+
+| Dataset       | Purpose                                             |
+|---------------|-----------------------------------------------------|
+| Training data | Fit, develop, and compare models                    |
+| Test data     | Evaluate predictive performance on new observations |
+
+In this lab, we use:
+
+-   70% training data;
+-   30% test data.
+
+::: callout-important
+#### Important
+
+The models are fitted using the **training data**.
+
+We will also initially compare how well the different models fit the training data. However, better training performance does not necessarily mean better performance on new observations.
+
+The **test data** allow us to examine how well the selected model generalizes to observations that were not used to fit it.
+:::
+
+### Split the Data
+
+Use the `split_data()` function to divide the data into training and test data.
+
+```{r}
+
+
+
+```
+
+Create two data frames:
+
+```{r}
+
+
+
+```
+
+### Model 1: A Simple Model
+
+We begin with a simple model using only `marketing`.
+
+```{r}
+
+
+
+```
+
+Inspect the model.
+
+```{r}
+
+
+
+```
+
+This model assumes:
+
+$$
+Sales = b_0 + b_1 Marketing
+$$
+
+#### Questions
+
+1.  What is the estimated coefficient for marketing?
+2.  Is the relationship positive or negative?
+3.  What does the coefficient mean?
+
+### Model 2: Multiple Regression
+
+Our second model includes two predictors.
+
+```{r}
+
+
+
+```
+
+Inspect the model.
+
+```{r}
+
+
+
+```
+
+#### Questions
+
+1.  Which predictors are included in Model 2?
+2.  Which coefficients are positive?
+3.  Which coefficients are negative?
+4.  Why might Model 2 make better predictions than Model 1?
+
+### Model 3: A More Complicated Model
+
+Let's construct a more complicated model by including all available predictor variables.
+
+```{r}
+
+
+
+```
+
+Inspect the model.
+
+```{r}
+
+
+
+```
+
+Model 3 is more complicated than Model 2.
+
+### Make Predictions on the Training Data
+
+We now use each model to predict the observations in the **training data**.
+
+```{r}
+
+
+
+
+```
+
+Remember that these are the same observations that were used to fit the models. We are therefore measuring how well each model fits the **training data**.
+
+### Calculate Training Errors
+
+Calculate the prediction errors for each model.
+
+```{r}
+
+
+
+```
+
+### Compare Models Using RMSE
+
+We compare the models using **Root Mean Squared Error (RMSE)**.
+
+$$
+RMSE =
+\sqrt{
+\frac{1}{n}
+\sum
+(y_i - \hat{y}_i)^2
+}
+$$
+
+A smaller RMSE indicates that the predictions are, on average, closer to the observed values.
+
+### Create a Model Comparison Table
+
+Calculate the training RMSE for each model.
+
+```{r}
+
+
+
+
+```
+
+Sort the models from lowest to highest training RMSE.
+
+```{r}
+
+
+
+```
+
+#### Questions
+
+1.  Which model has the lowest training RMSE?
+2.  Which model has the highest training RMSE?
+3.  How large are the differences?
+4.  Does adding more predictors reduce the training error?
+5.  Does the most complicated model have the lowest training RMSE?
+
+::: callout-important
+#### Training performance and model complexity
+
+A model with a lower training RMSE fits the training observations more closely. However, this does **not necessarily mean that it will make better predictions for new observations**.
+
+As models become more flexible, they can fit the training data increasingly well. Eventually, a model may begin to fit patterns that are specific to the training observations rather than patterns that generalize to new data. This is called **overfitting**.
+:::
+
+### Select a Model
+
+You must now select **one model**.
+
+Consider:
+
+-   training RMSE
+-   model complexity
+-   interpretability
+-   whether the improvement over simpler models is meaningful
+-   cost of collecting data
+
+Do not simply assume that the model with the most predictors is necessarily the best model for predicting new observations.
+
+### Your Model Selection
+
+**Selected model:**
+
+Write your answer here.
+
+**Reason for selecting this model:**
+
+Write your answer here.
+
+### Create the Selected Model
+
+Assign your selected model to `selected_model`.
+
+For example, if you selected Model 2:
+
+```{r}
+
+
+
+```
+
+Change this if you selected another model.
+
+### Evaluate the Selected Model Using Test Data
+
+We now evaluate the selected model using observations that were **not used to fit the model**.
+
+Make predictions for the test observations.
+
+```{r}
+
+
+
+```
+
+Create a dataset containing the observed values, predictions, and errors.
+
+```{r}
+
+
+```
+
+Inspect the results.
+
+```{r}
+
+
+
+```
+
+### Calculate Test RMSE
+
+```{r}
+
+
+
+```
+
+The **test RMSE** tells us how well the selected model predicts observations that were not used to fit it. This gives us a better indication of the model's predictive performance on new observations.
+
+#### Questions
+
+1.  Does the model appear to generalize well to new observations?
+
+### Compare Training and Test Performance
+
+We can now directly compare the selected model's performance on the training and test data.
+
+First, save the training RMSE for your selected model. For example, if you selected Model 2:
+
+```{r}
+
+
+
+```
+
+Change this if you selected another model.
+
+Create a comparison table.
+
+```{r}
+
+
+
+```
+
+The **training RMSE** tells us how well the selected model fits observations that were used to estimate it.
+
+The **test RMSE** tells us how well the same model predicts new observations.
+
+If the training error is very low but the test error is substantially higher, this can indicate that the model does not generalize well to new observations.
+
+This is one of the reasons why training performance alone should not be interpreted as evidence that a model will make good predictions for new data.
+
+#### Questions
+
+1.  How large is the difference between training and test RMSE?
+2.  Does predictive performance become worse on the test data?
+3.  What might a large difference between training and test RMSE indicate?
+4.  Which RMSE gives us the best indication of how well the model predicts new observations?
+
+### Plot Observed and Predicted Sales
+
+We can visualize how closely the predicted sales correspond to the observed sales in the test data.
+
+```{r}
+
+
+
+```
+
+The dashed line represents perfect predictions:
+
+$$
+Observed = Predicted
+$$
+
+Points close to the line represent relatively accurate predictions.
+
+#### Questions
+
+1.  Are most observations close to the line?
+2.  Are there observations with particularly poor predictions?
+3.  Does the model appear to systematically predict too high or too low?
+
+### Plot the Prediction Errors
+
+```{r}
+
+
+
+```
+
+Remember:
+
+-   an error close to **0** represents an accurate prediction;
+-   a **positive error** means that the model predicted too little;
+-   a **negative error** means that the model predicted too much.
+
+#### Questions
+
+1.  Are the errors generally centered around zero?
+2.  Are there particularly large prediction errors?
+3.  Do you see a systematic pattern?
+4.  What would an ideal error plot look like?
+
+### From Model Evaluation to Business Decision
+
+A model having a relatively low RMSE does not automatically mean that the company should implement it. Management also needs to consider whether the predictions are sufficiently accurate to be **useful for the business problem**.
+
+For example, consider:
+
+-   How costly are prediction errors?
+-   Is the prediction accuracy good enough for the intended decision?
+-   Is the model understandable?
+-   Is the required data available when predictions need to be made?
+-   Are there observations for which the model performs particularly poorly?
+
+This means that there are two related decisions:
+
+**Model selection**
+
+> Which candidate model should we use?
+
+and
+
+**Business decision**
+
+> Is the selected model good enough to use?
+
+### Final Management Recommendation
+
+Imagine that you are presenting your analysis to company management. Prepare a short recommendation.
+
+#### Model Selection
+
+1.  Which models did you compare?
+2.  Which model did you select?
+3.  Why did you select this model?
+4.  What was its training RMSE?
+
+#### Test Performance
+
+5.  What was the test RMSE?
+6.  How did the test RMSE compare with the training RMSE?
+7.  Does the model appear to generalize well to new observations?
+8.  What did you learn from the prediction error plot?
+
+#### Business Decision
+
+9.  Does the model appear to provide useful predictions?
+10. Are there important limitations?
+11. Would you recommend that the company implement the model?
+
+Conclude with one of the following:
+
+**Implement the model**
+
+or
+
+**Do not implement the model**
+
+Briefly justify your decision.
+
+### The Predictive Modeling Workflow
+
+We have now extended the modeling process from Lab 1.
+
+#### Define the business problem
+
+What do we want to predict, and why?
+
+↓
+
+#### Identify outcome and predictor variables
+
+What is the outcome, and what information can we use to predict it?
+
+#### Split the data
+
+Create training and test data.
+
+#### Fit candidate models
+
+Estimate several possible models using the training data.
+
+#### Compare models
+
+Compare how well the candidate models fit the training data.
+
+#### Select one model
+
+Choose a model based on training performance, model complexity, interpretability, and other relevant considerations.
+
+#### Evaluate on test data
+
+Evaluate how well the selected model predicts previously unseen observations.
+
+#### Compare training and test performance
+
+Examine whether the model generalizes from the training data to new observations.
+
+#### Business decision
+
+Decide whether the model is good enough to implement.
+
+### Summary
+
+In the previous lab we learned the basic idea of supervised learning. In this lab, we extended that idea to **model comparison**. We learned that different models can produce different prediction errors and that model complexity does not automatically produce better predictions for new observations.
+
+We continued to use two different datasets:
+
+-   **training data** are used to fit, develop, and compare models;
+-   **test data** are used to evaluate predictive performance on new observations.
+
+An important distinction is that a low **training error** tells us that a model fits the training observations well. It does not necessarily tell us that the model will make accurate predictions for new observations. The **test error** allows us to examine how well the model generalizes to data that were not used to fit it.
+
+Finally, predictive modeling does not end when we calculate RMSE. The final question is whether the model produces predictions that are sufficiently accurate and useful to support the company's decisions.
+
+In the next labs, we will continue to develop this predictive modeling workflow and introduce other methods.

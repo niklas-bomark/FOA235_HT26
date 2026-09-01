@@ -1,0 +1,311 @@
+---
+title: "Introduction to Data Editing"
+---
+
+## Editing Data
+
+In this chapter, we will introduce a few common ways to **edit and transform data in R**. You can return to this chapter later in the course whenever you need to modify, clean, or restructure your data.
+
+We will begin by adding code to **clear the R environment**. Clearing the environment removes objects that were created during previous work and gives us a clean starting point. After clearing the environment, you need to load the packages you want to use again with `library()`. This helps ensure that objects left over from previous analyses do not accidentally interfere with your current work.
+
+We will then **import a dataset** that we will use throughout the chapter to practice different ways of working with and modifying data.
+
+Open the **`Lab2.qmd`** file located in the **`Lab_files`** folder. As you work through this chapter in the course compendium, copy the code examples into your Quarto document and run them yourself. Try to understand **what each line of code does, what changes it makes to the data, and why we might want to make that change**. You will use many of these techniques again later in the course.
+
+```{r}
+# Clear the environment
+rm(list = ls())
+
+# Load packages
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+
+# Import data
+df <- read.csv("../Data/data_edits.csv")
+
+```
+
+We can look at the first five rows of the data that we just imported:
+
+```{r}
+# Look at the first six rows
+head(df)
+```
+
+A question you should always ask yourselves is whether the data has been imported correctly. Look at the data using the function `summary()`. You can also click on your data object named `df`.
+
+```{r}
+summary(df)
+```
+
+Does anything look strange? Are there things we need to fix before we have a “ready” dataset? *Hint:* some variable names might look odd; some rows may have unusually high values; some rows might be marked with `NA`. Below, we’ll go through different ways to edit data that you should be familiar with in this course.
+
+### Variable names
+
+Sometimes we need to rename variables. To rename variables, you can use the following principles:
+
+-   `df` indicates the object we want to edit.
+
+-   `|>` is called a *pipe* and tells R to continue by adding more operations to the object (in this case, `df`). You need to have the package dplyr installed and loaded.
+
+-   The function `rename()` helps us rename variables. The first argument in `rename()` is the **new name**, and the text inside `""` after `=` is the **old name**.
+
+-   The function `head()` tells R that after renaming the variables, we want to display the first six rows of our data frame.
+
+Here is the code:
+
+```{r}
+# Edit and save the new variable names in a new dataset (object) called df_clean
+df_clean <- df |> 
+  rename(
+    age        = "Age..years.", 
+    income     = "Income.kr",      
+    group      = "Group",          
+    codex      = "CodeX",         
+    measurement = "Measurement"    
+  )  
+
+```
+
+After running the code, you should see a new object in R — `df_clean` — and if you click on it, you’ll see the new dataset with the updated variable names. You can also use the function `summary()` to take a look at the new dataset:
+
+```{r}
+summary(df_clean)
+```
+
+------------------------------------------------------------------------
+
+### Relevance
+
+Sometimes we have variables that we want to remove from our data frame. The same logic as before applies regarding objects and the pipe operator. What’s new is that we’re using a new function — `select()` — which we use to choose variables.
+
+```{r}
+# Select variables and save to the df_clean object
+df_clean <- df_clean |> 
+  select(age, income, region, price, quantity)  # select certain variables
+
+```
+
+```{r}
+summary(df_clean)
+```
+
+------------------------------------------------------------------------
+
+### Mutate
+
+The `mutate()` function from `dplyr` is used to **modify existing variables or to create new variables** in a data frame.
+
+Mutate() can be used to modify an existing variable. For example:
+
+```{r}
+df_clean <- df_clean |>
+  mutate(
+    price = price * 1.10
+  )
+```
+
+Here, the existing price variable is replaced with a new version in which all prices have been increased by 10%.
+
+Suppose our dataset contains the variables `price` and `quantity`. We can create a new variable called `revenue`:
+
+```{r}
+df_clean <- df_clean |>
+  mutate(
+    revenue = price * quantity
+  )
+```
+
+The original variables remain in the data frame, and revenue is added as a new variable. We can also create several variables at the same time:
+
+```{r}
+df_clean <- df_clean |>
+  mutate(
+    revenue = price * quantity,
+    revenue_thousands = revenue / 1000
+  )
+```
+
+During the course, we will use mutate() when we need to create or transform variables before performing an analysis.
+
+### Group
+
+Sometimes we want to calculate statistics for different groups of observations rather than for the entire dataset. For this, we can combine group_by() and summarise() from dplyr.
+
+Suppose our dataset contains a variable called region. We can group the observations by region. By itself, group_by() does not calculate anything. Instead, it tells R that subsequent operations should be performed separately for each group. We can then use summarise() to calculate summary statistics for each group:
+
+```{r}
+df_clean |>
+  group_by(region) |>
+  summarise(
+    mean_revenues = mean(revenue)
+  )
+```
+
+This code can be read as: Take df, then group the observations by region, then calculate the mean of sales separately for each region. We can calculate several statistics at the same time:
+
+```{r}
+df_clean |>
+  group_by(region) |>
+  summarise(
+    n = n(),
+    mean_sales = mean(revenue),
+    min_sales = min(revenue),
+    max_sales = max(revenue)
+  )
+```
+
+Here: - n() counts the number of observations in each group. - mean() calculates the mean. - min() identifies the minimum value. - max() identifies the maximum value.
+
+The combination of group_by() and summarise() is particularly useful when we want to compare different groups in our data. Note that we don't 'save' the summary statistics we just calculated to a new object
+
+------------------------------------------------------------------------
+
+### Factors
+
+You always need to be aware of the type of data you are working with. Different data types may need to be handled differently in R. For example, we often need to convert categorical variables into factors. We can do this using the functions mutate() and as.factor().
+
+A factor variable represents data that consist of a set of distinct categories. These categories do not necessarily have a natural order. For example, consider a variable describing the region in which a customer lives:
+
+-   North
+-   South
+-   West
+
+There is no meaningful ranking among these categories. North is not higher or lower than South or West. This is an example of a nominal categorical variable. In R, we can represent such a variable as an unordered factor.
+
+```{r}
+# Mutate
+df_clean <- df_clean |>
+  mutate(
+    region = factor(
+      region,
+      levels = c("North", "South", "West"),
+      ordered = FALSE
+    )
+  )
+```
+
+Let’s create and save another factor variable, but this time specify an order for the categories. This means that the categories have a natural ranking, and the variable is treated as an ordinal categorical variable. We will not save this to our object since we want to keep order false.
+
+```{r}
+# Mutate
+df_clean |>
+  mutate(
+    region = factor(region, 
+                    levels = c("North", "South", "West"), 
+                    ordered = TRUE)
+    )
+```
+
+```{r}
+summary(df_clean)
+```
+
+Lets take a look at the named levels in the variable:
+
+```{r}
+levels(df_clean$region)
+```
+
+We can also count the number of levels in a variable:
+
+```{r}
+nlevels(df_clean$region)
+```
+
+------------------------------------------------------------------------
+
+### Filter
+
+Sometimes we want to edit the rows in our data table. For example, there may be some values that are clearly miscoded. Let’s handle them using a filter with the `filter()` function. We create a condition — we want to keep only the values that are **equal to or greater than 0**. Values that are below 0 will simply be removed.
+
+```{r}
+# Filter
+df_clean <- df_clean |> 
+  filter(price >= 60)     # keep only price values that are 60 or higher
+
+```
+
+Let’s add a filter that removes all negative values, and another that removes obviously miscoded large values. We use the pipe: `|>`
+
+This time, we will also save the filtered data to the object 'df_clean':
+
+```{r}
+df_clean <- df_clean |> 
+  filter(price >= 60) |>        # keep only values that are 60 or higher
+  filter(price < 9999999)       # remove extremely large values
+
+```
+
+We can use filter() when we want to select observations based on their values.
+
+------------------------------------------------------------------------
+
+### Create new categorical and binary variables
+
+We can also create factors from continuous variables using the functions mutate() and cut(). For example, we can divide the age variable into two groups: younger and older. First, we create the categories and then take a look at the result:
+
+```{r}
+# Example: create categories from a continuous variable
+df_clean <- df_clean |>
+  mutate(
+    age_cat = cut(age,
+                  breaks = c(0, 50, Inf),
+                  labels = c("Young", "Older"))
+  )
+
+```
+
+We can also create a new variable with two age categories by using a binary numerical indicator variable:
+
+```{r}
+# Example: create a binary numerical variable from a continuous variable
+df_clean <- df_clean |>
+  mutate(age_binary = ifelse(age > 50, 1, 0))
+
+```
+
+### Missing values (NAs)
+
+We often need to handle missing values (`NA` or *missing values*). If we look at the data we currently have, we can see that there are some missing values.
+
+```{r}
+# Missing values per variable
+colSums(is.na(df_clean))  # Number of NAs per column
+
+```
+
+Try removing the missing values. First, we run the function without saving the result to the df_clean object:
+
+```{r}
+# Remove missing values
+df_clean <- na.omit(df_clean)
+```
+
+Run missing values again:
+
+```{r}
+# Missing values per variable
+colSums(is.na(df_clean))  # Number of NAs per column
+```
+
+------------------------------------------------------------------------
+
+### Our new dataset
+
+Take a look at the cleaned dataset:
+
+```{r}
+summary(df_clean)
+```
+
+### Save data
+
+When we’re done, we can save the cleaned dataset as a new CSV file. As you can see, we save the new dataset in the Data folder:
+
+```{r}
+write.csv(df_clean, file = "../Data/df_clean.csv", row.names = FALSE)
+```
+
+------------------------------------------------------------------------

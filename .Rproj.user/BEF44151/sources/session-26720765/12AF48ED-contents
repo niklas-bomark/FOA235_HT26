@@ -1,0 +1,667 @@
+---
+title: "Logistic Regression: Lab 2"
+subtitle: "Model Selection and Business Decision"
+format: html
+execute:
+  warning: false
+  message: false
+---
+
+## Introduction
+
+In the previous lab, we introduced **logistic regression** and the basic classification workflow. We learned how to:
+
+-   fit a logistic regression model;
+-   generate predicted probabilities;
+-   convert probabilities into predicted classes;
+-   create a confusion matrix;
+-   calculate accuracy, precision, recall, and specificity;
+-   use training and test data;
+-   evaluate how well a classification model performs on new observations.
+
+In this lab, we extend the workflow by comparing several logistic regression models. In practice, we often have several possible models. Some models are simple, while others include more predictors. This creates the question:
+
+> **Which model should we use?**
+
+To keep the comparison simple, we will compare the candidate models using **accuracy**. After selecting a model, we will evaluate the selected model using the test data and examine its:
+
+-   accuracy;
+-   precision;
+-   recall;
+-   specificity.
+
+The workflow is:
+
+**Business problem → Split data → Fit models → Compare models → Select model → Test model → Business decision**
+
+### Learning Objectives
+
+After completing this lab, you should be able to:
+
+-   fit several logistic regression models;
+-   generate predicted probabilities;
+-   convert probabilities into predicted classes;
+-   compare the accuracy of different models;
+-   select a classification model;
+-   evaluate the selected model using test data;
+-   interpret accuracy, precision, recall, and specificity;
+-   identify different types of classification errors;
+-   translate model performance into a business recommendation.
+
+## Prepare the R Session
+
+Start by clearing the Environment and loading the packages and functions used in the lab.
+
+```{r}
+# Clear Environment
+rm(list = ls())
+
+# Load packages
+library(tidyverse)
+
+source("../Functions/EDA_functions.R")
+source("../Functions/linear_regression_functions.R")
+```
+
+## Import the Data
+
+The company now has additional customer information and wants to improve its purchase classification model. The outcome variable is `purchase`:
+
+-   `0` = customer did not purchase;
+-   `1` = customer purchased.
+
+```{r}
+df <- read.csv("../Data/logistic_data2.csv")
+```
+
+Inspect the data.
+
+```{r}
+summary(df)
+```
+
+Convert `purchase` to a factor.
+
+```{r}
+df <- df |>
+  mutate(
+    purchase = factor(purchase, ordered = FALSE)
+  )
+```
+
+### Questions
+
+1.  How many observations are in the dataset?
+2.  Which variable is the outcome variable?
+3.  What do the values 0 and 1 represent?
+4.  Which variables could potentially be used as predictors?
+
+## Explore the Data
+
+Before fitting models, we should understand the variables in our data. First, examine the distribution of the outcome variable.
+
+```{r}
+table(df$purchase)
+```
+
+Calculate the proportions.
+
+```{r}
+prop.table(
+  table(df$purchase)
+)
+```
+
+### Questions
+
+1.  What percentage of customers purchased the product?
+2.  What percentage did not purchase the product?
+3.  Are the two classes approximately balanced?
+4.  Why might class balance matter when evaluating a classification model?
+
+We can also compare some predictors across the two outcome groups. For example, compare `website_visits` for customers who purchased and customers who did not purchase.
+
+```{r}
+boxplot_grouped(
+  df$website_visits,
+  df$purchase,
+  xlab = "Purchase",
+  ylab = "Website Visits",
+  suffix = ""
+)
+```
+
+### Questions
+
+1.  Do customers who purchase appear different from customers who do not purchase?
+2.  Do customers who purchase generally have more or fewer website visits?
+3.  Which other variables might be useful for predicting purchase?
+
+## Split the Data
+
+As in the previous labs, we divide the data into two parts:
+
+-   **70% training data** — used to fit and compare models;
+-   **30% test data** — used to evaluate the selected model.
+
+```{r}
+data_split <- split_data(
+  df,
+  train_prop = 0.70,
+  test_prop = 0.30
+)
+```
+
+Create the two data frames.
+
+```{r}
+train_data <- data_split$train_data
+
+test_data <- data_split$test_data
+```
+
+Check their sizes.
+
+```{r}
+nrow(train_data)
+
+nrow(test_data)
+```
+
+### Questions
+
+1.  How many observations are in the training data?
+2.  How many observations are in the test data?
+3.  What is the purpose of the training data?
+4.  What is the purpose of the test data?
+
+::: callout-important
+### Training and test data
+
+The **training data** are used to fit and compare our models.
+
+The **test data** contain observations that were not used to fit the models.
+
+The test data therefore help us evaluate how well the selected model performs on **new observations**.
+:::
+
+## Fit Candidate Models
+
+We will now fit three candidate logistic regression models. Each model predicts whether a customer purchases the product. We begin with a simple model and gradually add more predictors.
+
+### Model 1
+
+Model 1 uses only `website_visits`.
+
+```{r}
+model_1 <- glm(
+  purchase ~ website_visits,
+  data = train_data,
+  family = binomial
+)
+```
+
+### Model 2
+
+Model 2 adds `customer_age`.
+
+```{r}
+model_2 <- glm(
+  purchase ~ website_visits +
+    customer_age,
+  data = train_data,
+  family = binomial
+)
+```
+
+### Model 3
+
+Model 3 includes all available predictors.
+
+```{r}
+model_3 <- glm(
+  purchase ~ website_visits +
+    customer_age +
+    discount_used +
+    previous_purchases +
+    pages_viewed +
+    time_on_site,
+  data = train_data,
+  family = binomial
+)
+```
+
+Inspect the models.
+
+```{r}
+summary(model_1)
+
+summary(model_2)
+
+summary(model_3)
+```
+
+::: callout-note
+### Focus of this lab
+
+Our main goal is not to interpret every logistic regression coefficient. Instead, we want to compare how well the models **classify customers**.
+:::
+
+### Questions
+
+1.  Which model is the simplest?
+2.  Which model is the most complicated?
+3.  Why might adding more predictors improve classification?
+4.  Why might a more complicated model not necessarily make better predictions for new observations?
+
+## Compare the Models
+
+We now compare how well the three models classify the **training observations**. To make the comparison simple, we use the same classification threshold for all models:
+
+$$
+Threshold = 0.50
+$$
+
+A predicted probability of at least 0.50 is classified as `1`. A predicted probability below 0.50 is classified as `0`.
+
+## Model 1 Predictions
+
+First, generate predicted probabilities using Model 1.
+
+```{r}
+prob_1 <- predict(
+  model_1,
+  newdata = train_data,
+  type = "response"
+)
+```
+
+Convert the probabilities into predicted classes.
+
+```{r}
+class_1 <- ifelse(
+  prob_1 >= 0.50,
+  1,
+  0
+)
+```
+
+Calculate the accuracy.
+
+```{r}
+accuracy_1 <- mean(
+  train_data$purchase == class_1
+)
+
+accuracy_1
+```
+
+## Model 2 Predictions
+
+Repeat the same procedure for Model 2.
+
+```{r}
+prob_2 <- predict(
+  model_2,
+  newdata = train_data,
+  type = "response"
+)
+```
+
+Convert probabilities into predicted classes.
+
+```{r}
+class_2 <- ifelse(
+  prob_2 >= 0.50,
+  1,
+  0
+)
+```
+
+Calculate the accuracy.
+
+```{r}
+accuracy_2 <- mean(
+  train_data$purchase == class_2
+)
+
+accuracy_2
+```
+
+## Model 3 Predictions
+
+Finally, evaluate Model 3.
+
+```{r}
+prob_3 <- predict(
+  model_3,
+  newdata = train_data,
+  type = "response"
+)
+```
+
+Convert probabilities into predicted classes.
+
+```{r}
+class_3 <- ifelse(
+  prob_3 >= 0.50,
+  1,
+  0
+)
+```
+
+Calculate the accuracy.
+
+```{r}
+accuracy_3 <- mean(
+  train_data$purchase == class_3
+)
+
+accuracy_3
+```
+
+## Compare Accuracy
+
+Accuracy is the proportion of all predictions that are correct. We can now compare the training accuracy of the three models.
+
+```{r}
+model_comparison <- data.frame(
+  Model = c(
+    "Model 1",
+    "Model 2",
+    "Model 3"
+  ),
+  Accuracy = c(
+    accuracy_1,
+    accuracy_2,
+    accuracy_3
+  )
+)
+
+model_comparison
+```
+
+We can also sort the models from highest to lowest accuracy.
+
+```{r}
+model_comparison |>
+  arrange(desc(Accuracy))
+```
+
+### Questions
+
+1.  Which model has the highest training accuracy?
+2.  Which model has the lowest training accuracy?
+3.  Does adding more predictors improve training accuracy?
+4.  How large are the differences between the models?
+5.  Does Model 3 perform substantially better than Model 2?
+
+::: callout-important
+### Training accuracy
+
+Higher training accuracy means that a model correctly classifies more of the observations that were used to fit it. However:
+
+> **Higher training accuracy does not necessarily mean better predictions for new observations.**
+
+A more complicated model may fit the training data very well without performing equally well on new data.
+:::
+
+## Select a Model
+
+We now select one of the three models. Consider:
+
+-   training accuracy;
+-   model complexity;
+-   whether the improvement over a simpler model is meaningful.
+
+In reality we will not automatically choose the most complicated model simply because it has slightly higher training accuracy.
+
+### Your Model Selection
+
+**Selected model:**
+
+Write your answer here.
+
+**Reason for selecting the model:**
+
+Write your answer here.
+
+Assign your selected model to `selected_model`.
+
+For example, if you selected Model 3:
+
+```{r}
+selected_model <- model_3
+```
+
+Change this if you selected another model.
+
+## Evaluate the Selected Model Using Test Data
+
+We now evaluate the selected model using the **test data**. The test observations were not used when fitting the model. This allows us to examine how well the model classifies **new observations**.
+
+### Generate Predicted Probabilities
+
+Use the selected model to generate predicted probabilities for the test observations.
+
+```{r}
+test_data$predicted_probability <- predict(
+  selected_model,
+  newdata = test_data,
+  type = "response"
+)
+```
+
+Inspect the probabilities.
+
+```{r}
+head(test_data)
+```
+
+### Generate Predicted Classes
+
+We continue to use a threshold of 0.50.
+
+```{r}
+test_data <- test_data |>
+  mutate(
+    predicted_class = ifelse(
+      predicted_probability >= 0.50,
+      1,
+      0
+    )
+  )
+```
+
+Inspect the results.
+
+```{r}
+head(test_data)
+```
+
+## Confusion Matrix
+
+Create a confusion matrix.
+
+```{r}
+confusion <- table(
+  Actual = test_data$purchase,
+  Predicted = test_data$predicted_class
+)
+
+confusion
+```
+
+A confusion matrix contains four possible outcomes:
+
+-   **True Positive (TP)** — predicted purchase and the customer purchased;
+-   **True Negative (TN)** — predicted no purchase and the customer did not purchase;
+-   **False Positive (FP)** — predicted purchase but the customer did not purchase;
+-   **False Negative (FN)** — predicted no purchase but the customer purchased.
+
+Extract these values.
+
+```{r}
+TN <- confusion[1, 1]
+
+FP <- confusion[1, 2]
+
+FN <- confusion[2, 1]
+
+TP <- confusion[2, 2]
+```
+
+### Questions
+
+1.  How many true positives are there?
+2.  How many true negatives are there?
+3.  How many false positives are there?
+4.  How many false negatives are there?
+
+## Evaluate the Final Model
+
+We now calculate four measures of classification performance:
+
+-   accuracy;
+-   precision;
+-   recall;
+-   specificity.
+
+### Accuracy
+
+Accuracy is the proportion of all predictions that are correct. In this lab: Of all customers, how many were classified correctly?
+
+```{r}
+accuracy <- mean(
+  test_data$purchase ==
+    test_data$predicted_class
+)
+
+accuracy
+```
+
+### Precision
+
+Precision is the proportion of predicted positive cases that are actually positive. In this lab: Of all customers predicted to purchase, how many actually purchased?
+
+```{r}
+precision <- TP / (TP + FP)
+
+precision
+```
+
+### Recall
+
+Recall is the proportion of actual positive cases that the model correctly identifies. In this lab: Of all customers who actually purchased, how many did the model correctly identify?
+
+```{r}
+recall <- TP / (TP + FN)
+
+recall
+```
+
+### Specificity
+
+Specificity is the proportion of actual negative cases that the model correctly identifies. In this lab: Of all customers who did not purchase, how many did the model correctly identify?
+
+```{r}
+specificity <- TN / (TN + FP)
+
+specificity
+```
+
+### Questions
+
+1.  What is the test accuracy?
+2.  What is the precision?
+3.  What is the recall?
+4.  What is the specificity?
+5.  Which measure has the highest value?
+6.  Which measure has the lowest value?
+7.  Does the model appear to classify new observations reasonably well?
+
+## Classification Errors and the Business Problem
+
+A model should not be evaluated only by its accuracy. Different classification errors can have different business consequences. For this problem:
+
+-   a **false positive** means that the model predicts that a customer will purchase, but the customer does not purchase;
+-   a **false negative** means that the model predicts that a customer will not purchase, but the customer actually purchases.
+
+Suppose the company uses the model to decide which customers should receive a marketing campaign.
+
+### False Positives
+
+A false positive means that the company targets a customer because the model predicts that the customer will purchase, but the customer does not purchase. If the marketing campaign is expensive, false positives may therefore be costly.
+
+### False Negatives
+
+A false negative means that the company does not target a customer because the model predicts that the customer will not purchase, even though the customer actually would purchase. If the company wants to avoid missing potential buyers, false negatives may therefore be costly.
+
+### Questions
+
+1.  What is the potential cost of a false positive?
+2.  What is the potential cost of a false negative?
+3.  Which error do you think is more important for this company?
+
+## From Model Evaluation to Business Decision
+
+Good predictive performance does not automatically mean that the company should implement the model. Management also needs to consider whether the classifications are useful for the business problem.
+
+For example:
+
+-   Is the classification accuracy sufficiently high?
+-   Are there too many false positives?
+-   Are there too many false negatives?
+-   What are the costs of classification errors?
+-   Is the required data available when predictions need to be made?
+-   Is the model simple enough to use and maintain?
+
+This means that there are two different questions:
+
+**Model evaluation**
+
+> How well does the model classify customers?
+
+and
+
+**Business decision**
+
+> Is the model useful enough to implement?
+
+## Final Exercise
+
+Imagine that you are presenting your results to company management. Answer the following questions.
+
+### Model Selection
+
+1.  Which three models did you compare?
+2.  Which predictors were included in each model?
+3.  Which model had the highest training accuracy?
+4.  Which model did you select?
+5.  Why did you select this model?
+
+### Test Performance
+
+6.  What is the test accuracy?
+7.  What is the test precision?
+8.  What is the test recall?
+9.  What is the test specificity?
+10. How many false positives did the model produce?
+11. How many false negatives did the model produce?
+
+### Business Decision
+
+12. Which type of classification error is most important for this business problem?
+13. Which performance measure is therefore especially important?
+14. Does the model perform sufficiently well on this measure?
+15. Would you recommend that the company implement the model?
+
+Conclude with one of the following:
+
+**Implement the model**
+
+or
+
+**Do not implement the model**
+
+Briefly justify your decision.

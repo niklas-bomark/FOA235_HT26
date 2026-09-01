@@ -40,5 +40,44 @@
   },
   "14_logistic_regression_lab2.qmd": {
     "14_logistic_regression_lab2.html": "2acaed7d"
+  },
+  "Chapters/2_getting_posit.qmd": {
+    "2_getting_posit.html": "eeb94f38"
+  },
+  "Chapters/3_intro_quarto.qmd": {
+    "3_intro_quarto.html": "3fa497fb"
+  },
+  "Chapters/4_intro_coding.qmd": {
+    "4_intro_coding.html": "37b53984"
+  },
+  "Chapters/5_intro_data_edits.qmd": {
+    "5_intro_data_edits.html": "7a782b9a"
+  },
+  "Chapters/6_describing_data.qmd": {
+    "6_describing_data.html": "684d966c"
+  },
+  "Chapters/7_models.qmd": {
+    "7_models.html": "e89422ec"
+  },
+  "Chapters/8_three_models.qmd": {
+    "8_three_models.html": "6e8069b0"
+  },
+  "Chapters/9_cluster_lab1.qmd": {
+    "9_cluster_lab1.html": "33698e5d"
+  },
+  "Chapters/10_cluster_lab2.qmd": {
+    "10_cluster_lab2.html": "528cca02"
+  },
+  "Chapters/11_linear_regression_lab1.qmd": {
+    "11_linear_regression_lab1.html": "b93a4b03"
+  },
+  "Chapters/12_linear_regression_lab2.qmd": {
+    "12_linear_regression_lab2.html": "2b4685b4"
+  },
+  "Chapters/13_logistic_regression_lab1.qmd": {
+    "13_logistic_regression_lab1.html": "3fccc54b"
+  },
+  "Chapters/14_logistic_regression_lab2.qmd": {
+    "14_logistic_regression_lab2.html": "a6b24b78"
   }
 }

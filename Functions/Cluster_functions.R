@@ -1,0 +1,78 @@
+# Cluster functions
+
+
+plot_kmeans_clusters <- function(data, var1, var2, kmeans_model) {
+  
+  # Add cluster membership
+  data$km_cluster <- factor(kmeans_model$cluster)
+  
+  # Convert cluster centers to a data frame
+  centers_df <- as.data.frame(kmeans_model$centers)
+  
+  # Plot
+  ggplot(data, aes(x = .data[[var1]], 
+                   y = .data[[var2]], 
+                   color = km_cluster)) +
+    
+    geom_point(alpha = 0.7) +
+    
+    geom_point(
+      data = centers_df,
+      aes(x = .data[[var1]], y = .data[[var2]]),
+      inherit.aes = FALSE,
+      color = "black",
+      fill = "yellow",
+      shape = 23,
+      size = 4
+    ) +
+    
+    theme_minimal() +
+    
+    labs(
+      title = "K-means Clustering",
+      x = var1,
+      y = var2,
+      color = "Cluster"
+    )
+}
+
+
+
+# Elbow plot function for k-means
+elbow_plot <- function(data, vars, k_max = 10) {
+  # data  = your data frame (e.g. df_cluster)
+  # vars  = character vector with variable names used for clustering
+  #         e.g. c("var1_std", "var2_std")
+  # k_max = maximum number of clusters to test (default: 10)
+  
+  # Make sure needed packages are loaded
+  library(ggplot2)
+  library(tibble)
+  
+  # Select only the variables used for clustering
+  X <- data[, vars]
+  
+  # Compute total within-cluster sum of squares for k = 1,...,k_max
+  ks <- 1:k_max
+  tot_withinss <- sapply(
+    ks,
+    function(k) kmeans(X, centers = k)$tot.withinss
+  )
+  
+  elbow <- tibble(
+    k = ks,
+    tot_withinss = tot_withinss
+  )
+  
+  # Plot elbow curve
+  ggplot(elbow, aes(x = k, y = tot_withinss)) +
+    geom_line() +
+    geom_point() +
+    scale_x_continuous(breaks = ks) +
+    labs(
+      title = "Elbow Plot",
+      x = "Number of clusters (k)",
+      y = "Total within-cluster variance"
+    ) +
+    theme_minimal()
+}

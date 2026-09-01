@@ -1,0 +1,274 @@
+---
+title: "Introduction to coding in R"
+---
+
+## Introduction to coding in R
+
+RStudio is an environment for working with the programming language **R**. During the course, you will use RStudio to write code, work with data, perform analyses, and create graphs. This guide introduces the most important things you need to know to start coding in R.
+
+We recommend that you read Chapter 2 of An Introduction to Statistical Learning with Applications in R while working through this chapter of the compendium. Although the two chapters do not overlap perfectly, some concepts may be easier to understand if you simultaneously apply them in R. For example, when the textbook introduces the concept of a vector, you can directly practice creating and working with vectors in R.
+
+### Continue working with my_second_quarto_document
+
+If you do not already have it open, open the file my_second_quarto_document.qmd, located in the Quarto_files folder.
+
+Create a new code chunk and copy-paste the code from the course compendium.
+
+```{r}
+10 - 4
+5 * 3
+20 / 4
+2^3
+```
+
+### Creating objects
+
+In R, you can store values in **objects**. We use the assignment operator `<-` to store the value on the right in the object on the left. In the example below we store - or assign - the value 10 to the object x. The object `x` now contains the value `10`. You can find all objects under *Environment*. You can click on them to view more details, or you can refer to them directly in your code. Copy-paste the code into your quarto file. 
+
+```{r}
+x <- 10
+```
+
+To see the value, write the object name 'x' in a code chunk and press **"Run Current Chunk"**. You can also write 'x' in the Console and press Enter:
+
+```{r}
+x
+```
+
+You can use objects in calculations. For example you can assign 10 to 'x' and 5 to 'y'. Then you can write x + y and R will give you the answer. 
+
+```{r}
+x <- 10
+y <- 5
+
+x + y
+```
+
+**Try it yourself:** Create two objects called `a` and `b`. Give them any numerical values you want and calculate their sum. You can also type this directly into the Console at the bottom of the screen.
+
+### Working with vectors
+
+A vector is a collection of values. The function `c()` combines values into a vector. In the example below we assign a vector to the new object called 'ages'.
+
+```{r}
+ages <- c(21, 25, 19, 32, 28)
+```
+
+You can inspect the vector by typing 'ages' in a code chunk or in the Console:
+
+```{r}
+ages
+```
+
+R contains many useful functions for working with numerical data. Below you find code to calculate the mean and median. The minimal value in a vector, the maximum value in a vector, and the standard deviation of a vector.
+
+```{r}
+mean(ages)
+median(ages)
+min(ages)
+max(ages)
+sd(ages)
+```
+
+**Try it yourself:** Create a vector containing five numbers and calculate its mean and standard deviation.
+
+### Functions
+
+A **function** performs an operation. Functions usually follow this structure:
+
+``` r
+function_name(argument)
+```
+
+For example:
+
+```{r}
+mean(c(10, 20, 30))
+```
+
+Here: - `mean()` is the function. - `c(10, 20, 30)` is the argument supplied to the function.
+
+Some functions have several arguments.For example, the function 'round' has two arguments: the number that should be rounded, and to how many digits it should be rounded.
+
+```{r}
+round(3.14159, digits = 2)
+```
+
+### Clearning the working environment
+
+When starting a new project, it’s always a good idea to first clear the R session/environment. You can do this with the following code:
+
+```{r}
+# Clear the environment
+rm(list = ls())
+```
+
+### Comments
+
+Comments are notes in your code that R does not execute. A comment starts with `#`.
+
+```{r}
+# Calculate the average
+mean(c(10, 20, 30))
+```
+
+Comments are useful for explaining what your code does.
+
+### Reading data into R
+
+A common file format is CSV.We will use the `readr` package to import data. We recommend that you load the data using the code found in the box below. If you have created an R project and saved your data in a folder called *Data*, it should be enough to just run or copy the code. Double-check that you have a data file in the *Data* folder. If you don’t, download the data and place it in that folder.
+
+```{r, eval=FALSE}
+mydata <- read.csv("Data/data_edits.csv")
+```
+
+The data will be stored in an object called `mydata`. Try yourself: copy the code and paste it into a new code chunk in your R session. Check so that you have a folder called 'Data' and a datafile called 'data_edits.csv' in the folder.
+
+You can inspect the first five rows with the function head():
+
+```{r, eval=FALSE}
+head(mydata)
+```
+
+
+### Working with a data frame
+
+A data frame is one of the most common ways to store datasets in R. Here is a small example:
+
+```{r}
+students <- data.frame(
+  name = c("Anna", "Ben", "Carlos"),
+  age = c(22, 25, 21),
+  score = c(78, 85, 91)
+)
+
+students
+```
+
+You can select one variable using `$`:
+
+```{r}
+students$score
+```
+
+You can then calculate, for example, the average score:
+
+```{r}
+mean(students$score)
+```
+
+It is also important to recognize that data can vary in type. A data frame typically contains different types of variables. Here are some common types of variables:
+
+***Categorical Variables:*** Some variables tell us which group or category each individual belongs to. Examples include being male or female, different countries, or telephone area codes (which categorize phone numbers into geographical regions).
+
+***Ordinal Variables:*** A typical course evaluation might ask, “How valuable do you think this course will be to you?” with responses such as: 1 = Worthless; 2 = Slightly; 3 = Middling; 4 = Reasonably; 5 = Invaluable. These categories have a clear order. We also call them factors.
+
+***Quantitative Variables:*** When a variable contains numerical values with meaningful units, we call it a quantitative variable. These variables record an amount or degree of something. For example, degrees Celsius tell us the scale of measurement, so we know how far apart two temperature values are.
+
+***Identifier Variables:*** A variable that has exactly as many unique values as there are cases is called an identifier. These variables uniquely identify each observation, such as student IDs, product IDs, or order numbers.
+
+As you can read in Chapter 2 (pp. 28–29) of *An Introduction to Statistical Learning with Applications in R*, we tend to select statistical learning methods partly based on whether the response variable is **quantitative** or **qualitative**.
+
+### Creating simple figures/plots
+
+During the course, we will create a lot of figures (often called plots). Later in the course, you will be given code to produce more advanced figures. But we will start simple. Base R can create figures and plots using functions such as hist().
+
+```{r}
+scores <- c(55, 62, 68, 71, 73, 75, 78, 82, 85, 91)
+
+hist(scores)
+```
+
+You will learn more about figures/plots later in the course.
+
+### Running several lines of code
+
+You can run one line by placing the cursor on the line and pressing:
+
+-   **Windows:** `Ctrl + Enter`
+-   **Mac:** `Cmd + Enter`
+
+You can also select several lines and use the same shortcut to run all selected lines. For example:
+
+```{r}
+x <- 5
+y <- 10
+z <- x + y
+
+z
+```
+
+It is often useful to run your script **from top to bottom**. Later lines may depend on objects created earlier in the script.
+
+### Reading error messages
+
+Errors are a normal part of programming. For example, this code produces an error because the object does not exist:
+
+```{r, error=TRUE}
+my_number + 10
+```
+
+An error message does not mean that you have failed. It tells you that R could not execute the command.
+
+When you get an error:
+
+1.  Read the error message.
+2.  Check the spelling of object and function names.
+3.  Check brackets, parentheses, quotation marks, and commas.
+4.  Check whether the object you are using has already been created.
+5.  Run earlier parts of your script if necessary.
+
+### R is case-sensitive
+
+R distinguishes between uppercase and lowercase letters. These are different object names:
+
+```{r}
+score <- 10
+Score <- 20
+
+score
+Score
+```
+
+For this reason, be careful with capitalization.
+
+## Good coding habits
+
+A few habits will make working with R much easier:
+
+-   Write your code in a script rather than only in the Console. Scrips are saved as .r files and looks like a text file. With a script file you will always save your code, and can reproduce your work and analysis.\
+-   Give objects clear and meaningful names.
+-   Use comments to explain important steps.
+-   Save your script regularly.
+-   Keep your data files and code organized.
+-   Run your script from top to bottom occasionally to check that everything works.
+-   Read error messages carefully rather than immediately deleting the code.
+
+## Key takeaway
+
+You do not need to memorize every R command. The most important things at the beginning are to understand how to:
+
+-   write and run code,
+-   create objects,
+-   use functions,
+-   work with files and data,
+-   load packages,
+-   and interpret the output R gives you.
+
+You will become more comfortable with R by using it repeatedly throughout the course.
+
+------------------------------------------------------------------------
+
+## Chapter exercise
+
+Create a new Quarto document and complete the following tasks:
+
+1.  Create an object called `height` and store your height in centimeters.
+2.  Create an object called `weight` and store a weight in kilograms.
+3.  Create a vector containing five numerical values.
+4.  Calculate the mean of the vector.
+5.  Calculate the standard deviation of the vector.
+6.  Add comments explaining what your code does.
+7.  Run the complete script from top to bottom.
+
+------------------------------------------------------------------------

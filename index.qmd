@@ -1,0 +1,71 @@
+---
+title: "Introduction"
+---
+
+# Welcome
+
+Welcome to the **FOA235 course book** for HT26.
+
+This book contains the main R code, examples, and practical exercises that we will work with throughout the course. It is intended to support the lectures, labs, and seminars and to serve as a reference when you work independently with R and the course assignments.
+
+Content-wise, the book is aligned with the course textbook, An Introduction to Statistical Learning with Applications in R, Second Edition. The idea is that you read the course textbook to develop your theoretical understanding and use this compendium as a more practical guide to R code, with examples and exercises that help you apply what you have learned.
+
+It is important to emphasize that there are many ways to write the R code needed to perform the analyses covered in this course. However, throughout the course, we will primarily use the code and approaches presented in this compendium.
+
+The compendium starts with the basics of working with **R, RStudio, and Quarto**. We then move through descriptive and exploratory data analysis and gradually introduce the modelling process and the three main methods covered in the course:
+
+-   **Cluster analysis**
+-   **Linear regression**
+-   **Logistic regression**
+
+::: callout-tip
+## Learning R
+
+The best way to learn R is by using it.
+
+**Run the code → inspect the result → change something → run it again → see what happens.**
+:::
+
+The course is taught in Swedish, but the compendium is written in English, just like the literature we have in the course.
+
+## R and Posit Cloud
+
+We will use **R** throughout the course. You do not need any previous experience with R. The first labs introduce R, RStudio, data manipulation, and visualization step by step. We will work in **Posit Cloud**, which means that you can use RStudio directly in your web browser without installing R on your computer. We will also write all our text and analyses using Quarto in RStudio. In chapter three will we introduce Quarto and explain how we will use it to combine text, R code, results, and figures in a single document.
+
+::: callout-tip
+## New to R?
+
+Start with **Getting Started with Posit Cloud** and then continue with **Introduction to R**. Next chapter will guide you through how to get started with RStudio in Posit Cloud.
+:::
+
+## How to use these materials
+
+The chapters in this guide correspond to different parts of the course. You do not need to read everything at once. Work through the relevant chapters as we progress through the lectures, labs, and seminars.
+
+The practical chapters contain:
+
+-   explanations,
+-   R code,
+-   examples,
+-   visualizations,
+-   and exercises for you to try yourself.
+
+The book is organized into the following chapters:
+
+-   **Chapter 2: Getting started with Posit Cloud** introduces R, RStudio, Posit Cloud, and Quarto.
+-   **Chapter 3: Introduction to Quarto documents** introduces the type of document we will work with during the course.
+-   **Chapter 4: Introduction to coding in R** introduces R coding in more detail.
+-   **Chapter 5: Introduction to Data Editing** introduces data editing.
+-   **Chapter 6: Exploratory Data Analysis (EDA)** introduces data preparation, manipulation, visualization, and descriptive analysis.
+-   **Chapter 7: Data and Models** introduces the modelling process and the three main algorithms used in the course.
+-   **Chapter 8: Three Algorithms** introduces the three algorithms that we cover during the course.
+-   **Chapter 9: Cluster Analysis: Lab 1** introduces Cluster Analysis and the Workflow.
+-   **Chapter 10: Cluster Analysis: Lab 2** introduces Multidimensional Cluster Analysis.
+-   **Chapter 11: Linear Regression: Lab 1** introduces Supervised Learning and Prediction.
+-   **Chapter 12: Linear Regression: Lab 2** introduces Model Selection and Evaluation.
+-   **Chapter 13: Logistic Regression: Lab 1** introduces Logistic Regression and Classification.
+-   **Chapter 14: Logistic Regression: Lab 2** introduces Model Selection, Validation, and Business Decision.
+
+The chapters are designed to be used alongside the course activities. You do not need to learn all the R code by heart. Instead, focus on understanding **what the code does, why we use it, and how the results can help us answer a business or research question**.
+
+------------------------------------------------------------------------

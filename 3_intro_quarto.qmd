@@ -1,0 +1,279 @@
+---
+title: "Introduction to Quarto documents"
+---
+
+Quarto documents allow you to combine **text, R code, figures, tables, and results** in the same file. The idea is to combine regular text with your code and analysis. This makes it easier for you to both show what you do and describe what you do. You write regular text just like you would in Word — simply type in the white area. Code is written in so-called *Executable Cells*, or *Chunks*.
+
+Quarto files use the file extension `.qmd`.
+
+Follow these steps to create your first Quarto document in Posit Cloud.
+
+------------------------------------------------------------------------
+
+## Open your Posit Cloud project
+
+Go to: <https://posit.cloud>
+
+Sign in and open your course project. You should see RStudio running in your browser.
+
+------------------------------------------------------------------------
+
+## Create a new Quarto document
+
+In RStudio, select:
+
+**File → New File → Quarto Document...**
+
+A window will appear where you can configure the new document.
+
+------------------------------------------------------------------------
+
+## Give the document a title
+
+Enter a title for your document, for example:
+
+``` text
+My Quarto Document
+```
+
+You can also enter your name in the **Author** field.
+
+Under the output format, select:
+
+**HTML**
+
+Then click **Create**.
+
+------------------------------------------------------------------------
+
+## Install the required packages the first time
+
+The first time you create or render a Quarto document in Posit Cloud, RStudio may tell you that **additional packages are required**. A message or dialog box may appear asking whether you want to install the required packages. Click Yes to install them. You only need to do this when the required packages are not already installed in your Posit Cloud project.
+
+------------------------------------------------------------------------
+
+## Save the document
+
+Select:
+
+**File → Save**
+
+Give your file a meaningful name, for example:
+
+``` text
+my_second_quarto_document.qmd
+```
+Save the file in the folder: 'Quarto_files'.
+
+The file extension `.qmd` tells RStudio that this is a Quarto document. Avoid spaces and special characters in file names. A good convention is to use lowercase letters and underscores.
+
+------------------------------------------------------------------------
+
+## Look at the Quarto document
+
+At the top of your new document, you will see something similar to:
+
+``` yaml
+---
+title: "My Second Quarto Document"
+author: "Your Name"
+format: html
+---
+```
+
+This is called the **YAML header** and contains information about the document, such as: - the title; - the author; - and the output format.
+
+> *To do: Give your document a title and add the author in your Quarto template.*
+>
+> -   Copy the following code and place it at the very top of your Quarto document.
+>
+> -   Change the title, subtitle, author, and select formats: html.
+
+```{r}
+#| eval: FALSE
+
+title: "Install R"
+subtitle: "R version: "
+author: "Niklas Bomark"
+date: "`r format(Sys.Date(), '%Y-%m-%d')`"
+format: html
+editor_options:
+  chunk_output_type: console
+
+```
+
+------------------------------------------------------------------------
+
+## Add text to your document
+
+A Quarto document can be edited in two different ways: Source mode and Visual mode. Both modes edit the same document—the difference is how you interact with and format the content.
+
+In Source mode, you work directly with the underlying text of the Quarto document. Formatting is created using Markdown syntax. For example, you use # to create a heading and **text** to make text bold. Source mode gives you direct control over the structure of the document and makes it easy to combine text, Markdown, and R code.
+
+In Visual mode, you work with the document more like you would in Microsoft Word. Instead of writing Markdown syntax yourself, you can use menus and formatting tools to create headings, lists, bold text, links, and other elements. Quarto automatically translates these formatting choices into the underlying Markdown.
+
+You can switch between Source and Visual mode while working on the same document. In this course, it is useful to become familiar with Source mode, since it helps you understand how a Quarto document is structured.
+
+For example, in Source mode you can write:
+
+``` markdown
+# Introduction
+
+This is my second Quarto document.
+In this document, I will analyze some data using R.
+```
+
+Here, the # tells Quarto that Introduction is a level-one heading. The remaining lines are ordinary body text (paragraphs). You can also create different levels of headings by adding more # symbols:
+
+``` markdown
+# Main heading
+## Second-level heading
+### Third-level heading
+```
+
+This creates a hierarchical structure in your document, similar to using Heading 1, Heading 2, and Heading 3 in Microsoft Word.
+
+> *To do: Create a heading and some demo text.*
+
+------------------------------------------------------------------------
+
+## Add Code Chunks
+
+Code is written in so-called *Executable Cells*, or *Chunks*. An R code chunk looks like this:
+
+```{r}
+1 + 1
+```
+
+You can create a new code chunk under *Insert → Executable Cell → R*. We recommend setting up a keyboard shortcut for this. For example, you could use **Control + E** as a shortcut to insert a new code cell.
+
+> *To do: Add a new code cell in your quarto document and type the following code: example_code \<- 1 + 1*
+
+------------------------------------------------------------------------
+
+## Run the code
+
+You can run a code cell just like you normally run code in R. The easiest way is to click **"Run Current Chunk"** in the upper right corner of the gray code cell.
+
+It’s also recommended to set up a keyboard shortcut — for example, **Control + 2** — so that you can quickly and easily run the content of the gray code cell. Try running the code cell you just created — it should create an object called `example_code` with the value `2`.
+
+R will execute:
+
+```{r}
+1 + 1
+```
+
+and return:
+
+``` text
+[1] 2
+```
+
+You can also place the cursor on a line of R code and press:
+
+-   **Windows:** `Ctrl + Enter`
+-   **Mac:** `Cmd + Enter`
+
+------------------------------------------------------------------------
+
+## Create an object
+
+Let's create two R objects inside a Code Chunk:
+
+```{r}
+a <- 1
+b <- 2
+```
+
+Then use the objects by writing them on the line below (in the same code chunk):
+
+```{r}
+a + b
+```
+
+R should return:
+
+``` text
+[1] 3
+```
+
+Remember that the **order of the code matters**. You must create `a` and `b` before R can calculate:
+
+------------------------------------------------------------------------
+
+## Load packages before using them
+
+If your document uses functions from a package, you first need to load the package. For example, if your function is included in the package called tidyverse, then you first need to load the package (and install it if you didnt install it).
+
+```{r}
+library(tidyverse)
+```
+
+This code must be run **before** you use functions from the package later in the document. If the package has not been installed, Posit Cloud may show a notification asking you to install it.
+
+A useful rule is:
+
+> **Install when needed → Load at the beginning of the R session → Use the package**
+
+------------------------------------------------------------------------
+
+## Datasets for labs
+
+We will work with different datasets throughout the course. Some datasets are located in the project folder that you set up when creating your R project. Other datasets come from the course textbook, An Introduction to Statistical Learning with Applications in R, and can be accessed by installing and loading the R package ISLR2.
+
+```{r}
+#| eval: FALSE
+install.packages("ISLR2")
+library(ISLR2)
+```
+
+------------------------------------------------------------------------
+
+## Work from top to bottom
+
+A Quarto document should normally be worked through **from top to bottom**. For example:
+
+``` text
+Load packages
+      ↓
+Import data
+      ↓
+Create or modify objects
+      ↓
+Analyze the data
+      ↓
+Create tables and figures
+      ↓
+Interpret the results
+```
+
+Code further down in the document may depend on code that was executed earlier. If you skip an earlier code chunk, R may not know about an object, dataset, or package that you try to use later.
+
+------------------------------------------------------------------------
+
+## Render the document
+
+When you are ready, click the **Render** button at the top of the Source pane.
+
+Quarto will:
+
+1.  execute the R code;
+2.  generate the results and figures;
+3.  combine them with your written text; and
+4.  create an HTML document (or a pdf document).
+
+The rendered document will open in a new window or in the **Viewer** pane.
+
+When you submit your work for INL1, we want you to render and submit a rendered PDF file, together with the Quarto-file. We (teachers) should be able to run the Quarto file and to generate the PDF-file on our own computers.
+
+::: callout-tip
+## A good way to work
+
+Do not wait until the end to test your document.
+
+**Write a little → run the code → check the result → continue.**
+
+This makes it much easier to identify errors and understand what each part of your code does.
+:::
+
+------------------------------------------------------------------------

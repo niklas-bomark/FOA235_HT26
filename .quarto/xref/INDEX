@@ -1,0 +1,44 @@
+{
+  "index.qmd": {
+    "index.html": "1b9cd77a"
+  },
+  "2_getting_posit.qmd": {
+    "2_getting_posit.html": "db1fddd2"
+  },
+  "3_intro_quarto.qmd": {
+    "3_intro_quarto.html": "952d2584"
+  },
+  "4_intro_coding.qmd": {
+    "4_intro_coding.html": "9ed6cadd"
+  },
+  "5_intro_data_edits.qmd": {
+    "5_intro_data_edits.html": "c4c64154"
+  },
+  "6_describing_data.qmd": {
+    "6_describing_data.html": "0a053628"
+  },
+  "7_models.qmd": {
+    "7_models.html": "898bbfdc"
+  },
+  "8_three_models.qmd": {
+    "8_three_models.html": "015e0382"
+  },
+  "9_cluster_lab1.qmd": {
+    "9_cluster_lab1.html": "1f3f5e2e"
+  },
+  "10_cluster_lab2.qmd": {
+    "10_cluster_lab2.html": "051482f7"
+  },
+  "11_linear_regression_lab1.qmd": {
+    "11_linear_regression_lab1.html": "e22baf52"
+  },
+  "12_linear_regression_lab2.qmd": {
+    "12_linear_regression_lab2.html": "c54d9724"
+  },
+  "13_logistic_regression_lab1.qmd": {
+    "13_logistic_regression_lab1.html": "7d1a08ff"
+  },
+  "14_logistic_regression_lab2.qmd": {
+    "14_logistic_regression_lab2.html": "2acaed7d"
+  }
+}

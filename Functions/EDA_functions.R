@@ -1,0 +1,404 @@
+
+################################################################################
+### Histogram ###
+
+library(ggplot2)
+
+histogram <- function(x,
+                      bins = 20,
+                      xlab = "X",
+                      ylab = "Count",
+                      suffix = " kr") {
+  
+  ggplot(data.frame(x = x), aes(x)) +
+    geom_histogram(
+      bins = bins,
+      fill = "palegreen3",
+      color = "black"
+    ) +
+    scale_x_continuous(labels = label_number(big.mark = " ", decimal.mark = ",", suffix = suffix)) + 
+    labs(x = xlab, y = ylab) +
+    theme_minimal(base_size = 14) +
+    theme(
+      panel.grid = element_blank()
+    )
+}
+
+# Example use:
+#set.seed(123)
+#x <- rnorm(500)
+#histogram(x, xlab = "Value", ylab = "Frequency", suffix = " kr")
+
+
+
+
+################################################################################
+### Histogram with categories ###
+
+
+
+library(ggplot2)
+library(scales)
+
+histogram_df <- function(data,
+                         xvar,
+                         group_var,
+                         bins = 30,
+                         xlab = "X",
+                         ylab = "Count",
+                         suffix = " kr",
+                         palette = c("#A6D8A8", "#A6C8EA", "#C7A6DD", "#F4B183")) {
+  
+  xvar     <- rlang::enquo(xvar)
+  groupvar <- rlang::enquo(group_var)
+  
+  n_groups <- dplyr::n_distinct(dplyr::pull(data, !!groupvar))
+  palette  <- rep(palette, length.out = n_groups)
+  
+  ggplot(data, aes(x = {{ xvar }}, fill = {{ groupvar }})) +
+    geom_histogram(
+      bins = bins,
+      alpha = 0.7,
+      na.rm = TRUE
+    ) +
+    scale_fill_manual(values = palette) +
+    scale_x_continuous(
+      labels = label_number(big.mark = " ", decimal.mark = ",", suffix = suffix)
+    ) +
+    labs(
+      x = xlab,
+      y = ylab
+    ) +
+    theme_minimal(base_size = 14) +
+    theme(
+      panel.grid = element_blank(),
+      legend.position = "none",
+      axis.ticks = element_line(color = "black"),
+      axis.ticks.length = unit(4, "pt")
+    )
+}
+
+
+# histogram_df(df,
+#              xvar = income,
+#              group_var = group,
+#              xlab = "Income",
+#              ylab = "Observations",
+#              suffix = " kr",
+#              bins = 100)
+
+
+
+
+################################################################################
+### Density ###
+
+library(ggplot2)
+
+density_plot <- function(x,
+                         xlab = "X",
+                         ylab = "Density",
+                         alpha_level = 0.1) {
+  
+  ggplot(data.frame(x = x), aes(x)) +
+    
+    # Shaded density
+    geom_density(
+      color = "#E67E22",
+      fill  = "#E67E22",
+      alpha = alpha_level,
+      linewidth = 1.2
+    ) +
+    
+    # Raw data points as ticks
+    geom_rug(
+      color = "#E67E22",
+      alpha = 0.6,
+      linewidth = 0.6
+    ) +
+    
+    labs(x = xlab, y = ylab) +
+    
+    theme_minimal(base_size = 14) +
+    theme(panel.grid = element_blank())
+}
+
+
+# set.seed(123)
+# x <- rnorm(500, mean = 25, sd = 10)
+# 
+# density_plot(x, xlab = "Age", ylab = "Density")
+
+
+
+
+################################################################################
+### Bar charts ###
+
+library(ggplot2)
+library(dplyr)
+library(rlang)
+library(scales)
+
+barchart_df <- function(data,
+                        category_var,
+                        value_var,
+                        xlab = "Category",
+                        ylab = "Value",
+                        suffix = " kr",
+                        palette = c("#A6D8A8", "#A6C8EA", "#C7A6DD", "#F4B183")) {
+  
+  category_var <- enquo(category_var)
+  value_var    <- enquo(value_var)
+  
+  # 1 row per category: sum of values
+  df_sum <- data %>%
+    group_by(!!category_var) %>%
+    summarise(value = sum(!!value_var), .groups = "drop")
+  
+  n_cat <- n_distinct(df_sum[[quo_name(category_var)]])
+  palette <- rep(palette, length.out = n_cat)
+  
+  ggplot(df_sum, aes(x = {{ category_var }}, y = value, fill = {{ category_var }})) +
+    geom_col(color = "black") +
+    scale_fill_manual(values = palette) +
+    scale_y_continuous(
+      labels = label_number(big.mark = " ", decimal.mark = ",", suffix = suffix)
+    ) +
+    labs(x = xlab, y = ylab) +
+    theme_minimal(base_size = 14) +
+    theme(
+      panel.grid = element_blank(),
+      legend.position = "none"
+    )
+}
+
+
+
+
+
+# df <- data.frame(
+#   Class = c("1", "2", "3", "Crew"),
+#   Count = c(300, 250, 700, 900)
+# )
+# 
+# barchart_df(df, Class, Count,
+#             xlab = "Ticket Class",
+#             ylab = "Number of People",
+#             suffix = "")
+
+
+
+
+
+
+################################################################################
+### Box plot  ###
+
+
+
+boxplot_simple <- function(x,
+                           ylab = "X",
+                           suffix = " kr") {
+  
+  ggplot(data.frame(x = x), aes(x = 1, y = x)) +
+    geom_boxplot(
+      fill = "palegreen3",
+      color = "black",
+      width = 0.75
+    ) +
+    geom_jitter(
+      width = 0.06,
+      alpha = 0.3,
+      size = 1.5
+    ) +
+    scale_x_continuous(
+      limits = c(0, 2)
+    ) +
+    scale_y_continuous(
+      labels = label_number(
+        big.mark = " ",
+        decimal.mark = ",",
+        suffix = suffix
+      )
+    ) +
+    labs(
+      x = NULL,
+      y = ylab
+    ) +
+    theme_minimal(base_size = 14) +
+    theme(
+      panel.grid = element_blank(),
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank()
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+################################################################################
+### Box plot: grouped ###
+
+boxplot_grouped <- function(x,
+                            group,
+                            xlab = "Group",
+                            ylab = "X",
+                            suffix = " kr") {
+  
+  ggplot(
+    data.frame(x = x, group = group),
+    aes(x = group, y = x)
+  ) +
+    geom_boxplot(
+      fill = "palegreen3",
+      color = "black",
+      width = 0.5
+    ) +
+    geom_jitter(
+      width = 0.10,
+      alpha = 0.3,
+      size = 1.5
+    ) +
+    scale_y_continuous(
+      labels = label_number(
+        big.mark = " ",
+        decimal.mark = ",",
+        suffix = suffix
+      )
+    ) +
+    labs(
+      x = xlab,
+      y = ylab
+    ) +
+    theme_minimal(base_size = 14) +
+    theme(
+      panel.grid = element_blank()
+    )
+}
+
+
+# 
+# df <- data.frame(
+#   Group = rep(LETTERS[1:5], each = 50),
+#   Score = rnorm(250, mean = rep(c(60, 70, 75, 65, 90), each = 50), sd = 8)
+# )
+# 
+# 
+# boxplot_grouped(df,
+#                 xvar = "Group",
+#                 yvar = "Score",
+#                 xlab = "Condition",
+#                 ylab = "Test score")
+
+
+
+
+
+
+
+
+
+
+
+################################################################################
+### Scatter plot ###
+
+library(ggplot2)
+library(rlang)
+
+scatterplot <- function(data,
+                        xvar,
+                        yvar,
+                        xlab = "X",
+                        ylab = "Y") {
+  
+  xvar <- enquo(xvar)
+  yvar <- enquo(yvar)
+  
+  ggplot(data, aes(x = {{ xvar }}, y = {{ yvar }})) +
+    geom_point(
+      color = "black",
+      fill = "palegreen3",
+      shape = 21,
+      size = 2,
+      alpha = 0.7
+    ) +
+    labs(x = xlab, y = ylab) +
+    theme_minimal(base_size = 14) +
+    theme(
+      panel.grid = element_blank()
+    )
+}
+
+
+# 
+# set.seed(123)
+# df <- data.frame(
+#   x = rnorm(400),
+#   y = 2 * rnorm(400) + rnorm(400, sd = 0.5)
+# )
+# 
+# scatterplot(df, x, y,
+#             xlab = "X value",
+#             ylab = "Y value")
+
+
+
+
+
+################################################################################
+### Correlation matrix ###
+
+
+
+library(dplyr)
+library(corrplot)
+
+plot_correlation_matrix <- function(data,
+                                    vars,
+                                    title = "Correlation Matrix",
+                                    legend_cex = 0.7,
+                                    label_cex = 0.7) {
+  
+  # 1. Select variables explicitly
+  X <- data %>% dplyr::select(all_of(vars))
+  
+  # Safety check
+  if (ncol(X) < 2) {
+    stop("You must select at least two variables.")
+  }
+  
+  # 2. Compute correlation matrix
+  cor_mat <- cor(X, use = "pairwise.complete.obs")
+  
+  # 3. Remove diagonal
+  diag(cor_mat) <- NA
+  
+  # 4. Plot with variable names ("tl.cex" controls their size)
+  corrplot::corrplot(
+    cor_mat,
+    method = "color",
+    type = "upper",
+    tl.pos = "l",              # show text labels (top + diagonal)
+    tl.cex = label_cex,       # label size
+    cl.cex = legend_cex,      # legend size
+    na.label = " ",           # blank diagonal
+    mar = c(1, 1, 3, 1),
+    addgrid.col = NA
+  )
+  
+  title(title, line = 1)
+}
+
+
+
+
+

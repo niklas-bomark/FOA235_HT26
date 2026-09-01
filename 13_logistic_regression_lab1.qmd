@@ -1,0 +1,751 @@
+---
+title: "Logistic Regression: Lab 1"
+subtitle: "Introduction to Logistic Regression and Classification"
+format: html
+execute:
+  warning: false
+  message: false
+---
+
+## Introduction
+
+In the previous labs, we used linear regression to predict a quantitative outcome such as sales. We now move to **classification**.
+
+In classification problems, the outcome variable represents a category rather than a continuous numerical value. In this module, we focus on **binary classification**, where there are two possible outcomes. Examples include:
+
+-   customer buys / does not buy
+-   customer churns / does not churn
+-   loan defaults / does not default
+-   employee leaves / stays
+-   transaction is fraudulent / not fraudulent
+
+We will work with **logistic regression**. The goal is not to focus on interpreting logistic regression coefficients. Instead, we will focus on how logistic regression can be used to generate probabilities and make classifications. The workflow will look something like this:
+
+**Predictors → Probability → Classification → Evaluation → Business decision**
+
+### Learning objectives
+
+After completing this lab, you should be able to:
+
+-   identify a binary outcome variable
+-   explain the difference between regression and classification
+-   fit a logistic regression model in R
+-   generate predicted probabilities
+-   convert probabilities into predicted classes using a threshold
+-   create and interpret a confusion matrix
+-   calculate accuracy, precision, recall, and specificity
+-   explain the different roles of training and test data
+-   examine how different classification thresholds affect predictions
+-   evaluate a fitted classification model using test data
+
+### Prepare the R Session
+
+```{r}
+# Clear Environment
+rm(list = ls())
+
+# Load packages
+library(tidyverse)
+
+source("Functions/EDA_functions.R")
+source("Functions/linear_regression_functions.R")
+```
+
+### Import the Data
+
+Imagine that a company wants to predict whether a customer will purchase a product. The outcome variable is `purchase`:
+
+-   `0` = customer did not purchase;
+-   `1` = customer purchased.
+
+```{r}
+df <- read.csv("Data/logistic_data1.csv")
+```
+
+Inspect the data.
+
+```{r}
+summary(df)
+```
+
+Convert `purchase` to a factor.
+
+```{r}
+# Mutate
+df <- df |>
+  mutate(
+    purchase = factor(purchase, ordered = FALSE)
+  )
+```
+
+#### Questions
+
+1.  How many observations are in the dataset?
+2.  Which variable is the outcome variable?
+3.  What do the values 0 and 1 represent?
+4.  Which variables could be useful predictors?
+
+### Classification vs. Regression
+
+In linear regression, the outcome is quantitative. In classification, the outcome is a category. In this case we want to predict a purchase. Logistic regression first estimates a **probability**. For example:
+
+> Probability of purchase = 0.72
+
+We then use a classification threshold to convert that probability into a predicted class. With a threshold of 0.50:
+
+-   probability $\geq 0.50$ → predict `1`;
+-   probability $< 0.50$ → predict `0`.
+
+#### Questions
+
+1.  Why can we not treat this problem exactly like the sales prediction problem from linear regression?
+2.  What does a predicted probability of 0.80 mean?
+3.  If the threshold is 0.50, how would a probability of 0.80 be classified?
+
+### Explore the Outcome Variable
+
+Count the observations in each class.
+
+```{r}
+table(df$purchase)
+```
+
+Calculate proportions.
+
+```{r}
+prop.table(
+  table(df$purchase)
+)
+```
+
+#### Questions
+
+1.  What percentage of customers purchased the product?
+2.  Are the two classes approximately balanced?
+3.  Why might class balance matter when evaluating a classification model?
+
+### Explore Predictors
+
+Suppose the dataset contains predictors such as `marketing`, `income`, and `website_visits`. Compare website visits across the two outcome groups.
+
+```{r}
+boxplot_grouped(
+  df$website_visits,
+  df$purchase,
+  xlab = "Purchase",
+  ylab = "Website Visits",
+  suffix = ""
+)
+```
+
+## Understanding Logistic Regression
+
+### Fit a Logistic Regression Model
+
+We first fit the model using the full dataset so that we can understand how logistic regression works. Fit a logistic regression model using `website_visits` as the predictor.
+
+```{r}
+model <- glm(
+  purchase ~ website_visits,
+  data = df,
+  family = binomial
+)
+```
+
+Inspect the model.
+
+```{r}
+summary(model)
+```
+
+::: callout-note
+### Focus of this lab
+
+You do not need to interpret the logistic regression coefficients in detail. Our main interest is whether the model can produce useful **probabilities and classifications**.
+:::
+
+### Generate Predicted Probabilities
+
+Use the model to calculate a predicted probability for every customer.
+
+```{r}
+df$predicted_probability <- predict(
+  model,
+  type = "response"
+)
+```
+
+Inspect the results.
+
+```{r}
+head(df)
+```
+
+#### Questions
+
+1.  What is the smallest predicted probability?
+2.  What is the largest predicted probability?
+3.  Are all predicted probabilities between 0 and 1?
+4.  Why is this useful for classification?
+
+### Convert Probabilities into Classes
+
+Use a threshold of 0.50. You don't need to know the function ifelse. We will only use it in this context. Just copy-paste that part of the code.
+
+```{r}
+df <- df |>
+  mutate(
+    predicted_class = ifelse(
+      predicted_probability >= 0.50,
+      1,
+      0
+    )
+  )
+```
+
+Inspect the results.
+
+```{r}
+head(df)
+```
+
+#### Questions
+
+1.  How is a predicted probability converted into a predicted class?
+2.  What class would be predicted for a probability of 0.49?
+3.  What class would be predicted for a probability of 0.51?
+
+### Confusion Matrix
+
+Compare observed and predicted classes.
+
+```{r}
+confusion <- table(
+  Actual = df$purchase,
+  Predicted = df$predicted_class
+)
+
+confusion
+```
+
+A confusion matrix contains four types of predictions:
+
+-   **True Positive (TP)** — predicted 1 and actual outcome is 1;
+-   **True Negative (TN)** — predicted 0 and actual outcome is 0;
+-   **False Positive (FP)** — predicted 1 but actual outcome is 0;
+-   **False Negative (FN)** — predicted 0 but actual outcome is 1.
+
+#### Questions
+
+1.  How many true positives are there?
+2.  How many true negatives are there?
+3.  How many false positives are there?
+4.  How many false negatives are there?
+
+### Accuracy
+
+Accuracy is the proportion of all predictions that are correct.
+
+```{r}
+accuracy <- mean(
+  df$purchase == df$predicted_class
+)
+
+accuracy
+```
+
+#### Questions
+
+1.  What is the model accuracy?
+2.  What percentage of observations were classified correctly?
+
+### Precision, Recall, and Specificity
+
+We can also use other measures directly linked to the matrix.
+
+**Precision** is the proportion of predicted positive cases that are actually positive. In this lab: Of all customers predicted to purchase, how many actually purchased?
+
+**Recall** is the proportion of actual positive cases that the model correctly identifies. In this lab: Of all customers who actually purchased, how many did the model correctly identify?
+
+**Specificity** is the proportion of actual negative cases that the model correctly identifies. In this lab: Of all customers who did not purchase, how many did the model correctly identify?
+
+We start by extracting some values from the confusion matrix. You dont need to understand this.
+
+```{r}
+TN <- confusion[1, 1]
+FP <- confusion[1, 2]
+FN <- confusion[2, 1]
+TP <- confusion[2, 2]
+```
+
+Calculate precision.
+
+```{r}
+precision <- TP / (TP + FP)
+
+precision
+```
+
+Calculate recall.
+
+```{r}
+recall <- TP / (TP + FN)
+
+recall
+```
+
+Calculate specificity.
+
+```{r}
+specificity <- TN / (TN + FP)
+
+specificity
+```
+
+Another way of thinking about these measues is:
+
+-   **Precision:** When the model predicts purchase, how often is it correct?
+-   **Recall:** Of all customers who actually purchased, how many did the model identify?
+-   **Specificity:** Of all customers who did not purchase, how many did the model correctly identify?
+
+#### Questions
+
+1.  Which metric would be especially important if missing a potential buyer were costly?
+
+### Change the Classification Threshold
+
+The threshold does not have to be 0.50. For now, we use the full dataset only to understand what happens when the threshold changes. Try a threshold of 0.30.
+
+```{r}
+df <- df |>
+  mutate(
+    predicted_class_030 = ifelse(
+      predicted_probability >= 0.30,
+      1,
+      0
+    )
+  )
+```
+
+Create a new confusion matrix.
+
+```{r}
+table(
+  Actual = df$purchase,
+  Predicted = df$predicted_class_030
+)
+```
+
+Now try a threshold of 0.70.
+
+```{r}
+df <- df |>
+  mutate(
+    predicted_class_070 = ifelse(
+      predicted_probability >= 0.70,
+      1,
+      0
+    )
+  )
+```
+
+```{r}
+table(
+  Actual = df$purchase,
+  Predicted = df$predicted_class_070
+)
+```
+
+#### Questions
+
+1.  What happens to the number of positive predictions when the threshold decreases?
+2.  What happens when the threshold increases?
+3.  How does changing the threshold affect false positives and false negatives?
+4.  Why might a company deliberately choose a threshold other than 0.50?
+
+## Training and Test Data
+
+So far, we have fitted and evaluated the model using the same data. This is useful for understanding how logistic regression works, but it does not tell us how well the model will classify **new observations**. As in the previous lab, we divide the data into two parts:
+
+-   **training data** — used to fit and develop the model;
+-   **test data** — used to evaluate how well the fitted model classifies new observations.
+
+In this lab, we use: - 70% training data; - 30% test data.
+
+::: callout-important
+### Why do we need test data?
+
+The model is fitted using the training observations. Its performance on those observations can therefore give us an overly optimistic impression of how well it will work on new data.
+
+The test data contain observations that were not used to fit the model. They allow us to evaluate how well the model generalizes to new observations.
+:::
+
+### Split the Data
+
+```{r}
+data_split <- split_data(
+  df,
+  train_prop = 0.70,
+  test_prop = 0.30
+)
+```
+
+Extract the two datasets.
+
+```{r}
+train_data <- data_split$train_data
+test_data <- data_split$test_data
+```
+
+Check the sizes.
+
+```{r}
+nrow(train_data)
+nrow(test_data)
+```
+
+#### Questions
+
+1.  How many observations are in the training data?
+2.  How many observations are in the test data?
+3.  What is the purpose of the training data?
+4.  What is the purpose of the test data?
+5.  Why should we evaluate the model using observations that were not used to fit it?
+
+### Fit the Model Using Training Data
+
+We now fit the logistic regression model using **only the training data**.
+
+```{r}
+model_train <- glm(
+  purchase ~ website_visits,
+  data = train_data,
+  family = binomial
+)
+```
+
+Inspect the model.
+
+```{r}
+summary(model_train)
+```
+
+## Evaluate the Model on the Training Data
+
+### Generate Training Probabilities
+
+Use the fitted model to calculate predicted probabilities for the training observations.
+
+```{r}
+train_data$predicted_probability <- predict(
+  model_train,
+  newdata = train_data,
+  type = "response"
+)
+```
+
+Convert the probabilities into predicted classes using a threshold of 0.50.
+
+```{r}
+train_data <- train_data |>
+  mutate(
+    predicted_class = ifelse(
+      predicted_probability >= 0.50,
+      1,
+      0
+    )
+  )
+```
+
+### Create the Training Confusion Matrix
+
+```{r}
+train_confusion <- table(
+  Actual = train_data$purchase,
+  Predicted = train_data$predicted_class
+)
+
+train_confusion
+```
+
+### Calculate Training Accuracy
+
+```{r}
+train_accuracy <- mean(
+  train_data$purchase ==
+    train_data$predicted_class
+)
+
+train_accuracy
+```
+
+Extract the four parts of the confusion matrix.
+
+```{r}
+TN <- train_confusion[1, 1]
+FP <- train_confusion[1, 2]
+FN <- train_confusion[2, 1]
+TP <- train_confusion[2, 2]
+```
+
+Calculate the remaining metrics.
+
+```{r}
+train_precision <- TP / (TP + FP)
+
+train_recall <- TP / (TP + FN)
+
+train_specificity <- TN / (TN + FP)
+```
+
+Inspect the results.
+
+```{r}
+train_accuracy
+train_precision
+train_recall
+train_specificity
+```
+
+#### Questions
+
+1.  What is the training accuracy?
+2.  What is the training precision?
+3.  What is the training recall?
+4.  What is the training specificity?
+5.  What does training performance tell us about the model?
+
+## Classification Threshold
+
+### Compare Thresholds Using the Training Data
+
+The classification threshold is an important modeling choice. We can examine how different thresholds change the classifications using the **training data**.
+
+Try a threshold of 0.30.
+
+```{r}
+train_data <- train_data |>
+  mutate(
+    predicted_class_030 = ifelse(
+      predicted_probability >= 0.30,
+      1,
+      0
+    )
+  )
+```
+
+Create the confusion matrix.
+
+```{r}
+train_confusion_030 <- table(
+  Actual = train_data$purchase,
+  Predicted = train_data$predicted_class_030
+)
+
+train_confusion_030
+```
+
+Now try a threshold of 0.70.
+
+```{r}
+train_data <- train_data |>
+  mutate(
+    predicted_class_070 = ifelse(
+      predicted_probability >= 0.70,
+      1,
+      0
+    )
+  )
+```
+
+Create the confusion matrix.
+
+```{r}
+train_confusion_070 <- table(
+  Actual = train_data$purchase,
+  Predicted = train_data$predicted_class_070
+)
+
+train_confusion_070
+```
+
+#### Questions
+
+1.  What happens to the number of positive predictions when the threshold decreases?
+2.  What happens when the threshold increases?
+3.  How does the threshold affect false positives and false negatives?
+4.  Which threshold would you choose?
+5.  Why might the appropriate threshold depend on the business problem?
+
+::: callout-important
+### Threshold selection
+
+A lower threshold generally produces more positive predictions. This can increase **recall**, but it can also increase the number of false positives.
+
+A higher threshold generally produces fewer positive predictions. This can reduce false positives, but it can also increase the number of false negatives.
+
+There is therefore no threshold that is automatically best in every business problem. The appropriate threshold depends partly on the consequences of different types of classification errors.
+:::
+
+### Select a Classification Threshold
+
+Choose the threshold you want to use.
+
+For example:
+
+```{r}
+selected_threshold <- 0.50
+```
+
+Change this value if you decide that another threshold is more appropriate.
+
+## Evaluate the Model Using Test Data
+
+We now use the fitted model to classify observations that were **not used to fit the model**.
+
+### Predict the Test Data
+
+Calculate predicted probabilities.
+
+```{r}
+test_data$predicted_probability <- predict(
+  model_train,
+  newdata = test_data,
+  type = "response"
+)
+```
+
+Convert probabilities into predicted classes using the selected threshold.
+
+```{r}
+test_data <- test_data |>
+  mutate(
+    predicted_class = ifelse(
+      predicted_probability >= selected_threshold,
+      1,
+      0
+    )
+  )
+```
+
+### Evaluate Test Classification
+
+Create the test confusion matrix.
+
+```{r}
+test_confusion <- table(
+  Actual = test_data$purchase,
+  Predicted = test_data$predicted_class
+)
+
+test_confusion
+```
+
+Calculate test accuracy.
+
+```{r}
+test_accuracy <- mean(
+  test_data$purchase ==
+    test_data$predicted_class
+)
+
+test_accuracy
+```
+
+Extract the values.
+
+```{r}
+TN <- test_confusion[1, 1]
+FP <- test_confusion[1, 2]
+FN <- test_confusion[2, 1]
+TP <- test_confusion[2, 2]
+```
+
+Calculate the remaining metrics.
+
+```{r}
+test_precision <- TP / (TP + FP)
+
+test_recall <- TP / (TP + FN)
+
+test_specificity <- TN / (TN + FP)
+```
+
+Inspect the results.
+
+```{r}
+test_accuracy
+test_precision
+test_recall
+test_specificity
+```
+
+#### Questions
+
+1.  What is the test accuracy?
+2.  What is the test precision?
+3.  What is the test recall?
+4.  What is the test specificity?
+5.  Does the model appear to classify new observations reasonably well?
+
+### Compare Training and Test Performance
+
+It is useful to compare the model's performance on the training and test data.
+
+```{r}
+performance <- data.frame(
+  Dataset = c(
+    "Training",
+    "Test"
+  ),
+  Accuracy = c(
+    train_accuracy,
+    test_accuracy
+  ),
+  Precision = c(
+    train_precision,
+    test_precision
+  ),
+  Recall = c(
+    train_recall,
+    test_recall
+  ),
+  Specificity = c(
+    train_specificity,
+    test_specificity
+  )
+)
+
+performance
+```
+
+The **training results** tell us how well the model classifies observations that were used to estimate the model.
+
+The **test results** tell us how well the same fitted model classifies observations it has not seen before.
+
+If performance is substantially better on the training data than on the test data, this may indicate that the model does not generalize well to new observations.
+
+#### Questions
+
+1.  How similar are the training and test results?
+2.  Is test accuracy higher or lower than training accuracy?
+3.  Does the model appear to generalize reasonably well to new observations?
+4.  Which dataset gives us the best indication of how the model will perform on new customers?
+
+## Final Exercise
+
+Imagine that the company wants to use the model to identify customers who are likely to purchase.
+
+Answer the following questions.
+
+1.  What is the outcome variable?
+2.  What does a predicted probability represent?
+3.  Which classification threshold did you select?
+4.  Why did you select this threshold?
+5.  What was the training accuracy?
+6.  What was the test accuracy?
+7.  What was the test precision?
+8.  What was the test recall?
+9.  How does the model's test performance compare with its training performance?
+10. What types of classification errors does the model make?
+11. Would this model be useful for targeting customers? Explain briefly.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Introduction to Quarto documents – FOA235 – Business Analytics</title>
+<title>7&nbsp; Data and Models – FOA235 – Business Analytics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,24 +57,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./4_intro_coding.html" rel="next">
-<link href="./2_getting_posit.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7580570a2e354cd56757c689413fca0c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Chapters/8_three_models.html" rel="next">
+<link href="../Chapters/6_describing_data.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-7580570a2e354cd56757c689413fca0c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -103,6 +103,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -115,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3_intro_quarto.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Quarto documents</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Chapters/7_models.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data and Models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,7 +159,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">FOA235 – Business Analytics</a> 
+      <a href="../">FOA235 – Business Analytics</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -142,85 +171,85 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_getting_posit.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/2_getting_posit.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting Started with Posit Cloud</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_intro_quarto.html" class="sidebar-item-text sidebar-link active">
+  <a href="../Chapters/3_intro_quarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Quarto documents</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_intro_coding.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/4_intro_coding.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introduction to coding in R</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./5_intro_data_edits.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/5_intro_data_edits.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Introduction to Data Editing</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./6_describing_data.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/6_describing_data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Describe and Visualize Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./7_models.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/7_models.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data and Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./8_three_models.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/8_three_models.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Three Algorithms</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./9_cluster_lab1.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/9_cluster_lab1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Cluster Analysis: Lab 1</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10_cluster_lab2.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/10_cluster_lab2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Cluster Analysis: Lab 2</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11_linear_regression_lab1.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/11_linear_regression_lab1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Linear Regression: Lab 1</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./12_linear_regression_lab2.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/12_linear_regression_lab2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Linear Regression: Lab 2</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13_logistic_regression_lab1.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/13_logistic_regression_lab1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Logistic Regression: Lab 1</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./14_logistic_regression_lab2.html" class="sidebar-item-text sidebar-link">
+  <a href="../Chapters/14_logistic_regression_lab2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Logistic Regression: Lab 2</span></span></a>
   </div>
 </li>
@@ -234,20 +263,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#open-your-posit-cloud-project" id="toc-open-your-posit-cloud-project" class="nav-link active" data-scroll-target="#open-your-posit-cloud-project"><span class="header-section-number">3.1</span> Open your Posit Cloud project</a></li>
-  <li><a href="#create-a-new-quarto-document" id="toc-create-a-new-quarto-document" class="nav-link" data-scroll-target="#create-a-new-quarto-document"><span class="header-section-number">3.2</span> Create a new Quarto document</a></li>
-  <li><a href="#give-the-document-a-title" id="toc-give-the-document-a-title" class="nav-link" data-scroll-target="#give-the-document-a-title"><span class="header-section-number">3.3</span> Give the document a title</a></li>
-  <li><a href="#install-the-required-packages-the-first-time" id="toc-install-the-required-packages-the-first-time" class="nav-link" data-scroll-target="#install-the-required-packages-the-first-time"><span class="header-section-number">3.4</span> Install the required packages the first time</a></li>
-  <li><a href="#save-the-document" id="toc-save-the-document" class="nav-link" data-scroll-target="#save-the-document"><span class="header-section-number">3.5</span> Save the document</a></li>
-  <li><a href="#look-at-the-quarto-document" id="toc-look-at-the-quarto-document" class="nav-link" data-scroll-target="#look-at-the-quarto-document"><span class="header-section-number">3.6</span> Look at the Quarto document</a></li>
-  <li><a href="#add-text-to-your-document" id="toc-add-text-to-your-document" class="nav-link" data-scroll-target="#add-text-to-your-document"><span class="header-section-number">3.7</span> Add text to your document</a></li>
-  <li><a href="#add-code-chunks" id="toc-add-code-chunks" class="nav-link" data-scroll-target="#add-code-chunks"><span class="header-section-number">3.8</span> Add Code Chunks</a></li>
-  <li><a href="#run-the-code" id="toc-run-the-code" class="nav-link" data-scroll-target="#run-the-code"><span class="header-section-number">3.9</span> Run the code</a></li>
-  <li><a href="#create-an-object" id="toc-create-an-object" class="nav-link" data-scroll-target="#create-an-object"><span class="header-section-number">3.10</span> Create an object</a></li>
-  <li><a href="#load-packages-before-using-them" id="toc-load-packages-before-using-them" class="nav-link" data-scroll-target="#load-packages-before-using-them"><span class="header-section-number">3.11</span> Load packages before using them</a></li>
-  <li><a href="#datasets-for-labs" id="toc-datasets-for-labs" class="nav-link" data-scroll-target="#datasets-for-labs"><span class="header-section-number">3.12</span> Datasets for labs</a></li>
-  <li><a href="#work-from-top-to-bottom" id="toc-work-from-top-to-bottom" class="nav-link" data-scroll-target="#work-from-top-to-bottom"><span class="header-section-number">3.13</span> Work from top to bottom</a></li>
-  <li><a href="#render-the-document" id="toc-render-the-document" class="nav-link" data-scroll-target="#render-the-document"><span class="header-section-number">3.14</span> Render the document</a></li>
+  <li><a href="#the-data-generating-process" id="toc-the-data-generating-process" class="nav-link active" data-scroll-target="#the-data-generating-process"><span class="header-section-number">7.1</span> The Data-Generating Process</a></li>
+  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models"><span class="header-section-number">7.2</span> Models</a>
+  <ul class="collapse">
+  <li><a href="#models-are-useful-simplifications" id="toc-models-are-useful-simplifications" class="nav-link" data-scroll-target="#models-are-useful-simplifications"><span class="header-section-number">7.2.1</span> Models are useful simplifications</a></li>
+  </ul></li>
+  <li><a href="#a-simple-example" id="toc-a-simple-example" class="nav-link" data-scroll-target="#a-simple-example"><span class="header-section-number">7.3</span> A simple example</a></li>
+  <li><a href="#fit-a-simple-model" id="toc-fit-a-simple-model" class="nav-link" data-scroll-target="#fit-a-simple-model"><span class="header-section-number">7.4</span> Fit a simple model</a></li>
+  <li><a href="#compare-reality-and-model" id="toc-compare-reality-and-model" class="nav-link" data-scroll-target="#compare-reality-and-model"><span class="header-section-number">7.5</span> Compare reality and model</a></li>
+  <li><a href="#the-modeling-process" id="toc-the-modeling-process" class="nav-link" data-scroll-target="#the-modeling-process"><span class="header-section-number">7.6</span> The Modeling Process</a></li>
   </ul>
 </nav>
     </div>
@@ -256,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Quarto documents</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data and Models</span></h1>
 </div>
 
 
@@ -273,155 +297,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Quarto documents allow you to combine <strong>text, R code, figures, tables, and results</strong> in the same file. The idea is to combine regular text with your code and analysis. This makes it easier for you to both show what you do and describe what you do. You write regular text just like you would in Word — simply type in the white area. Code is written in so-called <em>Executable Cells</em>, or <em>Chunks</em>.</p>
-<p>Quarto files use the file extension <code>.qmd</code>.</p>
-<p>Follow these steps to create your first Quarto document in Posit Cloud.</p>
-<hr>
-<section id="open-your-posit-cloud-project" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="open-your-posit-cloud-project"><span class="header-section-number">3.1</span> Open your Posit Cloud project</h2>
-<p>Go to: <a href="https://posit.cloud" class="uri">https://posit.cloud</a></p>
-<p>Sign in and open your course project. You should see RStudio running in your browser.</p>
-<hr>
-</section>
-<section id="create-a-new-quarto-document" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="create-a-new-quarto-document"><span class="header-section-number">3.2</span> Create a new Quarto document</h2>
-<p>In RStudio, select:</p>
-<p><strong>File → New File → Quarto Document…</strong></p>
-<p>A window will appear where you can configure the new document.</p>
-<hr>
-</section>
-<section id="give-the-document-a-title" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="give-the-document-a-title"><span class="header-section-number">3.3</span> Give the document a title</h2>
-<p>Enter a title for your document, for example:</p>
-<pre class="text"><code>My Quarto Document</code></pre>
-<p>You can also enter your name in the <strong>Author</strong> field.</p>
-<p>Under the output format, select:</p>
-<p><strong>HTML</strong></p>
-<p>Then click <strong>Create</strong>.</p>
-<hr>
-</section>
-<section id="install-the-required-packages-the-first-time" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="install-the-required-packages-the-first-time"><span class="header-section-number">3.4</span> Install the required packages the first time</h2>
-<p>The first time you create or render a Quarto document in Posit Cloud, RStudio may tell you that <strong>additional packages are required</strong>. A message or dialog box may appear asking whether you want to install the required packages. Click Yes to install them. You only need to do this when the required packages are not already installed in your Posit Cloud project.</p>
-<hr>
-</section>
-<section id="save-the-document" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="save-the-document"><span class="header-section-number">3.5</span> Save the document</h2>
-<p>Select:</p>
-<p><strong>File → Save</strong></p>
-<p>Give your file a meaningful name, for example:</p>
-<pre class="text"><code>my_second_quarto_document.qmd</code></pre>
-<p>Save the file in the folder: ‘Quarto_files’.</p>
-<p>The file extension <code>.qmd</code> tells RStudio that this is a Quarto document. Avoid spaces and special characters in file names. A good convention is to use lowercase letters and underscores.</p>
-<hr>
-</section>
-<section id="look-at-the-quarto-document" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="look-at-the-quarto-document"><span class="header-section-number">3.6</span> Look at the Quarto document</h2>
-<p>At the top of your new document, you will see something similar to:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Second Quarto Document"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your Name"</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This is called the <strong>YAML header</strong> and contains information about the document, such as: - the title; - the author; - and the output format.</p>
-<blockquote class="blockquote">
-<p><em>To do: Give your document a title and add the author in your Quarto template.</em></p>
+<section id="the-data-generating-process" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="the-data-generating-process"><span class="header-section-number">7.1</span> The Data-Generating Process</h2>
+<p>A central idea in this course is that there is some real process that we want to understand. For example, imagine that a company wants to understand what determines how much its customers spend. In reality, customer spending may depend on many factors, such as:</p>
 <ul>
-<li><p>Copy the following code and place it at the very top of your Quarto document.</p></li>
-<li><p>Change the title, subtitle, author, and select formats: html.</p></li>
+<li>income,</li>
+<li>age,</li>
+<li>previous purchases,</li>
+<li>advertising,</li>
+<li>customer preferences,</li>
+<li>competitors,</li>
+<li>random events,</li>
+<li>and many other factors.</li>
 </ul>
-</blockquote>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"Install R"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>subtitle<span class="sc">:</span> <span class="st">"R version: "</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">"Niklas Bomark"</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>date<span class="sc">:</span> <span class="st">"`r format(Sys.Date(), '%Y-%m-%d')`"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> html</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>editor_options<span class="sc">:</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  chunk_output_type<span class="sc">:</span> console</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<hr>
+<p>Some of these factors can be observed and measured, while others cannot. There are also relationships between these factors. For example, income may have a positive effect on customer spending, while advertising may influence both what customers buy and how much they spend. We call the underlying process that produces the observations in our data the <strong>data-generating process (DGP)</strong>.</p>
 </section>
-<section id="add-text-to-your-document" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="add-text-to-your-document"><span class="header-section-number">3.7</span> Add text to your document</h2>
-<p>A Quarto document can be edited in two different ways: Source mode and Visual mode. Both modes edit the same document—the difference is how you interact with and format the content.</p>
-<p>In Source mode, you work directly with the underlying text of the Quarto document. Formatting is created using Markdown syntax. For example, you use # to create a heading and <strong>text</strong> to make text bold. Source mode gives you direct control over the structure of the document and makes it easy to combine text, Markdown, and R code.</p>
-<p>In Visual mode, you work with the document more like you would in Microsoft Word. Instead of writing Markdown syntax yourself, you can use menus and formatting tools to create headings, lists, bold text, links, and other elements. Quarto automatically translates these formatting choices into the underlying Markdown.</p>
-<p>You can switch between Source and Visual mode while working on the same document. In this course, it is useful to become familiar with Source mode, since it helps you understand how a Quarto document is structured.</p>
-<p>For example, in Source mode you can write:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>This is my second Quarto document.</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>In this document, I will analyze some data using R.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Here, the # tells Quarto that Introduction is a level-one heading. The remaining lines are ordinary body text (paragraphs). You can also create different levels of headings by adding more # symbols:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Main heading</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## Second-level heading</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Third-level heading</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This creates a hierarchical structure in your document, similar to using Heading 1, Heading 2, and Heading 3 in Microsoft Word.</p>
-<blockquote class="blockquote">
-<p><em>To do: Create a heading and some demo text.</em></p>
-</blockquote>
-<hr>
-</section>
-<section id="add-code-chunks" class="level2" data-number="3.8">
-<h2 data-number="3.8" class="anchored" data-anchor-id="add-code-chunks"><span class="header-section-number">3.8</span> Add Code Chunks</h2>
-<p>Code is written in so-called <em>Executable Cells</em>, or <em>Chunks</em>. An R code chunk looks like this:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-</div>
-<p>You can create a new code chunk under <em>Insert → Executable Cell → R</em>. We recommend setting up a keyboard shortcut for this. For example, you could use <strong>Control + E</strong> as a shortcut to insert a new code cell.</p>
-<blockquote class="blockquote">
-<p><em>To do: Add a new code cell in your quarto document and type the following code: example_code &lt;- 1 + 1</em></p>
-</blockquote>
-<hr>
-</section>
-<section id="run-the-code" class="level2" data-number="3.9">
-<h2 data-number="3.9" class="anchored" data-anchor-id="run-the-code"><span class="header-section-number">3.9</span> Run the code</h2>
-<p>You can run a code cell just like you normally run code in R. The easiest way is to click <strong>“Run Current Chunk”</strong> in the upper right corner of the gray code cell.</p>
-<p>It’s also recommended to set up a keyboard shortcut — for example, <strong>Control + 2</strong> — so that you can quickly and easily run the content of the gray code cell. Try running the code cell you just created — it should create an object called <code>example_code</code> with the value <code>2</code>.</p>
-<p>R will execute:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-</div>
-<p>and return:</p>
-<pre class="text"><code>[1] 2</code></pre>
-<p>You can also place the cursor on a line of R code and press:</p>
+<section id="models" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="models"><span class="header-section-number">7.2</span> Models</h2>
+<p>In real business analysis, we usually do not know exactly how the data-generating process works. We observe the data it produces and use these observations to learn about the underlying process.</p>
+<p>This is where models become useful. A model is a simplified representation of the data-generating process. It does not need to capture everything that happens in reality. Instead, we use models to focus on the relationships that are most relevant to the question we want to answer.</p>
+<p>Models deliberately leave things out. This is not necessarily a weakness — it is what makes models useful. Think about a model airplane used in a wind tunnel. It does not contain every detail of a real airplane, but it can still help us understand important aspects of aerodynamics. Statistical models work in a similar way. Suppose we believe that customer spending is related to income. We might construct a model such as:</p>
+<p><span class="math display">\[
+Spending = \beta_0 + \beta_1 Income + \varepsilon
+\]</span></p>
+<p>This model is clearly much simpler than reality. It says that we will focus on the relationship between <strong>income</strong> and <strong>spending</strong>, while everything else that affects spending is, for the moment, left outside the systematic part of the model. Our task is then to use the observed data to estimate the unknown parameters, such as <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> (we will explain this more extensively later).</p>
+<section id="models-are-useful-simplifications" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="models-are-useful-simplifications"><span class="header-section-number">7.2.1</span> Models are useful simplifications</h3>
+<p>A good model does not need to reproduce reality perfectly. In fact, real-world models almost never do. Instead, we ask whether a model is <strong>useful for the purpose we have in mind</strong>. Different purposes may require different models. For example, we may want to:</p>
 <ul>
-<li><strong>Windows:</strong> <code>Ctrl + Enter</code></li>
-<li><strong>Mac:</strong> <code>Cmd + Enter</code></li>
+<li><strong>describe</strong> what we observe in the data;</li>
+<li><strong>predict</strong> what will happen for new observations;</li>
+<li><strong>classify</strong> observations into different groups;</li>
+<li><strong>identify clusters</strong> or patterns in the data;</li>
+<li><strong>estimate relationships</strong> between variables;</li>
+<li><strong>make statistical inferences</strong> about a larger population;</li>
+<li>or <strong>support business decisions</strong>.</li>
 </ul>
-<hr>
+<p>This brings us back to one of the most important questions in data analysis: What are we trying to accomplish, and what do we want to know? The appropriate model depends on the answer.</p>
 </section>
-<section id="create-an-object" class="level2" data-number="3.10">
-<h2 data-number="3.10" class="anchored" data-anchor-id="create-an-object"><span class="header-section-number">3.10</span> Create an object</h2>
-<p>Let’s create two R objects inside a Code Chunk:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then use the objects by writing them on the line below (in the same code chunk):</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3</code></pre>
-</div>
-</div>
-<p>R should return:</p>
-<pre class="text"><code>[1] 3</code></pre>
-<p>Remember that the <strong>order of the code matters</strong>. You must create <code>a</code> and <code>b</code> before R can calculate:</p>
-<hr>
 </section>
-<section id="load-packages-before-using-them" class="level2" data-number="3.11">
-<h2 data-number="3.11" class="anchored" data-anchor-id="load-packages-before-using-them"><span class="header-section-number">3.11</span> Load packages before using them</h2>
-<p>If your document uses functions from a package, you first need to load the package. For example, if your function is included in the package called tidyverse, then you first need to load the package (and install it if you didnt install it).</p>
+<section id="a-simple-example" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="a-simple-example"><span class="header-section-number">7.3</span> A simple example</h2>
+<p>Let’s create some artificial data to represent some data that have been generated by some data-generating process. In this example, the true relationship between <code>x</code> and <code>y</code> is <strong>curved</strong>, and there is also some random variation in the data.</p>
+<p>What we will do is that we will fit a simple linear model to these data. The purpose is to illustrate an important idea: The model is a simplification of the underlying reality.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Focus on the idea, not the code
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You do <strong>not</strong> need to understand or reproduce the code used to generate the artificial data.</p>
+</div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.2.0     ✔ readr     2.1.5
@@ -434,67 +368,129 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/EDA_functions.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'scales'
+
+The following object is masked from 'package:purrr':
+
+    discard
+
+The following object is masked from 'package:readr':
+
+    col_factor
+
+
+Attaching package: 'rlang'
+
+The following objects are masked from 'package:purrr':
+
+    flatten, flatten_chr, flatten_dbl, flatten_int, flatten_lgl,
+    flatten_raw, invoke, splice
+
+corrplot 0.95 loaded</code></pre>
 </div>
-<p>This code must be run <strong>before</strong> you use functions from the package later in the document. If the package has not been installed, Posit Cloud may show a notification asking you to install it.</p>
-<p>A useful rule is:</p>
-<blockquote class="blockquote">
-<p><strong>Install when needed → Load at the beginning of the R session → Use the package</strong></p>
-</blockquote>
-<hr>
-</section>
-<section id="datasets-for-labs" class="level2" data-number="3.12">
-<h2 data-number="3.12" class="anchored" data-anchor-id="datasets-for-labs"><span class="header-section-number">3.12</span> Datasets for labs</h2>
-<p>We will work with different datasets throughout the course. Some datasets are located in the project folder that you set up when creating your R project. Other datasets come from the course textbook, An Introduction to Statistical Learning with Applications in R, and can be accessed by installing and loading the R package ISLR2.</p>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/linear_regression_functions.R"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the generated data reproducible</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate artificial data</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">80</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The points below represent the data produced by our artificial data-generating process.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ISLR2"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">scatterplot</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  df,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  x,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  y,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"X"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Y"</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>p1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_models_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<hr>
+</div>
+</div>
 </section>
-<section id="work-from-top-to-bottom" class="level2" data-number="3.13">
-<h2 data-number="3.13" class="anchored" data-anchor-id="work-from-top-to-bottom"><span class="header-section-number">3.13</span> Work from top to bottom</h2>
-<p>A Quarto document should normally be worked through <strong>from top to bottom</strong>. For example:</p>
-<pre class="text"><code>Load packages
-      ↓
-Import data
-      ↓
-Create or modify objects
-      ↓
-Analyze the data
-      ↓
-Create tables and figures
-      ↓
-Interpret the results</code></pre>
-<p>Code further down in the document may depend on code that was executed earlier. If you skip an earlier code chunk, R may not know about an object, dataset, or package that you try to use later.</p>
-<hr>
+<section id="fit-a-simple-model" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="fit-a-simple-model"><span class="header-section-number">7.4</span> Fit a simple model</h2>
+<p>Now imagine that we only observe the data and want to understand the relationship between x and y. We decide to fit a <strong>linear regression model</strong>. We will study linear regression extensively later in the course. For now, you can simply think of it as a method for finding the straight line that best describes the relationship between <strong>x</strong> and <strong>y</strong>. In other words, we try to draw a line that comes as close as possible to the observed data points.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now visualize the estimated model by adding the regression line to our data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">plot_regression_line</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> model,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xvar =</span> x,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">yvar =</span> y,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"X"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Y"</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_models_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The model assumes that the relationship between <code>x</code> and <code>y</code> can be represented by a straight line. The model captures part of the pattern, but it does not reproduce the underlying reality perfectly. That is expected.</p>
+<blockquote class="blockquote">
+<p><strong>Models are simplifications. The important question is whether the simplification is useful for what we want to accomplish.</strong></p>
+</blockquote>
 </section>
-<section id="render-the-document" class="level2" data-number="3.14">
-<h2 data-number="3.14" class="anchored" data-anchor-id="render-the-document"><span class="header-section-number">3.14</span> Render the document</h2>
-<p>When you are ready, click the <strong>Render</strong> button at the top of the Source pane.</p>
-<p>Quarto will:</p>
+<section id="compare-reality-and-model" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="compare-reality-and-model"><span class="header-section-number">7.5</span> Compare reality and model</h2>
+<p>We can place the two figures next to each other:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_models_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This comparison illustrates a central distinction that we will return to throughout the course: the distinction between data and models, and how we can use models to learn from data and better understand the processes that generated it. In this example, we know how the data were generated because we created the reality ourselves. In real business analysis, we normally do not know the true relationship. We only observe the data and use models to learn about the underlying process.</p>
+<p>Throughout the course, we will work more deeply with three modelling approaches:</p>
+<ul>
+<li><strong>cluster analysis</strong>,</li>
+<li><strong>linear regression</strong>,</li>
+<li><strong>logistic regression</strong>.</li>
+</ul>
+<p>Each provides a different way of simplifying data in order to identify patterns, make predictions, or support decisions.</p>
+</section>
+<section id="the-modeling-process" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="the-modeling-process"><span class="header-section-number">7.6</span> The Modeling Process</h2>
+<p>How do we go from a business problem to a useful analytical model? In this course, we use <strong>CRISP-DM</strong> — the <em>Cross-Industry Standard Process for Data Mining</em> — as a simple framework for organizing the modeling process.</p>
+<p>CRISP-DM divides the process into six phases:</p>
 <ol type="1">
-<li>execute the R code;</li>
-<li>generate the results and figures;</li>
-<li>combine them with your written text; and</li>
-<li>create an HTML document (or a pdf document).</li>
+<li><strong>Business Understanding</strong> — What problem are we trying to solve? What do we want to know or predict?</li>
+<li><strong>Data Understanding</strong> — What data do we have? What do the variables represent? Are there obvious patterns or problems?</li>
+<li><strong>Data Preparation</strong> — Clean, transform, and organize the data so that it can be analyzed.</li>
+<li><strong>Modeling</strong> — Choose an appropriate method and fit a model to the data.</li>
+<li><strong>Evaluation</strong> — Assess how well the model works and whether it helps answer the original business question.</li>
+<li><strong>Deployment</strong> — Use the results, predictions, or model to support decisions or actions.</li>
 </ol>
-<p>The rendered document will open in a new window or in the <strong>Viewer</strong> pane.</p>
-<p>When you submit your work for INL1, we want you to render and submit a rendered PDF file, together with the Quarto-file. We (teachers) should be able to run the Quarto file and to generate the PDF-file on our own computers.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-A good way to work
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Do not wait until the end to test your document.</p>
-<p><strong>Write a little → run the code → check the result → continue.</strong></p>
-<p>This makes it much easier to identify errors and understand what each part of your code does.</p>
-</div>
-</div>
+<p>The process is <strong>not strictly linear</strong>. For example, while building a model you may discover that a variable needs to be cleaned differently. During evaluation, you may realize that the original business question needs to be refined. You therefore often move <strong>back and forth between the different phases</strong>.</p>
 <hr>
 
 
@@ -920,13 +916,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./2_getting_posit.html" class="pagination-link" aria-label="Getting Started with Posit Cloud">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting Started with Posit Cloud</span></span>
+      <a href="../Chapters/6_describing_data.html" class="pagination-link" aria-label="Describe and Visualize Data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Describe and Visualize Data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./4_intro_coding.html" class="pagination-link" aria-label="Introduction to coding in R">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introduction to coding in R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../Chapters/8_three_models.html" class="pagination-link" aria-label="Three Algorithms">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Three Algorithms</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

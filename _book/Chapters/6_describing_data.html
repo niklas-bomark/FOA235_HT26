@@ -672,39 +672,14 @@ North South  West
   Young    47    69   67</code></pre>
 </div>
 </div>
-<p>A more readable version can be created with:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>df_clean <span class="sc">|&gt;</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(age_cat, region)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  age_cat region  n
-1   Older  North 13
-2   Older  South 18
-3   Older   West 16
-4   Young  North 47
-5   Young  South 69
-6   Young   West 67</code></pre>
-</div>
-</div>
 <p>To examine percentages within each age category:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>df_clean <span class="sc">|&gt;</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(age_cat, region) <span class="sc">|&gt;</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_cat) <span class="sc">|&gt;</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">percent =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(df_clean<span class="sc">$</span>age_cat, df_clean<span class="sc">$</span>region), <span class="at">margin =</span> <span class="dv">1</span>), <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 4
-# Groups:   age_cat [2]
-  age_cat region     n percent
-  &lt;chr&gt;   &lt;chr&gt;  &lt;int&gt;   &lt;dbl&gt;
-1 Older   North     13    27.7
-2 Older   South     18    38.3
-3 Older   West      16    34.0
-4 Young   North     47    25.7
-5 Young   South     69    37.7
-6 Young   West      67    36.6</code></pre>
+<pre><code>       
+        North South West
+  Older  0.28  0.38 0.34
+  Young  0.26  0.38 0.37</code></pre>
 </div>
 </div>
 <p>When interpreting a cross table, ask whether the distribution across one categorical variable appears to differ across the categories of the other variable.</p>

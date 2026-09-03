@@ -1,0 +1,6 @@
+"0","comparison <- comparison |>"
+"0","  mutate("
+"0","    WSS_reduction = lag(WSS) - WSS"
+"0","  )"
+"0",""
+"0","comparison"

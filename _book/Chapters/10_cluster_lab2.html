@@ -346,7 +346,8 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa</code></pre>
+<pre><code>Welcome to factoextra!
+Want to learn more? See two factoextra-related books at https://www.datanovia.com/library/principal-component-methods</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/EDA_functions.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -476,8 +477,8 @@ corrplot 0.95 loaded</code></pre>
 <p><strong>Questions:</strong><br>
 - Why could it be problematic to perform k-means clustering directly on variables measured on very different scales?</p>
 </section>
-<section id="standardize-the-variables" class="level4" data-number="10.1.2.5">
-<h4 data-number="10.1.2.5" class="anchored" data-anchor-id="standardize-the-variables"><span class="header-section-number">10.1.2.5</span> Standardize the variables</h4>
+<section id="scaling-standardize-the-variables" class="level4" data-number="10.1.2.5">
+<h4 data-number="10.1.2.5" class="anchored" data-anchor-id="scaling-standardize-the-variables"><span class="header-section-number">10.1.2.5</span> Scaling: Standardize the variables</h4>
 <p>We standardize the variables. After standardization, each variable has approximately:<br>
 - mean = 0;<br>
 - standard deviation = 1.</p>
@@ -565,35 +566,13 @@ corrplot 0.95 loaded</code></pre>
 </section>
 <section id="add-cluster-membership-to-the-data" class="level4" data-number="10.1.2.8">
 <h4 data-number="10.1.2.8" class="anchored" data-anchor-id="add-cluster-membership-to-the-data"><span class="header-section-number">10.1.2.8</span> Add cluster membership to the data</h4>
-<p>Each observation has now been assigned to a cluster.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df_results <span class="ot">&lt;-</span> df_cluster <span class="sc">|&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cluster =</span> <span class="fu">factor</span>(km<span class="sc">$</span>cluster)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Inspect the result.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  age income annual_spending purchases website_visits satisfaction cluster
-1  31  37892            2665        17             66          5.3       2
-2  48 111276            4366        28             33          7.8       3
-3  25  36806            2470        19             45          7.0       2
-4  38  76264            5602        34             44          6.9       3
-5  52  63144            4221        13             25          8.0       1
-6  18  33345            3265        11             67          7.0       2</code></pre>
-</div>
-</div>
 <p>Count the observations in each cluster.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_results <span class="sc">|&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(km<span class="sc">$</span>cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  cluster   n
-1       1 121
-2       2 149
-3       3 130</code></pre>
+<pre><code>
+  1   2   3 
+121 149 130 </code></pre>
 </div>
 </div>
 </section>
@@ -601,7 +580,7 @@ corrplot 0.95 loaded</code></pre>
 <h4 data-number="10.1.2.9" class="anchored" data-anchor-id="examine-the-cluster-centers"><span class="header-section-number">10.1.2.9</span> Examine the cluster centers</h4>
 <p>The cluster centers help us understand what characterizes each cluster. The centers stored in the k-means model are based on the <strong>standardized variables</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>km<span class="sc">$</span>centers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>km<span class="sc">$</span>centers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         age     income annual_spending  purchases website_visits satisfaction
 1  1.1018965 -0.1210603      -0.4188867 -0.8491492    -1.15386776   -0.1030609
@@ -618,32 +597,40 @@ corrplot 0.95 loaded</code></pre>
 </section>
 <section id="interpret-clusters-using-the-original-scale" class="level4" data-number="10.1.2.10">
 <h4 data-number="10.1.2.10" class="anchored" data-anchor-id="interpret-clusters-using-the-original-scale"><span class="header-section-number">10.1.2.10</span> Interpret clusters using the original scale</h4>
-<p>Standardized values are useful for clustering, but they can be difficult to interpret. We can calculate the average of each original variable within each cluster. We introduce a new function: across and where. This will be the only time we will use it so you can safely ignore it. Its enough if you copy the code and make the necessary changes to fit your data.</p>
+<p>Standardized values are useful for clustering because they ensure that variables measured on different scales contribute more equally to the analysis. However, standardized values can be difficult to interpret. To better understand the clusters, we can therefore calculate the average of each variable on its original scale within each cluster.</p>
+<p>For this step, we will introduce two new functions: <code>across()</code> and <code>where()</code>. This is the only time we will use these functions in this lab, so you do not need to understand them in detail. It is enough to copy the code and make the necessary changes to fit your dataset.</p>
+<p>First, however, we need to extract the cluster assignments from the K-means model and add them to our original, unscaled data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df_results <span class="ot">&lt;-</span> df_cluster <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cluster =</span> <span class="fu">factor</span>(km<span class="sc">$</span>cluster)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Inspect the result.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  age income annual_spending purchases website_visits satisfaction cluster
+1  31  37892            2665        17             66          5.3       2
+2  48 111276            4366        28             33          7.8       3
+3  25  36806            2470        19             45          7.0       2
+4  38  76264            5602        34             44          6.9       3
+5  52  63144            4221        13             25          8.0       1
+6  18  33345            3265        11             67          7.0       2</code></pre>
+</div>
+</div>
+<p>We can now calculate summary statistics for the variables on their original scale:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>cluster_summary <span class="ot">&lt;-</span> df_results <span class="sc">|&gt;</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cluster) <span class="sc">|&gt;</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">where</span>(is.numeric),</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>      mean,</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: There was 1 warning in `summarise()`.
-ℹ In argument: `across(where(is.numeric), mean, na.rm = TRUE)`.
-ℹ In group 1: `cluster = 1`.
-Caused by warning:
-! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
-Supply arguments directly to `.fns` through an anonymous function instead.
-
-  # Previously
-  across(a:b, mean, na.rm = TRUE)
-
-  # Now
-  across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>cluster_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>cluster_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 7
   cluster   age income annual_spending purchases website_visits satisfaction
@@ -666,21 +653,18 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </ul>
 <p>Your names should be based on the actual characteristics of your clusters.</p>
 </section>
-<section id="why-can-we-not-simply-plot-all-variables" class="level4" data-number="10.1.2.11">
-<h4 data-number="10.1.2.11" class="anchored" data-anchor-id="why-can-we-not-simply-plot-all-variables"><span class="header-section-number">10.1.2.11</span> Why can we not simply plot all variables?</h4>
-<p>If we only had two variables, we could plot one on the x-axis and one on the y-axis. However, our cluster analysis contains several variables. This means that the observations exist in a <strong>multidimensional space</strong>. To visualize the clusters, we use <strong>Principal Component Analysis (PCA)</strong>. PCA summarizes the variation in many variables using a smaller number of dimensions (in our case: 2!). We will not focus on how to perform PCA or on the mathematical details behind it. However, you should understand the basic idea and purpose of PCA, as this will help you interpret the visualizations we create.</p>
-</section>
-<section id="visualize-the-clusters-using-pca" class="level4" data-number="10.1.2.12">
-<h4 data-number="10.1.2.12" class="anchored" data-anchor-id="visualize-the-clusters-using-pca"><span class="header-section-number">10.1.2.12</span> Visualize the clusters using PCA</h4>
-<p>We will use the factoextra package, which allows us to apply PCA and visualize our clusters in two dimensions. This is particularly useful when our cluster analysis includes more than two variables and the data therefore cannot be visualized directly in a simple scatterplot.</p>
+<section id="visualize-many-variables" class="level4" data-number="10.1.2.11">
+<h4 data-number="10.1.2.11" class="anchored" data-anchor-id="visualize-many-variables"><span class="header-section-number">10.1.2.11</span> Visualize many variables?</h4>
+<p>In the first lab on cluster analysis we only had two variables. In this lab we have more. This means that the observations exist in a <strong>multidimensional space</strong>. To visualize the clusters, we use <strong>Principal Component Analysis (PCA)</strong>. PCA summarizes the variation in many variables using a smaller number of dimensions (in our case: 2!). We will not focus on how to perform PCA or on the mathematical details behind it. However, you should understand the basic idea and purpose of PCA, as this will help you interpret the visualizations we create.</p>
+<p>We will use the factoextra package. Here is the code:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  km,</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_scaled,</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"point"</span>,</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">"convex"</span>,</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  km,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_scaled,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">"convex"</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -695,42 +679,42 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 - Which clusters appear most similar?<br>
 - Does the PCA visualization support the idea that three meaningful clusters exist?</p>
 </section>
-<section id="compare-alternative-models" class="level4" data-number="10.1.2.13">
-<h4 data-number="10.1.2.13" class="anchored" data-anchor-id="compare-alternative-models"><span class="header-section-number">10.1.2.13</span> Compare alternative models</h4>
+<section id="compare-alternative-models" class="level4" data-number="10.1.2.12">
+<h4 data-number="10.1.2.12" class="anchored" data-anchor-id="compare-alternative-models"><span class="header-section-number">10.1.2.12</span> Compare alternative models</h4>
 <p>Suppose you are considering models with 2, 3, and 4 clusters. Run all three models.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>km2 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  df_scaled,</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">2</span>,</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>km3 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  df_scaled,</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">3</span>,</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>km4 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  df_scaled,</span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">4</span>,</span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>km2 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  df_scaled,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">2</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>km3 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  df_scaled,</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">3</span>,</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>km4 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  df_scaled,</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">4</span>,</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Calculate their average silhouette coefficients.</p>
+<p>Calculate the total within-cluster sum of squares (WSS) for each model and compare the results.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">clusters =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">WSS =</span> <span class="fu">c</span>(</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    km2<span class="sc">$</span>tot.withinss,</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    km3<span class="sc">$</span>tot.withinss,</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    km4<span class="sc">$</span>tot.withinss</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">clusters =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">WSS =</span> <span class="fu">c</span>(</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    km2<span class="sc">$</span>tot.withinss,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    km3<span class="sc">$</span>tot.withinss,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    km4<span class="sc">$</span>tot.withinss</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  clusters       WSS
 1        2 1457.3222
@@ -738,14 +722,16 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 3        4  722.2749</code></pre>
 </div>
 </div>
-<p>However, WSS will decrease as we add more clusters. Therefore, we should not simply choose the model with the lowest WSS. Instead, consider how much WSS decreases when moving from 2 to 3 clusters and from 3 to 4 clusters. This is the same logic that underlies the elbow method. We can calculate the change in WSS explicitly:</p>
+<p>WSS will always decrease as we add more clusters because observations can be grouped into increasingly smaller and more homogeneous clusters. Therefore, we should not simply choose the model with the lowest WSS.</p>
+<p>Instead, we should consider <strong>how much the WSS decreases</strong> when moving from 2 to 3 clusters and from 3 to 4 clusters. If adding another cluster results in only a small additional decrease in WSS, the more complex model may not provide much improvement.</p>
+<p>This is the same logic that underlies the <strong>elbow method</strong>. We can examine the change in WSS explicitly:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> comparison <span class="sc">|&gt;</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">WSS_reduction =</span> <span class="fu">lag</span>(WSS) <span class="sc">-</span> WSS</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> comparison <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">WSS_reduction =</span> <span class="fu">lag</span>(WSS) <span class="sc">-</span> WSS</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  clusters       WSS WSS_reduction
 1        2 1457.3222            NA
@@ -753,10 +739,13 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 3        4  722.2749      82.60554</code></pre>
 </div>
 </div>
-<p><strong>Questions:</strong> - How much does WSS decrease when moving from 2 to 3 clusters? - How much does it decrease when moving from 3 to 4 clusters? - Which model is easiest to interpret?</p>
+<p><strong>Questions:</strong><br>
+- How much does WSS decrease when moving from 2 to 3 clusters?<br>
+- How much does it decrease when moving from 3 to 4 clusters?<br>
+- Which model is easiest to interpret?</p>
 </section>
-<section id="business-interpretation" class="level4" data-number="10.1.2.14">
-<h4 data-number="10.1.2.14" class="anchored" data-anchor-id="business-interpretation"><span class="header-section-number">10.1.2.14</span> Business interpretation</h4>
+<section id="business-interpretation" class="level4" data-number="10.1.2.13">
+<h4 data-number="10.1.2.13" class="anchored" data-anchor-id="business-interpretation"><span class="header-section-number">10.1.2.13</span> Business interpretation</h4>
 <p>Imagine that you work for a company that wants to use the clusters to develop different strategies for different groups of customers. For example, the company could use the clusters for:</p>
 <ul>
 <li>targeted marketing;</li>
@@ -767,7 +756,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </ul>
 <p>Study your cluster summaries again.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>cluster_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>cluster_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 7
   cluster   age income annual_spending purchases website_visits satisfaction
@@ -777,10 +766,14 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 3 3        45.5 85069.           6454.      35.1           39.3         8.03</code></pre>
 </div>
 </div>
-<p><strong>Questions:</strong> - What practical differences exist between the clusters? - Could the company realistically use these clusters to make different decisions? - What strategy would you recommend for each cluster? - Are the differences between the clusters large enough to justify treating them differently?</p>
+<p><strong>Questions:</strong><br>
+- What practical differences exist between the clusters?<br>
+- Could the company realistically use these clusters to make different decisions?<br>
+- What strategy would you recommend for each cluster?<br>
+- Are the differences between the clusters large enough to justify treating them differently?</p>
 </section>
-<section id="implementation-decision" class="level4" data-number="10.1.2.15">
-<h4 data-number="10.1.2.15" class="anchored" data-anchor-id="implementation-decision"><span class="header-section-number">10.1.2.15</span> Implementation decision</h4>
+<section id="implementation-decision" class="level4" data-number="10.1.2.14">
+<h4 data-number="10.1.2.14" class="anchored" data-anchor-id="implementation-decision"><span class="header-section-number">10.1.2.14</span> Implementation decision</h4>
 <p>You are now responsible for recommending whether the company should implement the clustering model. Consider the following evidence:</p>
 <ul>
 <li>the elbow method;</li>
@@ -791,8 +784,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <li>whether the clusters have meaningful business interpretations.</li>
 </ul>
 </section>
-<section id="final-task" class="level4" data-number="10.1.2.16">
-<h4 data-number="10.1.2.16" class="anchored" data-anchor-id="final-task"><span class="header-section-number">10.1.2.16</span> Final task</h4>
+<section id="final-task" class="level4" data-number="10.1.2.15">
+<h4 data-number="10.1.2.15" class="anchored" data-anchor-id="final-task"><span class="header-section-number">10.1.2.15</span> Final task</h4>
 <p>Write a short recommendation to management. Your recommendation should answer the following questions:</p>
 <ol type="1">
 <li>How many clusters do you recommend?</li>

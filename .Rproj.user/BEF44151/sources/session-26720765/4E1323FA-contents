@@ -1,0 +1,88 @@
+
+# Lab3 Spring 2026 #
+###### STA108 ######
+###### R-Code ######
+
+# Open the R-Project
+
+
+
+# Each group sets their own ID. Use your assigned group ID
+group_id <- 1  
+
+
+
+################################################################################
+# Part 1
+
+# Generate a population
+set.seed(group_id)
+population <- rexp(100000, rate = 1)
+
+# Histogram
+hist(population)
+
+
+# Draw one sample from the population
+set.seed(group_id)
+sample1 <- sample(population, 80)
+
+hist(sample1)
+mean(sample1)
+
+
+# Generate sampling distribution, n = 80
+set.seed(group_id)
+means_80 <- replicate(1000, mean(sample(population, 80, replace = TRUE)))
+
+hist(means_80)
+
+
+# Generate sampling distribution, n = 3
+set.seed(group_id)
+means_3 <- replicate(1000, mean(sample(population, 3, replace = TRUE)))
+
+hist(means_3, main = "Sampling Distribution (n = 3)")
+
+
+################################################################################
+# Part 2
+
+# Generate your data for the assignment. Run the code but dont edit it!
+# You need to have your group_id defined (at the top of the script)
+set.seed(123)
+population <- rnorm(100000, mean = 0.5, sd = 1)
+set.seed(group_id)
+mydata <- sample(population, 80)
+rm(population, group_id)
+
+
+# You may use the following R code if useful:
+t.test(mydata, mu = 0.9)
+t.test(mydata)$conf.int
+mean(mydata)
+sd(mydata)
+hist(mydata)
+
+
+
+
+
+
+################################################################################
+### Basic functions for descriptive statistics
+ 
+# Some functions for summary stats
+mean(mydata)
+median(mydata)
+sd(mydata)
+IQR(mydata)
+summary(mydata)
+
+# Histogram
+hist(mydata)
+
+# Boxplot
+boxplot(mydata)
+
+

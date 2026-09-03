@@ -1,0 +1,2 @@
+"0","cluster_data <- df |>"
+"0","  select(x1, x2)"

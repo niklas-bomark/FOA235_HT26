@@ -1,0 +1,295 @@
+---
+title: "Lab 4"
+---
+
+Read and follow the instructions provided in Chapter 9 of the course compendium before starting the lab.
+
+------------------------------------------------------------------------
+
+## Lab 4: Basic K-means
+
+### Exercise 1: Your First K-Means Cluster Analysis
+
+In this exercise, we will work with a simulated dataset containing two variables and two underlying groups. Because the data are simulated, we know that there are two groups. However, we will not provide this information to the K-means algorithm. Instead, we will investigate whether K-means can identify the groups based only on similarities and differences between the observations.
+
+The idea for the exercise is based on the Lab presented under section 12.5.3 Clustering in An Introduction to Statistical Learning with Applications in R.
+
+#### Setup
+
+Start by clearing the environment and loading the packages and functions used in the lab.
+
+```{r}
+# Clearing the environment
+rm(list = ls())
+
+# Loading packages
+library(tidyverse)
+library(factoextra)
+
+source("../Functions/EDA_functions.R")
+source("../Functions/Cluster_functions.R")
+```
+
+#### Generate the data
+
+Run the following code:
+
+```{r}
+set.seed(2)
+
+df <- data.frame(
+  x1 = rnorm(50),
+  x2 = rnorm(50)
+)
+
+# Create a mean shift for the first 25 observations
+df$x1[1:25] <- df$x1[1:25] + 3
+df$x2[1:25] <- df$x2[1:25] - 4
+```
+
+The dataset contains 50 observations and two variables, x1 and x2. The first 25 observations have been shifted relative to the remaining 25 observations, creating two underlying groups.
+
+#### Explore the data
+
+Before performing the cluster analysis, visualize the two variables using the course function:
+
+```{r}
+
+
+```
+
+**Questions:** Based only on the figure, do the observations appear to form distinct groups? If so, how many groups do you see?
+
+#### Select the variables for clustering
+
+For this exercise, we will use both variables:
+
+```{r}
+
+
+```
+
+#### Run K-means clustering
+
+We know that the simulated data contain two groups. We therefore begin by asking K-means to identify (k=2) clusters:
+
+```{r}
+
+
+```
+
+Inspect the cluster assignments:
+
+```{r}
+
+
+```
+
+Each number indicates the cluster to which K-means assigned an observation.
+
+**Questions:** How many observations were assigned to each cluster? You can examine this using:
+
+```{r}
+
+
+```
+
+#### Visualize the clusters
+
+We can now visualize the results using our course function:
+
+```{r}
+
+
+```
+
+The colors represent the clusters identified by K-means.
+
+**Questions:** Does K-means appear to have successfully identified the two groups? Compare the cluster plot with the original scatterplot. What has K-means added to our understanding of the data?
+
+#### What happens if we choose the wrong (k)?
+
+In this example, we know that there are two underlying groups because we generated the data ourselves. With real data, however, we generally do not know the appropriate number of clusters in advance.
+
+Run K-means again, but this time specify (k=3):
+
+```{r}
+
+
+```
+
+Visualize the results:
+
+```{r}
+
+
+```
+
+Compare the results for (k=2) and (k=3).
+
+**Questions:** What happens when you ask K-means to find three clusters? Does the existence of three clusters in the output mean that there are actually three meaningful groups in the data? What does this tell you about the importance of choosing (k)?
+
+### Exercise 2: Unknown Number of Groups
+
+In the previous exercise, we knew the appropriate value of k because we generated the data ourselves. In practice, however, we usually do not know how many meaningful groups exist in the data.
+
+In this exercise, you will work with a new dataset. Although the data are simulated, you should treat them as if they were real data. You do not know how many underlying groups were used to generate the observations.
+
+Your task is to explore the data, choose a reasonable value of k, perform K-means clustering, and interpret the resulting clusters.
+
+#### Setup
+
+Start by clearing the environment and loading the packages and functions used in the lab.
+
+```{r}
+# Clearing the environment
+rm(list = ls())
+
+# Loading packages
+library(tidyverse)
+library(factoextra)
+
+source("../Functions/EDA_functions.R")
+source("../Functions/Cluster_functions.R")
+```
+
+#### Import the data
+
+Import the dataset:
+
+```{r}
+# add ../ if error in path
+
+```
+
+#### Explore the data
+
+Visualize the relationship between the two variables using the course function:
+
+```{r}
+
+
+```
+
+#### Select the variables for clustering
+
+```{r}
+
+
+```
+
+K-means calculates distances between observations. Variables measured on larger scales can therefore have a greater influence on the clustering. We will standardize the variables before continuing.
+
+#### Standardize the variables
+
+```{r}
+
+
+```
+
+**Question:** Why do we standardize variables before performing K-means clustering?
+
+#### Choose the number of clusters
+
+One way to investigate a reasonable value of k is the elbow method. The idea is to run K-means repeatedly using different values of k and compare the within-cluster sum of squares. Run the following code:
+
+```{r}
+
+
+```
+
+As k increases, the within-cluster variation will decrease. However, at some point, adding another cluster provides only a relatively small improvement.
+
+We look for the point where the reduction begins to level off. This is often referred to as the elbow.
+
+**Questions:**
+
+-   What happens to the within-cluster sum of squares as k increases?
+-   Where do you see an elbow in the figure?
+-   Based on the elbow method, what value of k would you choose?
+-   Is the choice completely unambiguous?
+
+#### Run K-means
+
+Now use the value of k that you selected. For example, if you selected k = 3, you would run:
+
+```{r}
+
+
+```
+
+Replace 3 with the value of k that you selected if necessary. Inspect the cluster assignments:
+
+```{r}
+
+
+```
+
+Examine the number of observations in each cluster:
+
+```{r}
+
+
+```
+
+**Questions:**
+
+-   How many observations were assigned to each cluster?
+-   Are the clusters approximately equal in size?
+-   Would equal cluster sizes necessarily be expected in real data?
+
+#### Visualize the clusters
+
+Add the cluster assignments to the original dataset:
+
+```{r}
+
+
+```
+
+In this lab, the observations are easy to visualize because the data contain only two variables. If the dataset included more than two variables, as in the next lab about K-means Cluster Analysis, we could first apply Principal Component Analysis (PCA) to reduce the dimensionality of the data. We could then visualize the observations by plotting their scores on the first two principal components, which capture as much of the variation in the original data as possible.
+
+```{r}
+
+
+```
+
+**Questions:**
+
+-   Do the resulting clusters correspond to the patterns you observed in the original scatterplot?
+-   Are the clusters clearly separated?
+-   Are there observations close to the boundaries between clusters?
+-   Does the value of k you selected still appear reasonable after inspecting the clustering result?
+
+#### Interpret the clusters
+
+We standardized the variables before running K-means because the algorithm is based on distances between observations. However, for interpretation, it is often more useful to return to the original scale of the variables.
+
+First, add the cluster assignments to the original data:
+
+```{r}
+
+
+```
+
+We can then calculate the mean of each original variable for each cluster:
+
+```{r}
+
+
+```
+
+The K-means algorithm was fitted using the standardized data, but the table above describes the resulting clusters using the original values of x1 and x2.
+
+Questions:
+
+-   How many observations belong to each cluster?
+-   What is the average value of x1 and x2 in each cluster?
+-   How do the clusters differ from one another?
+-   How would you describe each cluster in words based on its original values?
+
+So remember: Standardize for clustering; return to the original scale for interpretation.
+
+#### Should we use the model?
+
+Should we use the model in our firm? Is it a good model? In the next lab we will take what we learned during this lab and place it in the CRISP-process.

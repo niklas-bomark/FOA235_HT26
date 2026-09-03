@@ -1,0 +1,3 @@
+"0","df_scaled <- df_cluster |>"
+"0","  scale() |>"
+"0","  as.data.frame()"

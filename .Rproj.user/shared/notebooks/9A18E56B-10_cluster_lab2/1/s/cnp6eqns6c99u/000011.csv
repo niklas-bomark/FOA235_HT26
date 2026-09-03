@@ -1,0 +1,4 @@
+"0","# Import data"
+"0","df <- read.csv(""Data/customer_data.csv"")"
+"0",""
+"0","head(df)"

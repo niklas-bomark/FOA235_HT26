@@ -1,0 +1,7 @@
+"0","scatterplot("
+"0","  data = df,"
+"0","  xvar = x1,"
+"0","  yvar = x2,"
+"0","  xlab = ""X1"","
+"0","  ylab = ""X2"""
+"0",")"

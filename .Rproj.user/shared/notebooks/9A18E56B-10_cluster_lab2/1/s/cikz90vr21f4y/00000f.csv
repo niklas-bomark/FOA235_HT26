@@ -1,0 +1,7 @@
+"0","set.seed(123)"
+"0",""
+"0","km <- kmeans("
+"0","  df_scaled,"
+"0","  centers = 3,"
+"0","  nstart = 25"
+"0",")"

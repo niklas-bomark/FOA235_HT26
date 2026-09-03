@@ -1,0 +1,7 @@
+"0","set.seed(2)"
+"0",""
+"0","km <- kmeans("
+"0","  cluster_data_scaled,"
+"0","  centers = 2,"
+"0","  nstart = 25"
+"0",")"

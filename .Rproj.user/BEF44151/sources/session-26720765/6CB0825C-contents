@@ -1,0 +1,229 @@
+---
+title: "Getting Started with Posit Cloud"
+---
+
+In this course, we will use **R** for data analysis and **RStudio** as the environment in which we write and run R code. **Posit Cloud** allow you to run RStudio directly in your web browser.
+
+The course materials are stored in something called **GitHub repository**. You will create your Posit Cloud project directly from this repository.
+
+In this guide, you will learn how to:
+
+1.  create a Posit Cloud account;
+2.  create a new RStudio project from the course GitHub repository;
+3.  check that the course files have been imported correctly;
+4.  open a Quarto or R file;
+5.  install packages required by the course files; and
+6.  run your first R code.
+
+Once you have completed these steps, you will have a working RStudio environment containing the course materials and will be ready to start working with R.
+
+------------------------------------------------------------------------
+
+## Create a Posit Cloud account
+
+1.  Go to **Posit Cloud** in your web browser: <https://posit.cloud>
+
+2.  Click **Get Started** and create an account.
+
+3.  Choose the **Free** plan (or another plan if you need more compute/storage).
+
+------------------------------------------------------------------------
+
+## Open your Posit Cloud workspace
+
+After signing in, you will arrive at your Posit Cloud workspace.
+
+A **project** is the main unit of work in Posit Cloud. Think of it as the workspace for everything related to a particular analysis or course. A project can contain:
+
+-   R and Quarto files;
+-   datasets;
+-   installed packages;
+-   figures and other output;
+-   project settings.
+
+------------------------------------------------------------------------
+
+## Create the course project from GitHub
+
+In your Posit Cloud workspace:
+
+1.  Click **New Project**.
+2.  Choose **New Project from Git Repository**.
+3.  Enter the following address in the field for the Git repository URL:
+
+> **https://github.com/niklas-bomark/FOA235_HT26.git**
+
+4.  Click **OK** or **Create Project**.
+
+Posit Cloud will now copy the course files from the GitHub repository and create a new RStudio project. It may take a short while for Posit Cloud to create and open the project.
+
+------------------------------------------------------------------------
+
+## Explore RStudio
+
+When the project has been created, Posit Cloud will open RStudio in your browser. You should see several different panes. The most important ones at this stage are:
+
+-   **Source** — where you open, write, and edit code (this pane will not be visible until you open a file);
+-   **Console** — where R executes commands and displays results;
+-   **Environment** — shows datasets and other objects currently available in your R session;
+-   **Files** — shows the files and folders included in your project.
+
+The files from the course GitHub repository should already appear in the **Files** pane.
+
+Bild?
+
+------------------------------------------------------------------------
+
+## Check that the project works
+
+Let's check that R is working. Type the following into the Console and press **Enter**:
+
+```{r}
+1 + 1
+```
+
+R should return `2`.
+
+### Create your first R objects and use them
+
+In R, we can store values in **objects** and then use those objects in calculations. Let's create two simple objects. Type the following code into the **Console** and press **Enter** after each line:
+
+```{r}
+a <- 1
+b <- 2
+```
+
+We have now created two objects: - `a` contains the value `1` - `b` contains the value `2`
+
+We can use these objects in a calculation. Write the following in the console:
+
+```{r}
+a + b
+```
+
+R should return:
+
+``` text
+[1] 3
+```
+
+**Try it yourself:** Change the values of `a` and `b`, and try other calculations using `+`, `-`, `*`, and `/`.
+
+------------------------------------------------------------------------
+
+## .R files and Quarto files
+
+Two common file types that we use when working with R are .R and .qmd files. An .R file is typically used to write and save R code, while a .qmd file allows us to combine **R code with text, figures, tables, and analysis** in a single document. This makes your analysis more transparent, easier to share, and above all, **reproducible**. We will use Quarto documents frequently during the course.
+
+The goal of this course is to introduce analytical thinking and business analytics to business students who are expected to run and lead analytics projects. We believe that to do this effectively, you need hands-on practice and a direct understanding of the workflow that data engineers and analysts use. We believe that working with Quarto documents can help you develop a more efficient and structured workflow by allowing you to combine your code, analysis, results, and written explanations in one place.
+
+A Quarto document should normally be worked through **from top to bottom**. The order of the code matters because R needs to know about packages, data, and objects **before** they are used later in the document. For example, a typical Quarto document might follow this order:
+
+1.  **Load packages** — packages must be loaded before you can use functions from them.
+
+2.  **Import data** — the data must be loaded into R before you can analyze it.
+
+3.  **Create or modify objects** — an object must exist before later code can use it.
+
+4.  **Analyze the data** — for example, calculate descriptive statistics or estimate a model.
+
+5.  **Create figures and tables** — often using objects or results created earlier.
+
+Think of a Quarto document as a sequence of instructions for R: what happens earlier in the document prepares R for what happens later.
+
+------------------------------------------------------------------------
+
+## Open your First Quarto-file
+
+Look in the **Files** pane. You should see the files and folders that were copied from the GitHub repository. To open your first Quarto file:
+
+1.  Look up the file 'hello_world.qmd' in the folder: 'Quarto_files'.
+2.  Click the file name.
+3.  The file will open in the **Source** pane.
+
+In a Quarto (`.qmd`) document, R code is usually contained in **code chunks**. You can run an entire code chunk by clicking the **Run Current Chunk** button in the upper-right corner of the code chunk.
+
+4.  Run the grey box under the heading: 'Running Code'. You can also place the cursor on the line and press:
+
+-   **Windows:** `Ctrl + Enter`
+-   **Mac:** `Cmd + Enter`
+
+RStudio will send the code to the Console, where R executes it.
+
+------------------------------------------------------------------------
+
+## Install required packages
+
+R can be extended using **packages**. A package is a collection of functions that a developer (or an individual) has created. You’ll need to install packages from time to time. To install a package, use `install.packages()`.
+
+This is done only **once per computer** (or when the package is updated). Most packages are available on [CRAN](https://cran.r-project.org/), which also performs a basic quality check. However, there are also other package sources that may be more or less reviewed.
+
+The course team has developed a set of functions to make your coding work easier. You will need to load them into your R session. We will provide all the code you need, and you won’t have to look inside the functions themselves. You just need to be able to run them.
+
+------------------------------------------------------------------------
+
+## Installing and loading packages
+
+There is an important difference between **installing** and **loading** a package:
+
+-   **Install** = make the package available in your Posit Cloud project.
+-   **Load** = make the package available in your current R session.
+
+A package can also be installed manually using:
+
+```{r, eval=FALSE}
+install.packages("tidyverse")
+```
+
+Once installed, it can be loaded using:
+
+```{r, eval=FALSE}
+library(tidyverse)
+```
+
+A useful rule to remember is:
+
+> **Install when needed → Load each new R session → Use the package's functions**
+
+Try yourself by clicking on the **Run Current Chunk** button in the upper-right corner of the code chunk you want to run.
+
+### Common errors
+
+When you open a course `.qmd` file, RStudio may detect that the document uses packages that are not yet installed in your Posit Cloud project. If packages are missing, you may see a **notification at the top of the Source pane** telling you that one or more required packages need to be installed. Use the **Install** option in this notification to install the required packages. Wait until the installation has finished before running the rest of the document.
+
+------------------------------------------------------------------------
+
+## Returning to the project later
+
+You only need to create the project from GitHub **once**. The next time you want to work with the course material:
+
+1.  Go to <https://posit.cloud>.
+2.  Sign in.
+3.  Find your existing **FOA235** project.
+4.  Click the project to open it.
+
+------------------------------------------------------------------------
+
+## Know the free-tier limits
+
+The free plan includes a monthly cap on compute hours and limited RAM/storage per project. If a project stalls or runs slowly, check your usage under **Account → Plans** and consider upgrading if you outgrow it. However, there should be enough space for the entire course.
+
+------------------------------------------------------------------------
+
+## Quick check
+
+Before continuing with the course, make sure that you can answer **yes** to all of the following:
+
+-   I have created a Posit Cloud account.
+-   I can sign in to Posit Cloud.
+-   I have created a project from the FOA235 GitHub repository.
+-   I can see the course files in the **Files** pane.
+-   I know where the **Source**, **Console**, **Environment**, and **Files** panes are.
+-   I can open a `.qmd` or `.R` file.
+-   I can install required packages when prompted.
+-   I can run R code in the Console.
+-   I can run R code from a course file.
+
+If all of these work, you are ready to start working with **R and RStudio in Posit Cloud**.
+
+------------------------------------------------------------------------

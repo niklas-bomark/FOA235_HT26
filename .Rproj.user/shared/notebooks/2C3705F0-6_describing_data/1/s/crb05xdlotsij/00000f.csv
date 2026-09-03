@@ -1,5 +1,0 @@
-"0","df_clean |>"
-"0","  count(region) |>"
-"0","  mutate("
-"0","    percent = n / sum(n) * 100"
-"0","  )"

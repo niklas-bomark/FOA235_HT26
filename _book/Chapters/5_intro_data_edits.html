@@ -502,321 +502,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s create and save another factor variable, but this time specify an order for the categories. This means that the categories have a natural ranking, and the variable is treated as an ordinal categorical variable. We will not save this to our object since we want to keep order false.</p>
+<p>Sometimes, we want to specify an <strong>order</strong> for the categories of a factor variable. We can do this by setting <code>ordered = TRUE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mutate</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="sc">|&gt;</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">region =</span> <span class="fu">factor</span>(region, </span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"West"</span>), </span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    age income region   price quantity   revenue revenue_thousands
-1    33 364171  South 502.524       14  7035.336          7.035336
-2    37 359677  South 266.101        8  2128.808          2.128808
-3    59 337375  North 455.708        3  1367.124          1.367124
-4    41 323698  South 286.847       17  4876.399          4.876399
-5    42 397541  North 390.907       13  5081.791          5.081791
-6    61 489742   &lt;NA&gt; 430.573       16  6889.168          6.889168
-7    46 208295   &lt;NA&gt; 393.261        1   393.261          0.393261
-8    25 475438   West 474.551        5  2372.755          2.372755
-9    32 598401   &lt;NA&gt; 209.231       17  3556.927          3.556927
-10   35 694509  South 145.475        8  1163.800          1.163800
-11   55 606141  South 101.288       19  1924.472          1.924472
-12   44 540813   West  62.326        4   249.304          0.249304
-13   45 242792   &lt;NA&gt; 501.699       12  6020.388          6.020388
-14   41 377819   &lt;NA&gt; 449.042       11  4939.462          4.939462
-15   33 407754   West  93.500       11  1028.500          1.028500
-16   61 534423   West 105.358       10  1053.580          1.053580
-17   46 437319   West 141.075       19  2680.425          2.680425
-18   16 298962  North 316.701        7  2216.907          2.216907
-19   48 652132  South 418.979       17  7122.643          7.122643
-20   34 559367   West 113.520       14  1589.280          1.589280
-21   27 478492   West 106.205       11  1168.255          1.168255
-22   37 596173  South 328.372        2   656.744          0.656744
-23   28 289347   &lt;NA&gt; 198.803       13  2584.439          2.584439
-24   31 529298  South 273.020       20  5460.400          5.460400
-25   32 387251  North 113.630        4   454.520          0.454520
-26   20 532049   &lt;NA&gt; 511.203        3  1533.609          1.533609
-27   50 442701  South 417.637       10  4176.370          4.176370
-28   42 525955   West 283.459       20  5669.180          5.669180
-29   26 610262   West 387.794        1   387.794          0.387794
-30   55 450875  North 197.802       20  3956.040          3.956040
-31   45 572107  North 383.405       19  7284.695          7.284695
-32   36 307388  South 240.658        7  1684.606          1.684606
-33   51 363407  South 387.112        7  2709.784          2.709784
-34   51 632306  North 259.303        7  1815.121          1.815121
-35   50 495287  North 407.099        5  2035.495          2.035495
-36   48 203733   &lt;NA&gt; 194.128       10  1941.280          1.941280
-37   47 286316   &lt;NA&gt; 420.662       16  6730.592          6.730592
-38   39 425906  North 339.581       15  5093.715          5.093715
-39   36 553894  South  67.122       14   939.708          0.939708
-40   35 437774   &lt;NA&gt; 234.531        1   234.531          0.234531
-41   32 524902  South 273.218        5  1366.090          1.366090
-42   38 565081   &lt;NA&gt; 254.683       12  3056.196          3.056196
-43   25 650527  North 324.665       20  6493.300          6.493300
-44   66 456722   West 482.284        7  3375.988          3.375988
-45   54 443762  South 434.005        1   434.005          0.434005
-46   27 239612   &lt;NA&gt;  87.384        9   786.456          0.786456
-47   35 461919   &lt;NA&gt; 113.168       15  1697.520          1.697520
-48   34 381378   West 208.340        9  1875.060          1.875060
-49   49 333119  South 207.801       20  4156.020          4.156020
-50   39 428411   &lt;NA&gt; 417.505       12  5010.060          5.010060
-51   43 571793  South 125.037       10  1250.370          1.250370
-52   40 210870   &lt;NA&gt; 538.901        3  1616.703          1.616703
-53   39 398726  South 478.126        9  4303.134          4.303134
-54   56 463996   West 344.047       11  3784.517          3.784517
-55   37 342815   West 500.280        7  3501.960          3.501960
-56   58 490068  North  59.631       17  1013.727          1.013727
-57   21 499372  North 443.355        4  1773.420          1.773420
-58   47 446036   &lt;NA&gt; 504.361        9  4539.249          4.539249
-59   41 154092   &lt;NA&gt; 109.835       15  1647.525          1.647525
-60   43 758575   West 285.582        1   285.582          0.285582
-61   45 425364  South 388.806       11  4276.866          4.276866
-62   34 528143  South 285.395        1   285.395          0.285395
-63   36 482852  South 488.136        5  2440.680          2.440680
-64   28 572961   West 253.539       17  4310.163          4.310163
-65   27 548119  South 335.511        8  2684.088          2.684088
-66   44 424825  South 378.587       17  6435.979          6.435979
-67   45 495380  North 196.405        4   785.620          0.785620
-68   41 336551   West 496.518       19  9433.842          9.433842
-69   51 552831  North 123.662       16  1978.592          1.978592
-70   65 394675   &lt;NA&gt; 330.814       12  3969.768          3.969768
-71   34 740013   West 180.202        3   540.606          0.540606
-72   12 251874   &lt;NA&gt;  91.432        7   640.024          0.640024
-73   52 394322  South 432.509       10  4325.090          4.325090
-74   31 549046  South 355.157        3  1065.471          1.065471
-75   32 511216   West 219.835       20  4396.700          4.396700
-76   52 379262   &lt;NA&gt; 505.285       19  9600.415          9.600415
-77   37 330386  North 347.061        4  1388.244          1.388244
-78   25 467337   &lt;NA&gt; 523.479        8  4187.832          4.187832
-79   42 448283  South 501.655       20 10033.100         10.033100
-80   38 235166   West 246.554       17  4191.418          4.191418
-81   40 454146   West 410.652       15  6159.780          6.159780
-82   45 472828  North 464.541        9  4180.869          4.180869
-83   36 470967   &lt;NA&gt; 507.342       13  6595.446          6.595446
-84   48 323398  South 119.658       11  1316.238          1.316238
-85   37 507136  South  76.989       14  1077.846          1.077846
-86   44 615428   &lt;NA&gt; 544.181        5  2720.905          2.720905
-87   53 504748   West 247.797       11  2725.767          2.725767
-88   45 313729  North 406.967        5  2034.835          2.034835
-89   36 397723   &lt;NA&gt; 315.337        1   315.337          0.315337
-90   54 491532  North 246.521        2   493.042          0.493042
-91   52 372355  South 410.696        4  1642.784          1.642784
-92   47 191082  North 490.688        6  2944.128          2.944128
-93   43 556110  North 114.972        5   574.860          0.574860
-94   32 350463   West 236.687       19  4497.053          4.497053
-95   56 381173   West 446.017       12  5352.204          5.352204
-96   33 630468  North 161.722        1   161.722          0.161722
-97   66 357103   West 362.263       10  3622.630          3.622630
-98   58 551488   West 241.978        4   967.912          0.967912
-99   37 298718  North 354.002       10  3540.020          3.540020
-100  28 407455  North 334.433       15  5016.495          5.016495
-101  31 441173  South 398.750        4  1595.000          1.595000
-102  43 309762   West 457.996        8  3663.968          3.663968
-103  37 373830   West 279.576       14  3914.064          3.914064
-104  36 446539   West 238.128        8  1905.024          1.905024
-105  29 530484   &lt;NA&gt; 462.220       10  4622.200          4.622200
-106  39 251934  South 308.748        6  1852.488          1.852488
-107  31 408029  South 422.081        4  1688.324          1.688324
-108  20 540769   West 475.420       11  5229.620          5.229620
-109  35 385343   West 272.943       16  4367.088          4.367088
-110  51 477275  South 255.926        7  1791.482          1.791482
-111  33 509067  North 476.201        8  3809.608          3.809608
-112  47 482140  North 414.876        5  2074.380          2.074380
-113  21 528391   West 359.458       14  5032.412          5.032412
-114  39 435275   &lt;NA&gt; 401.500       14  5621.000          5.621000
-115  46 400359  South 425.348       20  8506.960          8.506960
-116  44 132822   West 184.613        7  1292.291          1.292291
-117  41 438847   &lt;NA&gt; 191.719        9  1725.471          1.725471
-118  32 501634   &lt;NA&gt; 153.736       20  3074.720          3.074720
-119  30 514248  South 521.785       12  6261.420          6.261420
-120  28 383367  North 189.222       11  2081.442          2.081442
-121  41 663540  North 301.708       17  5129.036          5.129036
-122  29 484371  South  73.161        2   146.322          0.146322
-123  34 465158  South 451.858        8  3614.864          3.614864
-124  37 602672   &lt;NA&gt; 255.585        5  1277.925          1.277925
-125  62 363784  North 282.766       20  5655.320          5.655320
-126  32 395959  South 515.922        6  3095.532          3.095532
-127  43 737694  North 247.995        3   743.985          0.743985
-128  41 451336   West 424.182       20  8483.640          8.483640
-129  28 646028   West 442.882       14  6200.348          6.200348
-130  39 277379  South 157.696        9  1419.264          1.419264
-131  57 427138   &lt;NA&gt;  82.984       20  1659.680          1.659680
-132  45 495411   West 219.098        4   876.392          0.876392
-133  40 486005  North 393.481        7  2754.367          2.754367
-134  35 329324   &lt;NA&gt; 435.050       19  8265.950          8.265950
-135  15 452311   West 378.257        8  3026.056          3.026056
-136  54 320710  South 517.231        6  3103.386          3.103386
-137  22 535524   West  56.738        2   113.476          0.113476
-138  49 580173  South 242.308       18  4361.544          4.361544
-139  63 183001   West 373.637        7  2615.459          2.615459
-140  23 598283   West 104.038        3   312.114          0.312114
-141  48 301075   West  62.458        3   187.374          0.187374
-142  37 504572   West 128.535       13  1670.955          1.670955
-143  21 529188   West 423.929        8  3391.432          3.391432
-144  22 426013   &lt;NA&gt; 477.114        9  4294.026          4.294026
-145  21 372586  North 215.853       12  2590.236          2.590236
-146  34 469839   West 187.000       19  3553.000          3.553000
-147  22 502658  South 175.560        2   351.120          0.351120
-148  48 555996  North 528.341       12  6340.092          6.340092
-149  65 203720  South 301.147        7  2108.029          2.108029
-150  25 253634   West 398.750       18  7177.500          7.177500
-151  49 621648  South 507.991       10  5079.910          5.079910
-152  49 575595   &lt;NA&gt; 356.411       19  6771.809          6.771809
-153  44 502235  South 184.987       18  3329.766          3.329766
-154  28 535821   &lt;NA&gt; 509.872       16  8157.952          8.157952
-155  39 560061   West 407.253       15  6108.795          6.108795
-156  37 130689   &lt;NA&gt;  76.692       15  1150.380          1.150380
-157  47 583233   West 368.588        3  1105.764          1.105764
-158  36 391801  South 477.103        6  2862.618          2.862618
-159  52 477674   &lt;NA&gt; 113.949       16  1823.184          1.823184
-160  36 414581   West 526.262       12  6315.144          6.315144
-161  53 554636  North  75.218       15  1128.270          1.128270
-162  27 408183  North 139.447       20  2788.940          2.788940
-163  25 512220   West  66.462        1    66.462          0.066462
-164  79 403118  South 248.006       12  2976.072          2.976072
-165  35 318866  South 406.087       20  8121.740          8.121740
-166  44 595201   West 379.599       10  3795.990          3.795990
-167  48 538908   &lt;NA&gt; 295.636        6  1773.816          1.773816
-168  34 656911   &lt;NA&gt;  94.963       19  1804.297          1.804297
-169  46 457818   &lt;NA&gt; 534.105        8  4272.840          4.272840
-170  44 585000  South 332.332       20  6646.640          6.646640
-171  37 687050   West 409.871       12  4918.452          4.918452
-172  41 416222  South 195.294       12  2343.528          2.343528
-173  40 291246  North 452.111        2   904.222          0.904222
-174  66 421278  South 366.465        6  2198.790          2.198790
-175  31 424315  South 504.933       10  5049.330          5.049330
-176  27 468202  North 251.086       10  2510.860          2.510860
-177  40 655477  South 207.603        7  1453.221          1.453221
-178  44 410863  South 417.186       11  4589.046          4.589046
-179  45 494761   West 399.025       17  6783.425          6.783425
-180  34 422678   &lt;NA&gt; 270.479        8  2163.832          2.163832
-181  27 452454  North 454.718        5  2273.590          2.273590
-182  55 487687  North 206.283       15  3094.245          3.094245
-183  36 609386  North 507.705       17  8630.985          8.630985
-184  30 464558   West 366.762       15  5501.430          5.501430
-185  37 535541  South 439.692       13  5715.996          5.715996
-186  38 543463   &lt;NA&gt; 409.981       17  6969.677          6.969677
-187  53 559773   West 383.273       17  6515.641          6.515641
-188  41 381073  South 403.029        4  1612.116          1.612116
-189  49 645226  South 150.359        2   300.718          0.300718
-190  34 404285  South 351.054       12  4212.648          4.212648
-191  43 437306  North 434.753        9  3912.777          3.912777
-192  36 618486   West 172.007        3   516.021          0.516021
-193  41 605290  South 397.320       19  7549.080          7.549080
-194  29 319201   West 100.661        2   201.322          0.201322
-195  24 345231   West 419.837        4  1679.348          1.679348
-196  64 287031   West 522.621       14  7316.694          7.316694
-197  47 471822   West 383.724        8  3069.792          3.069792
-198  25 469781  North 385.374       17  6551.358          6.551358
-199  33 493694   &lt;NA&gt; 262.911        2   525.822          0.525822
-200  26 516259   West 123.299        5   616.495          0.616495
-201  66 377773   &lt;NA&gt; 287.331        3   861.993          0.861993
-202  56 330756   West 101.409        5   507.045          0.507045
-203  37 573214  South 428.263        4  1713.052          1.713052
-204  47 540127   West 236.335       13  3072.355          3.072355
-205  35 268900  North 336.226       16  5379.616          5.379616
-206  34 438582   &lt;NA&gt; 244.596       13  3179.748          3.179748
-207  31 342486  South 155.606        4   622.424          0.622424
-208  33 201510   West 319.957       15  4799.355          4.799355
-209  60 468014  South 245.993       16  3935.888          3.935888
-210  39 440495   &lt;NA&gt; 481.833       10  4818.330          4.818330
-211  41 438316  North 101.310       16  1620.960          1.620960
-212  43 475938  South  86.405        5   432.025          0.432025
-213  55 555896  South 137.544       19  2613.336          2.613336
-214  34 474672  North 518.144       12  6217.728          6.217728
-215  28 376028   &lt;NA&gt; 274.043        1   274.043          0.274043
-216  60 361824   &lt;NA&gt; 388.828       19  7387.732          7.387732
-217  35 434184   West  72.864        7   510.048          0.510048
-218  31 487202   West 286.869        8  2294.952          2.294952
-219  25 325238  North  77.594       16  1241.504          1.241504
-220  25 427883   &lt;NA&gt; 361.922       12  4343.064          4.343064
-221  33 566072   West 483.120       10  4831.200          4.831200
-222  47 437006  North 151.954        8  1215.632          1.215632
-223  53 366190   &lt;NA&gt; 194.634       20  3892.680          3.892680
-224  48 416887   &lt;NA&gt; 483.263       18  8698.734          8.698734
-225  36 583758   &lt;NA&gt;  70.862       20  1417.240          1.417240
-226  41 516005  South 442.266        6  2653.596          2.653596
-227  32 598401   West 280.258        7  1961.806          1.961806
-228  31 466692   West  94.655        2   189.310          0.189310
-229  51 499233  South 503.844       17  8565.348          8.565348
-230  28 382985   West 148.555       12  1782.660          1.782660
-231  63 522644  North 424.314       13  5516.082          5.516082
-232  39 389240   &lt;NA&gt; 268.620       18  4835.160          4.835160
-233  43 279532  South 386.914       12  4642.968          4.642968
-234  31 465359   &lt;NA&gt; 147.785        7  1034.495          1.034495
-235  33 683502   &lt;NA&gt; 491.458       10  4914.580          4.914580
-236  24 546110   West  79.189        7   554.323          0.554323
-237  38 589830   &lt;NA&gt; 163.999       10  1639.990          1.639990
-238  45 493063   West 184.591        8  1476.728          1.476728
-239  44 376973   &lt;NA&gt; 434.764       12  5217.168          5.217168
-240  31 425731   West 246.048       14  3444.672          3.444672
-241  31 417210  South 192.896       19  3665.024          3.665024
-242  34 393756  South  93.423        7   653.961          0.653961
-243  58 534500  South 302.654        9  2723.886          2.723886
-244  26 306316  North 278.465        8  2227.720          2.227720
-245  38 553964  South 543.367        2  1086.734          1.086734
-246  63 553698   West 125.356        9  1128.204          1.128204
-247  39 306165   West 467.753       10  4677.530          4.677530
-248  24 526739  North  69.619       16  1113.904          1.113904
-249  32 741627  South 440.484        7  3083.388          3.083388
-250  46 383134   &lt;NA&gt; 168.190        4   672.760          0.672760
-251  35 551389  South 121.264        2   242.528          0.242528
-252  33 356136  North 149.347       15  2240.205          2.240205
-253  36 583285  North 161.854        1   161.854          0.161854
-254  41 479979   &lt;NA&gt; 517.418        7  3621.926          3.621926
-255  59 648230  North 544.467       17  9255.939          9.255939
-256  39 274924  North 208.461       11  2293.071          2.293071
-257  53 443844   West 122.881        4   491.524          0.491524
-258  48 386769  South 382.184        4  1528.736          1.528736
-259  39 426328   &lt;NA&gt; 344.531        6  2067.186          2.067186
-260  22 374451   &lt;NA&gt; 225.313       20  4506.260          4.506260
-261  34 349939   &lt;NA&gt; 457.908       17  7784.436          7.784436
-262  34 519447  North 195.173       15  2927.595          2.927595
-263  41 319490  South 473.693        9  4263.237          4.263237
-264  56 628084   West 122.826       14  1719.564          1.719564
-265  68 307655  South 481.668        8  3853.344          3.853344
-266  59 462129  North  88.220       14  1235.080          1.235080
-267  38 513959  South 270.424       17  4597.208          4.597208
-268  19 520408   West 391.666       17  6658.322          6.658322
-269  35 413790  North 156.882        7  1098.174          1.098174
-270  41 459540   West 521.554        5  2607.770          2.607770
-271  50 565352   &lt;NA&gt; 242.770       17  4127.090          4.127090
-272  52 275224   &lt;NA&gt; 364.991       16  5839.856          5.839856
-273  48 356191  North 145.838        5   729.190          0.729190
-274  23 488448   &lt;NA&gt; 381.304       11  4194.344          4.194344
-275  50 396626   &lt;NA&gt; 418.671       17  7117.407          7.117407
-276  35 614400  South 300.366       11  3304.026          3.304026
-277  42 530790  South 485.012        4  1940.048          1.940048
-278  41 458660   West 466.763       18  8401.734          8.401734
-279  45 269069  South 541.728       17  9209.376          9.209376
-280  40 453132  North 385.088       15  5776.320          5.776320
-281  20 412030  South 373.219        2   746.438          0.746438
-282  49 437718  South  77.352        1    77.352          0.077352
-283  45 308213   West 149.468        9  1345.212          1.345212
-284  37 509839   West  71.126        3   213.378          0.213378
-285  41 325325  South 474.364        4  1897.456          1.897456
-286  42 422853   &lt;NA&gt; 265.111        9  2385.999          2.385999
-287  43 495771   West 459.514       11  5054.654          5.054654
-288  60 355978  North 130.075       19  2471.425          2.471425
-289  37 519959   &lt;NA&gt; 255.893        9  2303.037          2.303037
-290  42 292019  South 412.643       10  4126.430          4.126430
-291  54 112827  South  84.524       16  1352.384          1.352384
-292  53 505796  South 218.526       12  2622.312          2.622312
-293  54 550865  South 439.494       13  5713.422          5.713422
-294  33 415699  South 471.031       13  6123.403          6.123403
-295  64 510495   West 485.936       15  7289.040          7.289040
-296  41 311290   West 526.757        4  2107.028          2.107028
-297  62 434742   West 245.058        8  1960.464          1.960464
-298  24 217018  North 525.558       10  5255.580          5.255580
-299  40 591742   &lt;NA&gt; 403.535        5  2017.675          2.017675
-300  55 673189  North 263.879       18  4749.822          4.749822</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      age            income         region       price           quantity    
  Min.   :12.00   Min.   :112827   North:61   Min.   : 56.74   Min.   : 1.00  
@@ -836,14 +524,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Lets take a look at the named levels in the variable:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(df_clean<span class="sc">$</span>region)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(df_clean<span class="sc">$</span>region)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "North" "South" "West" </code></pre>
 </div>
 </div>
 <p>We can also count the number of levels in a variable:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nlevels</span>(df_clean<span class="sc">$</span>region)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nlevels</span>(df_clean<span class="sc">$</span>region)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
@@ -854,16 +542,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="5.1.6" class="anchored" data-anchor-id="filter"><span class="header-section-number">5.1.6</span> Filter</h3>
 <p>Sometimes we want to edit the rows in our data table. For example, there may be some values that are clearly miscoded. Let’s handle them using a filter with the <code>filter()</code> function. We create a condition — we want to keep only the values that are <strong>equal to or greater than 0</strong>. Values that are below 0 will simply be removed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> df_clean <span class="sc">|&gt;</span> </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(price <span class="sc">&gt;=</span> <span class="dv">60</span>)     <span class="co"># keep only price values that are 60 or higher</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> df_clean <span class="sc">|&gt;</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(price <span class="sc">&gt;=</span> <span class="dv">60</span>)     <span class="co"># keep only price values that are 60 or higher</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s add a filter that removes all negative values, and another that removes obviously miscoded large values. We use the pipe: <code>|&gt;</code></p>
 <p>This time, we will also save the filtered data to the object ‘df_clean’:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> df_clean <span class="sc">|&gt;</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(price <span class="sc">&gt;=</span> <span class="dv">60</span>) <span class="sc">|&gt;</span>        <span class="co"># keep only values that are 60 or higher</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(price <span class="sc">&lt;</span> <span class="dv">9999999</span>)       <span class="co"># remove extremely large values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> df_clean <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(price <span class="sc">&gt;=</span> <span class="dv">60</span>) <span class="sc">|&gt;</span>        <span class="co"># keep only values that are 60 or higher</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(price <span class="sc">&lt;</span> <span class="dv">9999999</span>)       <span class="co"># remove extremely large values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can use filter() when we want to select observations based on their values.</p>
 <hr>
@@ -872,27 +560,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="5.1.7" class="anchored" data-anchor-id="create-new-categorical-and-binary-variables"><span class="header-section-number">5.1.7</span> Create new categorical and binary variables</h3>
 <p>We can also create factors from continuous variables using the functions mutate() and cut(). For example, we can divide the age variable into two groups: younger and older. First, we create the categories and then take a look at the result:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: create categories from a continuous variable</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> df_clean <span class="sc">|&gt;</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_cat =</span> <span class="fu">cut</span>(age,</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="cn">Inf</span>),</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Young"</span>, <span class="st">"Older"</span>))</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: create categories from a continuous variable</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> df_clean <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_cat =</span> <span class="fu">cut</span>(age,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="cn">Inf</span>),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Young"</span>, <span class="st">"Older"</span>))</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can also create a new variable with two age categories by using a binary numerical indicator variable:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: create a binary numerical variable from a continuous variable</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> df_clean <span class="sc">|&gt;</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_binary =</span> <span class="fu">ifelse</span>(age <span class="sc">&gt;</span> <span class="dv">50</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: create a binary numerical variable from a continuous variable</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> df_clean <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_binary =</span> <span class="fu">ifelse</span>(age <span class="sc">&gt;</span> <span class="dv">50</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="missing-values-nas" class="level3" data-number="5.1.8">
 <h3 data-number="5.1.8" class="anchored" data-anchor-id="missing-values-nas"><span class="header-section-number">5.1.8</span> Missing values (NAs)</h3>
 <p>We often need to handle missing values (<code>NA</code> or <em>missing values</em>). If we look at the data we currently have, we can see that there are some missing values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Missing values per variable</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(df_clean))  <span class="co"># Number of NAs per column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Missing values per variable</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(df_clean))  <span class="co"># Number of NAs per column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              age            income            region             price 
                 0                 0                68                 0 
@@ -904,13 +592,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Try removing the missing values. First, we run the function without saving the result to the df_clean object:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove missing values</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove missing values</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Run missing values again:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Missing values per variable</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(df_clean))  <span class="co"># Number of NAs per column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Missing values per variable</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(df_clean))  <span class="co"># Number of NAs per column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              age            income            region             price 
                 0                 0                 0                 0 
@@ -926,7 +614,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="5.1.9" class="anchored" data-anchor-id="our-new-dataset"><span class="header-section-number">5.1.9</span> Our new dataset</h3>
 <p>Take a look at the cleaned dataset:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      age            income         region       price           quantity    
  Min.   :15.00   Min.   :112827   North:60   Min.   : 62.33   Min.   : 1.00  
@@ -949,7 +637,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="5.1.10" class="anchored" data-anchor-id="save-data"><span class="header-section-number">5.1.10</span> Save data</h3>
 <p>When we’re done, we can save the cleaned dataset as a new CSV file. As you can see, we save the new dataset in the Data folder:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df_clean, <span class="at">file =</span> <span class="st">"Data/df_clean.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df_clean, <span class="at">file =</span> <span class="st">"Data/df_clean.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 

@@ -9,5 +9,5 @@
 "0","source(""Functions/EDA_functions.R"")"
 "0",""
 "0","# Import the dataset"
-"0","df_clean <- read.csv(""Data/data_edits.csv"")"
+"0","df <- read.csv(""Data/data_edits.csv"")"
 "0",""

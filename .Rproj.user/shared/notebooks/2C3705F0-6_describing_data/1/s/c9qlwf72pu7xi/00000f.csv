@@ -1,7 +1,0 @@
-"0","histogram("
-"0","  df_clean$age,"
-"0","  bins = 40,"
-"0","  xlab = ""Age"","
-"0","  ylab = ""Frequency"","
-"0","  suffix = """""
-"0",")"

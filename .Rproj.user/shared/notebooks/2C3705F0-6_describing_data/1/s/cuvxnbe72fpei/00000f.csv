@@ -1,5 +1,0 @@
-"0","boxplot_simple("
-"0","  df_clean$income,"
-"0","  ylab = ""Income"","
-"0","  suffix = ""kr"""
-"0",")"

@@ -1,0 +1,421 @@
+---
+title: "Lab 2"
+---
+
+Read and follow the instructions provided in Chapters 5 and 6 of the course compendium before starting the lab.
+
+Work in groups of **2–3 students**. Start with Exercise 1 and continue to Exercise 2 if you have time.
+
+------------------------------------------------------------------------
+
+## Exercise 1
+
+Lets first prepare the R session. We start by clearing the Environment, loading the required packages, loading the course-specific EDA functions, and importing the cleaned dataset. You don't need to understand the code below in detail. Just press 'Run Current Chunk', green triangle, top right corner.
+
+```{r}
+# Clear environment
+rm(list = ls())
+
+# Load packages and functions
+library(tidyverse)
+library(scales)
+
+# The file `EDA_functions.R` contains helper functions that we will use to create consistent plots throughout the course.
+source("Functions/EDA_functions.R")
+
+# Import the dataset
+df_clean <- read.csv("Data/data_edits.csv")
+
+```
+
+Use **the course compendium** as a guide for what code you should paste into this lab document. If you need more code chunks you can insert them by going to **Insert -\> Executable Cell -\> R.** You will have to be in the Visual mode.
+
+Take a first look at the data.
+
+Look at the first six rows of the data that we just imported.
+
+```{r}
+
+
+```
+
+Look at the data using the function `summary()`
+
+```{r}
+
+
+```
+
+### Editing data
+
+#### Variable names
+
+```{r}
+
+```
+
+#### Relevance
+
+```{r}
+
+```
+
+#### Mutate
+
+```{r}
+
+```
+
+#### Group
+
+```{r}
+
+```
+
+#### Factors
+
+```{r}
+
+```
+
+#### Filter
+
+```{r}
+
+```
+
+#### Create new categorical and binary variables
+
+```{r}
+
+```
+
+#### Missing values (NAs)
+
+```{r}
+
+```
+
+#### Our new dataset
+
+```{r}
+
+```
+
+#### Save data
+
+```{r}
+
+```
+
+### Describing Data
+
+Start by clearing the environment, load packages, functions and import the edited data. Use the following code:
+
+```{r}
+#| message: false
+#| echo: false
+
+# Clear environment
+rm(list = ls())
+
+# Load packages and functions
+library(tidyverse)
+library(scales)
+
+# The file `EDA_functions.R` contains helper functions that we will use to create consistent plots throughout the course.
+source("../Functions/EDA_functions.R")
+
+# Import the cleaned dataset
+df_clean <- read.csv("../Data/df_clean.csv")
+```
+
+### Univariate analysis
+
+Univariate analysis means analyzing **one variable at a time**. Its important to remember that the type of variable we are working with determines which summary statistics, tables, and plots are appropriate.
+
+For a numerical variable, we are usually interested in:
+
+-   center,
+-   spread,
+-   shape,
+-   and unusual observations.
+
+For a categorical variable, we are usually interested in:
+
+-   categories,
+-   frequencies,
+-   and proportions.
+
+Lets go through some code that will do this for us.
+
+#### Numerical variables
+
+We begin with numerical variables such as `age` and `income`.
+
+##### Descriptive Statistics
+
+Descriptive statistics are used to summarize and describe the main characteristics of numerical variables. The following R functions allow us to calculate common measures of center, spread, and range.
+
+```{r}
+# Minimum value: min() returns the smallest value.
+
+
+
+# Maximum value: max() returns the largest value.
+
+
+
+# Range (minimum and maximum): range() returns both the minimum and maximum values.
+
+
+
+# Mean: mean() calculates the arithmetic mean (average).
+
+
+
+# Median: median() returns the middle value when the observations are ordered.
+
+
+
+# Standard deviation: sd() calculates the standard deviation, which describes how spread out the observations are around the mean.
+
+
+
+# Variance: var() calculates the variance, another measure of spread.
+
+
+
+# Quantiles: quantile() returns selected percentiles of the distribution, including the first quartile (25%), median (50%), and third quartile (75%).
+
+
+```
+
+We can also use summary() to obtain several important summary statistics at once:
+
+```{r}
+
+
+```
+
+##### Missing values
+
+If a variable contains missing values (NA), many of these functions will return NA. We can tell R to ignore missing values by adding na.rm = TRUE:
+
+```{r}
+
+
+```
+
+Here, na.rm = TRUE means remove the NAs before performing the calculation.
+
+##### Histogram
+
+A histogram shows the distribution of a numerical variable. The function we will use in this course requires four arguments: the variable name (including the data frame), the number of bins, the label for the x-axis, and the label for the y-axis.
+
+Let’s try an example by looking at the distribution of age:
+
+```{r}
+
+
+```
+
+When interpreting a histogram, consider the following questions:
+
+-   Where are most of the observations located?
+-   Is the distribution symmetric or skewed?
+-   Is there one clear peak or several peaks?
+-   Are there any gaps in the distribution?
+-   Are there any unusual or extreme observations?
+
+##### Boxplot for one numerical variable
+
+A boxplot summarizes the center, spread, and potential outliers of a numerical variable. In this course, we will use the following code to produce a simple boxplot for one variable.
+
+```{r}
+
+
+```
+
+The line inside the box represents the median. The box contains the middle 50% of the observations, from the first quartile (Q1) to the third quartile (Q3). The lines extending from the box are called whiskers, and observations beyond the whiskers are considered potential outliers.
+
+The individual data points are also overlaid on the boxplot, allowing us to see the actual observations behind the summary.
+
+When interpreting a boxplot, consider the following questions:
+
+-   Where is the median located?
+-   Where are the middle 50% of the observations?
+-   How spread out are the observations?
+-   Does the distribution appear symmetric or skewed?
+-   Are there any potential outliers beyond the whiskers?
+-   If comparing groups, how do their centers, spreads, and outliers differ?
+
+#### Categorical variables
+
+For categorical variables, we usually examine how observations are distributed across categories. We will use `group` as an example.
+
+##### Frequency table
+
+A frequency table shows the number of observations in each category.
+
+```{r}
+
+
+```
+
+##### Frequency table with percentages
+
+We can also calculate percentages:
+
+```{r}
+
+
+```
+
+This makes it easier to compare the relative size of the categories.
+
+##### Bar chart
+
+A bar chart provides a visual representation of category frequencies.
+
+```{r}
+
+
+```
+
+When interpreting a bar chart, ask:
+
+-   Which category is most common?
+-   Which category is least common?
+-   Are observations distributed evenly across categories?
+
+### Bivariate analysis
+
+Bivariate analysis means examining **two variables at the same time**. The appropriate method depends on the types of the two variables. Common combinations are:
+
+-   numerical + numerical,
+-   numerical + categorical,
+-   categorical + categorical
+
+#### Numerical + numerical
+
+When both variables are numerical, we are often interested in whether they are related.
+
+##### Scatterplot
+
+A scatterplot shows the relationship between two numerical variables. For example, age and income:
+
+```{r}
+
+
+```
+
+When interpreting a scatterplot, ask:
+
+-   Is there a positive or negative relationship?
+-   Is the relationship approximately linear?
+-   How strong does the relationship appear?
+-   Are there unusual observations?
+-   Are there clusters or other patterns?
+
+##### Correlation
+
+Correlation measures the strength and direction of a linear relationship between two numerical variables. Correlation describes an association. It does not by itself establish direction (causation).
+
+```{r}
+
+
+```
+
+The correlation coefficient ranges from `-1` to `1`.
+
+-   Values close to `1` indicate a strong positive linear relationship.
+-   Values close to `-1` indicate a strong negative linear relationship.
+-   Values close to `0` indicate a weak linear relationship.
+
+#### Numerical + categorical
+
+When one variable is numerical and the other is categorical, we often want to compare the distribution of the numerical variable across groups.
+
+##### Grouped histogram
+
+For example, we can compare income distributions across groups:
+
+```{r}
+
+
+```
+
+This allows us to examine whether the groups have different distributions.
+
+##### Boxplot by group
+
+A grouped boxplot is often easier to compare across categories.
+
+```{r}
+
+
+```
+
+When interpreting the grouped boxplot, compare:
+
+-   medians,
+-   spread,
+-   potential outliers,
+-   and differences between groups.
+
+#### Categorical + categorical
+
+##### Cross Table
+
+When both variables are categorical, we can use a **cross table**.
+
+```{r}
+
+
+```
+
+A more readable version can be created with:
+
+```{r}
+
+
+```
+
+To examine percentages within each age category:
+
+```{r}
+
+
+```
+
+When interpreting a cross table, ask whether the distribution across one categorical variable appears to differ across the categories of the other variable.
+
+------------------------------------------------------------------------
+
+## Exercise 2
+
+Use the dataset `df_clean` to complete the following exercises.
+
+Start by clearing the environment, load packages, functions and import the edited data. Use the following code:
+
+```{r}
+
+
+```
+
+#### Univariate analysis
+
+1.  Describe the distribution of `age`.
+2.  Describe the distribution of `income`.
+3.  Which `group` category is most common?
+4.  What percentage of observations belongs to each group?
+5.  Are there potential outliers in `income`?
+
+#### Bivariate analysis
+
+1.  Is there a relationship between `age` and `income`?
+2.  Does the distribution of `income` differ across `group`?
+3.  Which group has the highest median income?
+4.  Does the distribution of `group` differ across `age_cat`?
+5.  Which visualization or table is most appropriate for each of these questions?

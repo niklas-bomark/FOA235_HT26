@@ -15,7 +15,7 @@ We will follow this basic workflow when we work with K-Means Cluster Analysis:
 5.  Run the K-means algorithm.
 6.  Inspect, interpret, and visualize the resulting clusters. If the data contain more than two variables, we can use PCA to represent the clusters in two dimensions.
 
-## Lab 2: Multidimensional K-means Cluster Analysis
+## Multidimensional K-means Cluster Analysis
 
 ### Learning objectives
 

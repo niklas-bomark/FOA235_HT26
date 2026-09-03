@@ -323,7 +323,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your Name"</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This is called the <strong>YAML header</strong> and contains information about the document, such as: - the title; - the author; - and the output format.</p>
+<p>This is called the <strong>YAML header</strong> and contains information about the document, such as:<br>
+- the title;<br>
+- the author;<br>
+- and the output format.</p>
 <blockquote class="blockquote">
 <p><em>To do: Give your document a title and add the author in your Quarto template.</em></p>
 <ul>
@@ -372,16 +375,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 2</code></pre>
 </div>
 </div>
-<p>You can create a new code chunk under <em>Insert → Executable Cell → R</em>. We recommend setting up a keyboard shortcut for this. There For example, you could use <strong>Control + E</strong> as a shortcut to insert a new code cell.</p>
+<p>You can create a new code chunk by selecting <em>Insert → Executable Cell → R</em>. You can also use the keyboard shortcut <strong>Control + E</strong> to quickly insert a new R code chunk.</p>
 <blockquote class="blockquote">
-<p><em>To do: Add a new code cell in your quarto document and type the following code: example_code &lt;- 1 + 1</em></p>
+<p><em>Add a new code cell in your quarto document and type the following code:</em></p>
+<p><em>example_code &lt;- 1 + 1</em></p>
 </blockquote>
 <hr>
 </section>
 <section id="run-the-code" class="level2" data-number="3.9">
 <h2 data-number="3.9" class="anchored" data-anchor-id="run-the-code"><span class="header-section-number">3.9</span> Run the code</h2>
-<p>You can run a code cell just like you normally run code in R. The easiest way is to click <strong>“Run Current Chunk”</strong> in the upper right corner of the gray code cell.</p>
-<p>It’s also recommended to set up a keyboard shortcut — for example, <strong>Control + 2</strong> — so that you can quickly and easily run the content of the gray code cell. Try running the code cell you just created — it should create an object called <code>example_code</code> with the value <code>2</code>.</p>
+<p>You can run a code cell just like you normally run code in R. The easiest way is to click <strong>“Run Current Chunk”</strong> in the upper right corner of the gray code cell. You can also use the existing keyboard shortcut <strong>Control + Shift + Enter</strong> (Windows/Linux) or <strong>Command + Shift + Enter</strong> (Mac) to quickly run all the code in the current gray code cell.</p>
+<p>Try running the code cell you just created — it should create an object called <code>example_code</code> with the value <code>2</code>.</p>
 <p>R will execute:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -419,7 +423,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="load-packages-before-using-them" class="level2" data-number="3.11">
 <h2 data-number="3.11" class="anchored" data-anchor-id="load-packages-before-using-them"><span class="header-section-number">3.11</span> Load packages before using them</h2>
-<p>If your document uses functions from a package, you first need to load the package. For example, if your function is included in the package called tidyverse, then you first need to load the package (and install it if you didnt install it).</p>
+<p>If your document uses functions from a package, you first need to load the package. For example, if your function is included in the package called tidyverse, then you first need to load the package (and install it if you didn’t install it via install.packages(“tidyverse”).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">

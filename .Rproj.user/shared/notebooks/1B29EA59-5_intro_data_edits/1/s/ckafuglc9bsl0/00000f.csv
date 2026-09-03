@@ -1,0 +1,4 @@
+"0","# Select variables and save to the df_clean object"
+"0","df_clean <- df_clean |> "
+"0","  select(age, income, region, price, quantity)  # select certain variables"
+"0",""

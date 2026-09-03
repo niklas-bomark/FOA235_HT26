@@ -1,0 +1,8 @@
+"0","ggplot(df_clean, aes(x = region)) +"
+"0","  geom_bar() +"
+"0","  labs("
+"0","    title = ""Number of observations by group"","
+"0","    x = ""Group"","
+"0","    y = ""Number of observations"""
+"0","  ) +"
+"0","  theme_minimal()"

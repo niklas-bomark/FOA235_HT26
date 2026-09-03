@@ -1,0 +1,342 @@
+---
+title: "Lab 3"
+---
+
+Read and follow the instructions provided in Chapters 7 and 8 of the course compendium before starting the lab.
+
+------------------------------------------------------------------------
+
+## Introduction to three methods
+
+In this lab, you will work with the three analytical methods introduced in the compendium:
+
+-   **K-means cluster analysis**
+-   **Linear regression**
+-   **Logistic regression**
+
+The main purpose of the lab is not to perform advanced statistical analysis. Instead, you will practice identifying **what type of analytical problem you are facing**, selecting an appropriate method, and discussing how the results could support a business decision.
+
+Work in groups of **2–3 students**. Discuss each question before writing down your answer. You might not have time to go through all questions during the lab. We teachers would still encourage you do go through them all after the lab. Especially 'Part 6: Design your own business analytics problem' will be very relevant for the INL1 assignment.
+
+------------------------------------------------------------------------
+
+## Part 1: Identify the analytical problem
+
+For each business problem below, answer and discuss the following questions:
+
+1.  **What does the organization want to learn or predict?**
+2.  **Is there an outcome variable?** If so, what is it?
+3.  If there is an outcome variable, is it **numerical** or **binary**?
+4.  If there is an outcome variable, which variables could be used as **predictors**?
+5.  **Which of the three methods would you use:** K-means clustering, linear regression, or logistic regression?
+6.  **Why is this method appropriate** for the problem?
+7.  **What would the output of the analysis look like?** For example, would it produce clusters, numerical predictions, or predicted probabilities?
+8.  **How could the organization use the results to support a business decision?**
+
+### Problem A: Customer churn
+
+A subscription company wants to identify customers who are at risk of cancelling their subscriptions.
+
+For each customer, the company knows:
+
+-   age,
+-   monthly spending,
+-   number of support requests,
+-   length of membership,
+-   website activity,
+-   and whether the customer eventually cancelled their subscription.
+
+### Problem B: Customer groups
+
+A retail company has information about its customers, including:
+
+-   age,
+-   income,
+-   number of purchases,
+-   average purchase value,
+-   website visits,
+-   and number of different product categories purchased.
+
+The company wants to understand whether there are different types of customers in its customer base. It does not have predefined customer categories.
+
+### Problem C: Predicting sales
+
+A company wants to understand and predict monthly sales. It has collected information about:
+
+-   advertising expenditure,
+
+-   product price,
+
+-   number of salespeople,
+
+-   competitor prices,
+
+-   and consumer confidence.
+
+------------------------------------------------------------------------
+
+## Part 2: K-means clustering
+
+Consider the customer segmentation problem above. K-means assigns observations to clusters based on their similarity. The groups are **not known in advance**.
+
+### Question 1
+
+Suppose the company decides to use:
+
+``` r
+centers = 3
+```
+
+What does this tell the K-means algorithm to do? Does it mean that there are definitely three meaningful customer groups in the real world? Explain.
+
+### Question 2
+
+Imagine that one variable is:
+
+``` text
+Age: 18–80
+```
+
+while another is:
+
+``` text
+Annual income: 200,000–2,000,000 SEK
+```
+
+Why could this create a problem for K-means? What could we do before running K-means to address this problem?
+
+### Question 3
+
+Suppose K-means identifies the following clusters:
+
+| Cluster | Age |  Income | Purchases/year |
+|---------|----:|--------:|---------------:|
+| 1       |  24 | 310,000 |             28 |
+| 2       |  48 | 720,000 |              8 |
+| 3       |  41 | 680,000 |             35 |
+
+Discuss how you would describe each cluster. Try to give each cluster a meaningful business description or name.
+
+### Question 4
+
+A marketing manager says:
+
+> "Cluster 3 is our best customer segment."
+
+Can this conclusion be made from the table alone? Discuss what **"best"** could mean and what additional information might be needed.
+
+------------------------------------------------------------------------
+
+## Part 3: Linear regression
+
+A company wants to predict sales based on advertising expenditure. Consider the following model:
+
+$$
+Sales = \beta_0 + \beta_1 Advertising + \varepsilon
+$$
+
+### Question 1
+
+Identify:
+
+-   the outcome variable,
+-   the predictor variable,
+-   the intercept,
+-   the slope.
+
+What does the model try to represent?
+
+### Question 2
+
+Suppose the estimated model is:
+
+$$
+\widehat{Sales} = 120 + 6.5 \times Advertising
+$$
+
+Discuss what happens to predicted sales when advertising increases. If advertising increases by 10 units, by how much does predicted sales change?
+
+### Question 3
+
+The model predicts sales of **500**, but actual sales were **560**. What is the prediction error (residual)? Did the model overpredict or underpredict sales?
+
+### Question 4
+
+Two observations have the following results:
+
+| Observation | Actual sales | Predicted sales |
+|-------------|-------------:|----------------:|
+| A           |          500 |             495 |
+| B           |          500 |             350 |
+
+Which prediction is better? How could we summarize prediction errors across hundreds or thousands of observations?
+
+### Question 5
+
+A manager says:
+
+> "Our regression model predicts sales very well, so increasing advertising must cause sales to increase."
+
+Discuss this statement. Is prediction necessarily the same thing as establishing causality?
+
+------------------------------------------------------------------------
+
+## Part 4: Logistic regression
+
+A company uses logistic regression to predict whether customers will purchase a product.
+
+The outcome is:
+
+``` text
+purchase = 1  Customer purchases
+purchase = 0  Customer does not purchase
+```
+
+The model produces predicted probabilities.
+
+### Question 1
+
+Consider three customers:
+
+| Customer | Predicted probability of purchase |
+|----------|----------------------------------:|
+| A        |                              0.15 |
+| B        |                              0.55 |
+| C        |                              0.89 |
+
+Interpret each probability in words. Which customer appears most likely to purchase?
+
+### Question 2
+
+Suppose the company uses a classification threshold of:
+
+``` text
+0.50
+```
+
+Classify customers A, B, and C as:
+
+``` text
+Purchase
+```
+
+or
+
+``` text
+No purchase
+```
+
+Explain your reasoning.
+
+### Question 3
+
+Now change the classification threshold to:
+
+``` text
+0.70
+```
+
+Classify the customers again. Which customer's classification changes? Why?
+
+### Question 4
+
+Imagine that the company wants to identify customers for an expensive marketing campaign. Would you necessarily use a threshold of 0.50?
+
+Discuss why the **business consequences of the classification** might influence the choice of threshold.
+
+### Question 5
+
+Consider two mistakes:
+
+**Mistake A:**\
+The model predicts that a customer will purchase, but the customer does not purchase.
+
+**Mistake B:**\
+The model predicts that a customer will not purchase, but the customer actually would have purchased.
+
+Are these mistakes equally important? Think of a business situation where Mistake A would be more costly. Then think of a situation where Mistake B would be more costly.
+
+------------------------------------------------------------------------
+
+## Part 5: Choose the method
+
+For each situation below, choose:
+
+``` text
+K-means clustering
+Linear regression
+Logistic regression
+```
+
+Be prepared to justify your answer.
+
+### Situation 1
+
+A bank wants to identify different types of customers based on income, savings, debt, and spending patterns.
+
+### Situation 2
+
+A bank wants to predict how much money a customer will have in savings next year.
+
+### Situation 3
+
+A bank wants to predict whether a customer will default on a loan.
+
+### Situation 4
+
+An online retailer wants to identify different shopping behavior patterns among its customers.
+
+### Situation 5
+
+An online retailer wants to predict how much a customer will spend during the next month.
+
+### Situation 6
+
+An online retailer wants to predict whether a customer will respond to a marketing campaign.
+
+### Situation 7
+
+A company has employee data but no predefined employee categories. It wants to discover whether different employee profiles exist.
+
+### Situation 8
+
+A company wants to predict employee productivity measured as units produced per hour.
+
+### Situation 9
+
+A company wants to predict whether an employee will leave within the next year.
+
+------------------------------------------------------------------------
+
+## Part 6: Design your own business analytics problem
+
+Choose a company, industry, or organization that interests your group.
+
+Create **three analytical questions** for the organization:
+
+1.  one that could be addressed using **K-means clustering**,
+2.  one that could be addressed using **linear regression**,
+3.  one that could be addressed using **logistic regression**.
+
+For each question, specify:
+
+-   the business problem,
+-   the observations you would collect,
+-   the variables you would need,
+-   whether there is an outcome variable,
+-   the type of outcome, if applicable,
+-   and how the results could support a business decision.
+
+------------------------------------------------------------------------
+
+## Final discussion
+
+Discuss the following questions with your group.
+
+1.  What is the most important difference between K-means clustering and regression methods?
+2.  What determines whether we should use linear or logistic regression?
+3.  Why is identifying the **business question** important before choosing an algorithm?
+4.  Can an algorithm produce statistically correct results that are nevertheless useless for the business? Give an example.
+5.  What information does an algorithm provide, and what decisions must still be made by people?
+
+------------------------------------------------------------------------

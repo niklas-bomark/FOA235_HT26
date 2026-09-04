@@ -3,7 +3,7 @@
     "path": "~/Library/CloudStorage/OneDrive-Mälardalensuniversitet/kurser/FOA235/HT26/Kompendium_HT26/Chapters/9_cluster_lab1.qmd",
     "project_path": "Chapters/9_cluster_lab1.qmd",
     "type": "quarto_markdown",
-    "hash": "2413611909",
+    "hash": "635064606",
     "contents": "",
     "dirty": false,
     "created": 1788506228383.0,
@@ -17,15 +17,15 @@
         "docOutlineVisible": "1",
         "rmdVisualCollapsedChunks": "",
         "rmdVisualModeLocation": "804:104.80000305175781",
-        "cursorPosition": "368,60",
-        "scrollLine": "353"
+        "cursorPosition": "99,18",
+        "scrollLine": "93"
     },
     "folds": "",
-    "lastKnownWriteTime": 1788516288,
+    "lastKnownWriteTime": 1788516796,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1788516288033,
+    "last_content_update": 1788516796157,
     "read_only": false,
     "read_only_alternatives": []
 }

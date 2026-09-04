@@ -96,6 +96,11 @@ scatterplot(
 
 For this exercise, we will use both variables. Therefore we will not do anything.
 
+```{r}
+cluster_data <- df
+```
+
+
 #### Scaling: Standardize the variables
 
 K-means calculates distances between observations. Variables measured on larger scales can therefore have a greater influence on the clustering. We will standardize the variables before continuing.

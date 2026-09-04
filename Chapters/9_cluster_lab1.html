@@ -263,11 +263,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#lab-1-basic-k-means" id="toc-lab-1-basic-k-means" class="nav-link active" data-scroll-target="#lab-1-basic-k-means"><span class="header-section-number">9.1</span> Lab 1: Basic K-means</a>
+  <li><a href="#basic-k-means" id="toc-basic-k-means" class="nav-link active" data-scroll-target="#basic-k-means"><span class="header-section-number">9.1</span> Basic K-means</a>
   <ul class="collapse">
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">9.1.1</span> Learning objectives</a></li>
-  <li><a href="#exercise-1-your-first-k-means-cluster-analysis" id="toc-exercise-1-your-first-k-means-cluster-analysis" class="nav-link" data-scroll-target="#exercise-1-your-first-k-means-cluster-analysis"><span class="header-section-number">9.1.2</span> Exercise 1: Your First K-Means Cluster Analysis</a></li>
-  <li><a href="#exercise-2-unknown-number-of-groups" id="toc-exercise-2-unknown-number-of-groups" class="nav-link" data-scroll-target="#exercise-2-unknown-number-of-groups"><span class="header-section-number">9.1.3</span> Exercise 2: Unknown Number of Groups</a></li>
+  <li><a href="#part-1-your-first-k-means-cluster-analysis" id="toc-part-1-your-first-k-means-cluster-analysis" class="nav-link" data-scroll-target="#part-1-your-first-k-means-cluster-analysis"><span class="header-section-number">9.1.2</span> Part 1: Your First K-Means Cluster Analysis</a></li>
+  <li><a href="#part-2-unknown-number-of-groups" id="toc-part-2-unknown-number-of-groups" class="nav-link" data-scroll-target="#part-2-unknown-number-of-groups"><span class="header-section-number">9.1.3</span> Part 2: Unknown Number of Groups</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -295,9 +295,9 @@ window.Quarto = {
 </header>
 
 
-<p>In this chapter we will use <strong>k-means clustering</strong> to identify groups of similar observations in a dataset. K-means is an <strong>unsupervised learning method</strong>. This means that we do not have an outcome variable that we are trying to predict. Instead, the algorithm searches for structure in the data and groups observations into clusters based on how similar they are.</p>
-<p>You are expected to have read Chapter 12, “Unsupervised Learning,<strong>”</strong> in <em>An Introduction to Statistical Learning with Applications in R</em> before starting this chapter. For this lab, focus especially on Sections <strong>12.2.1, 12.2.4, and 12.2.4.1</strong>. The lab begins with an exercise similar to the example presented in Section <strong>12.5.3, “K-Means Clustering.”</strong></p>
-<p>For the second lab on K-means clustering, we recommend that you also read Section <strong>12.2.2</strong> on Principal Components Analysis (PCA). You can skip the details of how principal components are calculated. Instead, focus on understanding why we use PCA, what PCA does to the data, and the basic intuition behind the method.</p>
+<p>In this chapter we will use k-means clustering to identify groups of similar observations in a dataset. K-means is an <strong>unsupervised learning method</strong>. This means that we do not have an outcome variable that we are trying to predict. Instead, the algorithm searches for structure in the data and groups observations into clusters based on how similar they are.</p>
+<p>You are expected to have read Chapter 12, “Unsupervised Learning,<strong>”</strong> in <em>An Introduction to Statistical Learning with Applications in R</em> before starting this chapter. For this lab, focus especially on Sections 12.2.1, 12.2.4, and 12.2.4.1. The lab begins with a K-means clustering exercise that closely follows the example presented in Section 12.5.3, “K-Means Clustering. You might want to review this example before starting the exercise.</p>
+<p>For the second lab on K-means clustering, we recommend that you also read Section 12.2.2 on Principal Components Analysis (PCA). You can skip the details of how principal components are calculated. Instead, focus on understanding why we use PCA, what PCA does to the data, and the basic intuition behind the method.</p>
 <p>You should also review the previous lab, where we introduced the three methods covered in this part of the course.</p>
 <p>In this course, when working with K-means clustering, we will follow this basic workflow:</p>
 <ol type="1">
@@ -308,8 +308,8 @@ window.Quarto = {
 <li>Run the K-means algorithm.</li>
 <li>Inspect, interpret, and visualize the resulting clusters. If the data contain more than two variables, we can use PCA to represent the clusters in two dimensions.</li>
 </ol>
-<section id="lab-1-basic-k-means" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="lab-1-basic-k-means"><span class="header-section-number">9.1</span> Lab 1: Basic K-means</h2>
+<section id="basic-k-means" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="basic-k-means"><span class="header-section-number">9.1</span> Basic K-means</h2>
 <section id="learning-objectives" class="level3" data-number="9.1.1">
 <h3 data-number="9.1.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">9.1.1</span> Learning objectives</h3>
 <p>After completing the lab, you should be able to:</p>
@@ -323,8 +323,8 @@ window.Quarto = {
 <li>visualize and interpret a clustering solution.</li>
 </ul>
 </section>
-<section id="exercise-1-your-first-k-means-cluster-analysis" class="level3" data-number="9.1.2">
-<h3 data-number="9.1.2" class="anchored" data-anchor-id="exercise-1-your-first-k-means-cluster-analysis"><span class="header-section-number">9.1.2</span> Exercise 1: Your First K-Means Cluster Analysis</h3>
+<section id="part-1-your-first-k-means-cluster-analysis" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="part-1-your-first-k-means-cluster-analysis"><span class="header-section-number">9.1.2</span> Part 1: Your First K-Means Cluster Analysis</h3>
 <p>In this exercise, we will work with a simulated dataset containing two variables and two underlying groups. Because the data are simulated, we know that there are two groups. However, we will not provide this information to the K-means algorithm. Instead, we will investigate whether K-means can identify the groups based only on similarities and differences between the observations.</p>
 <p>The idea for the exercise is based on the Lab presented under section 12.5.3 Clustering in ‘An Introduction to Statistical Learning with Applications in R’.</p>
 <section id="setup" class="level4" data-number="9.1.2.1">
@@ -335,76 +335,41 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading packages</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.2.0     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.6.0
-✔ ggplot2   4.0.2     ✔ tibble    3.3.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.2
-✔ purrr     1.2.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Welcome to factoextra!
-Want to learn more? See two factoextra-related books at https://www.datanovia.com/library/principal-component-methods</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/EDA_functions.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'scales'
-
-The following object is masked from 'package:purrr':
-
-    discard
-
-The following object is masked from 'package:readr':
-
-    col_factor
-
-
-Attaching package: 'rlang'
-
-The following objects are masked from 'package:purrr':
-
-    flatten, flatten_chr, flatten_dbl, flatten_int, flatten_lgl,
-    flatten_raw, invoke, splice</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/Cluster_functions.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/EDA_functions.R"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/Cluster_functions.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="generate-the-data" class="level4" data-number="9.1.2.2">
 <h4 data-number="9.1.2.2" class="anchored" data-anchor-id="generate-the-data"><span class="header-section-number">9.1.2.2</span> Generate the data</h4>
 <p>Run the following code (you do not need to understand this code):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x1 =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>),</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x2 =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a mean shift for the first 25 observations</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>x1[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>] <span class="ot">&lt;-</span> df<span class="sc">$</span>x1[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>] <span class="sc">+</span> <span class="dv">3</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>x2[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>] <span class="ot">&lt;-</span> df<span class="sc">$</span>x2[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>] <span class="sc">-</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x1 =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x2 =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a mean shift for the first 25 observations</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>x1[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>] <span class="ot">&lt;-</span> df<span class="sc">$</span>x1[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>] <span class="sc">+</span> <span class="dv">5</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>x2[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>] <span class="ot">&lt;-</span> df<span class="sc">$</span>x2[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>] <span class="sc">-</span> <span class="dv">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The dataset contains 50 observations and two variables, x1 and x2. The first 25 observations have been shifted relative to the remaining 25 observations, creating two underlying groups.</p>
+<p>The dataset contains 50 observations and two variables, x1 and x2.</p>
 </section>
 <section id="explore-the-data" class="level4" data-number="9.1.2.3">
 <h4 data-number="9.1.2.3" class="anchored" data-anchor-id="explore-the-data"><span class="header-section-number">9.1.2.3</span> Explore the data</h4>
 <p>Before performing the cluster analysis, visualize the two variables using the course function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">xvar =</span> x1,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">yvar =</span> x2,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"X1"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"X2"</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">xvar =</span> x1,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">yvar =</span> x2,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"X1"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"X2"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -413,39 +378,38 @@ The following objects are masked from 'package:purrr':
 </div>
 </div>
 </div>
-<p><strong>Questions:</strong> Based only on the figure, do the observations appear to form distinct groups? If so, how many groups do you see?</p>
 </section>
 <section id="select-the-variables-for-clustering" class="level4" data-number="9.1.2.4">
 <h4 data-number="9.1.2.4" class="anchored" data-anchor-id="select-the-variables-for-clustering"><span class="header-section-number">9.1.2.4</span> Select the variables for clustering</h4>
-<p>For this exercise, we will use both variables:</p>
+<p>For this exercise, we will use both variables. Therefore we will not do anything.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x1, x2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>K-means calculates distances between observations. Variables measured on larger scales can therefore have a greater influence on the clustering. We will standardize the variables before continuing.</p>
 </section>
 <section id="scaling-standardize-the-variables" class="level4" data-number="9.1.2.5">
 <h4 data-number="9.1.2.5" class="anchored" data-anchor-id="scaling-standardize-the-variables"><span class="header-section-number">9.1.2.5</span> Scaling: Standardize the variables</h4>
+<p>K-means calculates distances between observations. Variables measured on larger scales can therefore have a greater influence on the clustering. We will standardize the variables before continuing.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cluster_data_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(cluster_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cluster_data_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(cluster_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Question:</strong> Why do we standardize variables before performing K-means clustering?</p>
 </section>
 <section id="run-k-means-clustering" class="level4" data-number="9.1.2.6">
 <h4 data-number="9.1.2.6" class="anchored" data-anchor-id="run-k-means-clustering"><span class="header-section-number">9.1.2.6</span> Run K-means clustering</h4>
-<p>We know that the simulated data contain two groups. We therefore begin by asking K-means to identify (k=2) clusters:</p>
+<p>We know that the simulated data contain two groups. We therefore begin by asking K-means to identify (k=2) clusters (k = centers):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  cluster_data_scaled,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">2</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># k = centers</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  cluster_data_scaled,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">2</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>How many observations were assigned to each cluster? You can examine this using:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(km<span class="sc">$</span>cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(km<span class="sc">$</span>cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  1  2 
@@ -457,12 +421,12 @@ The following objects are masked from 'package:purrr':
 <h4 data-number="9.1.2.7" class="anchored" data-anchor-id="visualize-the-clusters"><span class="header-section-number">9.1.2.7</span> Visualize the clusters</h4>
 <p>We can now visualize the results using our course function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_kmeans_clusters</span>(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> cluster_data_scaled,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">var1 =</span> <span class="st">"x1"</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var2 =</span> <span class="st">"x2"</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">km =</span> km</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_kmeans_clusters</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> cluster_data_scaled,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">var1 =</span> <span class="st">"x1"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var2 =</span> <span class="st">"x2"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">km =</span> km</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -479,22 +443,22 @@ The following objects are masked from 'package:purrr':
 <p>In this example, we know that there are two underlying groups because we generated the data ourselves. With real data, however, we generally do not know the appropriate number of clusters in advance.</p>
 <p>Run K-means again, but this time specify (k=3):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>km3 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  cluster_data_scaled,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">3</span>,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>km3 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  cluster_data_scaled,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">3</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Visualize the results:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_kmeans_clusters</span>(</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> cluster_data_scaled,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">var1 =</span> <span class="st">"x1"</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var2 =</span> <span class="st">"x2"</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">km =</span> km3</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_kmeans_clusters</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> cluster_data_scaled,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">var1 =</span> <span class="st">"x1"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var2 =</span> <span class="st">"x2"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">km =</span> km3</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -511,8 +475,8 @@ The following objects are masked from 'package:purrr':
 <p>K-means will create the number of clusters that we ask it to create. It does not determine the appropriate value of (k) for us. In this exercise, we knew that (k=2) was appropriate because we generated the data. With real-world data, choosing (k) is an important part of the cluster analysis.</p>
 </section>
 </section>
-<section id="exercise-2-unknown-number-of-groups" class="level3" data-number="9.1.3">
-<h3 data-number="9.1.3" class="anchored" data-anchor-id="exercise-2-unknown-number-of-groups"><span class="header-section-number">9.1.3</span> Exercise 2: Unknown Number of Groups</h3>
+<section id="part-2-unknown-number-of-groups" class="level3" data-number="9.1.3">
+<h3 data-number="9.1.3" class="anchored" data-anchor-id="part-2-unknown-number-of-groups"><span class="header-section-number">9.1.3</span> Part 2: Unknown Number of Groups</h3>
 <p>In the previous exercise, we knew the appropriate value of k because we generated the data ourselves. In practice, however, we usually do not know how many meaningful groups exist in the data.</p>
 <p>In this exercise, you will work with a new dataset. Although the data are simulated, you should treat them as if they were real data. You do not know how many underlying groups were used to generate the observations.</p>
 <p>Your task is to explore the data, choose a reasonable value of k, perform K-means clustering, and interpret the resulting clusters.</p>
@@ -520,35 +484,35 @@ The following objects are masked from 'package:purrr':
 <h4 data-number="9.1.3.1" class="anchored" data-anchor-id="setup-1"><span class="header-section-number">9.1.3.1</span> Setup</h4>
 <p>Start by clearing the environment and loading the packages and functions used in the lab.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clearing the environment</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading packages</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/EDA_functions.R"</span>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/Cluster_functions.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clearing the environment</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading packages</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/EDA_functions.R"</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/Cluster_functions.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="import-the-data" class="level4" data-number="9.1.3.2">
 <h4 data-number="9.1.3.2" class="anchored" data-anchor-id="import-the-data"><span class="header-section-number">9.1.3.2</span> Import the data</h4>
 <p>Import the dataset:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/kmeans_data2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/kmeans_data2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="explore-the-data-1" class="level4" data-number="9.1.3.3">
 <h4 data-number="9.1.3.3" class="anchored" data-anchor-id="explore-the-data-1"><span class="header-section-number">9.1.3.3</span> Explore the data</h4>
 <p>Visualize the relationship between the two variables using the course function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">xvar =</span> x1,</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">yvar =</span> x2,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"X1"</span>,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"X2"</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">xvar =</span> x1,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">yvar =</span> x2,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"X1"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"X2"</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -561,28 +525,28 @@ The following objects are masked from 'package:purrr':
 <section id="select-the-variables-for-clustering-1" class="level4" data-number="9.1.3.4">
 <h4 data-number="9.1.3.4" class="anchored" data-anchor-id="select-the-variables-for-clustering-1"><span class="header-section-number">9.1.3.4</span> Select the variables for clustering</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x1, x2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x1, x2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="scaling-standardize-the-variables-1" class="level4" data-number="9.1.3.5">
 <h4 data-number="9.1.3.5" class="anchored" data-anchor-id="scaling-standardize-the-variables-1"><span class="header-section-number">9.1.3.5</span> Scaling: Standardize the variables</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cluster_data_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(cluster_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cluster_data_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(cluster_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="choose-the-number-of-clusters" class="level4" data-number="9.1.3.6">
 <h4 data-number="9.1.3.6" class="anchored" data-anchor-id="choose-the-number-of-clusters"><span class="header-section-number">9.1.3.6</span> Choose the number of clusters</h4>
 <p>One way to investigate a reasonable value of k is the elbow method. The idea is to run K-means repeatedly using different values of k and compare the within-cluster sum of squares. Run the following code:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  cluster_data_scaled,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  kmeans,</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"wss"</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">k.max =</span> <span class="dv">10</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  cluster_data_scaled,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  kmeans,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"wss"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">k.max =</span> <span class="dv">10</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -604,29 +568,24 @@ The following objects are masked from 'package:purrr':
 <h4 data-number="9.1.3.7" class="anchored" data-anchor-id="run-k-means"><span class="header-section-number">9.1.3.7</span> Run K-means</h4>
 <p>Now use the value of k that you selected. For example, if you selected k = 3, you would run:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  cluster_data_scaled,</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">3</span>,</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  cluster_data_scaled,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">3</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Replace 3 with the value of k that you selected if necessary. Examine the number of observations in each cluster:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(km<span class="sc">$</span>cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(km<span class="sc">$</span>cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  1  2  3 
 51 62 67 </code></pre>
 </div>
 </div>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>How many observations were assigned to each cluster?</li>
-<li>Are the clusters approximately equal in size?</li>
-<li>Would equal cluster sizes necessarily be expected in real data?</li>
-</ul>
+<p><strong>Questions:</strong> - How many observations were assigned to each cluster? - Are the clusters approximately equal in size? - Would equal cluster sizes necessarily be expected in real data?</p>
 </section>
 <section id="visualize-the-clusters-1" class="level4" data-number="9.1.3.8">
 <h4 data-number="9.1.3.8" class="anchored" data-anchor-id="visualize-the-clusters-1"><span class="header-section-number">9.1.3.8</span> Visualize the clusters</h4>
@@ -634,13 +593,13 @@ The following objects are masked from 'package:purrr':
 <p>To simplify our workflow, we will use another R package, called <code>factoextra</code>, to visualize the results of our cluster analysis from this point onward. The package produces clear and informative plots and can also automatically apply PCA before plotting when the dataset contains more than two variables.</p>
 <p>Plot our clusters with factoextra:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  km,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> cluster_data_scaled,</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"point"</span>,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">"convex"</span>,</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  km,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> cluster_data_scaled,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">"convex"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -662,19 +621,19 @@ The following objects are masked from 'package:purrr':
 <p>We standardized the variables before running K-means because the algorithm is based on distances between observations. However, for interpretation, it is often more useful to return to the original scale of the variables.</p>
 <p>First, add the cluster assignments to the original data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>cluster <span class="ot">&lt;-</span> <span class="fu">factor</span>(km<span class="sc">$</span>cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>cluster <span class="ot">&lt;-</span> <span class="fu">factor</span>(km<span class="sc">$</span>cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can then calculate the mean of each original variable for each cluster:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>cluster_summary <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cluster) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_x1 =</span> <span class="fu">mean</span>(x1),</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_x2 =</span> <span class="fu">mean</span>(x2)</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>cluster_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cluster_summary <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cluster) <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_x1 =</span> <span class="fu">mean</span>(x1),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_x2 =</span> <span class="fu">mean</span>(x2)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>cluster_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 4
   cluster     n mean_x1 mean_x2
@@ -703,13 +662,13 @@ The following objects are masked from 'package:purrr':
 <p>In this exercise, the number of clusters was not given to us. Instead, we treated k as a decision that had to be made as part of the analysis.</p>
 <p>Our workflow was:</p>
 <ul>
-<li>Explore the data.</li>
-<li>Select variables for clustering.</li>
-<li>Standardize the variables.</li>
-<li>Investigate possible values of k.</li>
-<li>Choose k.</li>
-<li>Run K-means.</li>
-<li>Inspect, visualize, and interpret the resulting clusters.</li>
+<li>Explore the data</li>
+<li>Select variables for clustering</li>
+<li>Standardize the variables</li>
+<li>Investigate possible values of k</li>
+<li>Choose k</li>
+<li>Run K-means</li>
+<li>Inspect, visualize, and interpret the resulting clusters</li>
 </ul>
 <p>The elbow method can help us choose a reasonable value of k, but it does not always provide one objectively correct answer. Choosing the number of clusters often requires combining statistical tools with visualization and substantive knowledge about the data.</p>
 </section>
@@ -717,23 +676,23 @@ The following objects are masked from 'package:purrr':
 <h4 data-number="9.1.3.12" class="anchored" data-anchor-id="a-compact-k-means-workflow"><span class="header-section-number">9.1.3.12</span> A Compact K-means Workflow</h4>
 <p>When experimenting with different values of <span class="math inline">\(k\)</span>, it is convenient to keep the main steps in one code chunk. Change only the value of number of <code>centers</code> and re-run the chunk. Look at the plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Run k-means</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  cluster_data_scaled,</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">3</span>,</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Visualize the result</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  km,</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> cluster_data_scaled,</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"point"</span>,</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">"convex"</span>,</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Run k-means</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  cluster_data_scaled,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">centers =</span> <span class="dv">3</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">nstart =</span> <span class="dv">25</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Visualize the result</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  km,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> cluster_data_scaled,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">ellipse.type =</span> <span class="st">"convex"</span>,</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

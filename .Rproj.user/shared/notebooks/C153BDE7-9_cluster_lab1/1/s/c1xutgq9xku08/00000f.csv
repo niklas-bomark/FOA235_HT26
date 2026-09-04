@@ -1,0 +1,10 @@
+"0","set.seed(123)"
+"0",""
+"0","# 1. Run k-means"
+"0","km <- kmeans("
+"0","  cluster_data_scaled,"
+"0","  centers = 3,"
+"0","  nstart = 25"
+"0",")"
+"2","Error: object 'cluster_data_scaled' not found
+"

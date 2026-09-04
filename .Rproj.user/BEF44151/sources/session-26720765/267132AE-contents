@@ -1,0 +1,415 @@
+---
+title: "Cluster Analysis: Lab 2"
+subtitle: "Multidimensional Cluster Analysis"
+format: html
+---
+
+In this lab, we will import a dataset containing many variables, standardize the variables, and then perform a k-means cluster analysis to explore whether there are distinct groups in the data. Since we are working with multidimensional data, we will use Principal Component Analysis (PCA) to visualize the resulting clusters in two dimensions. We will also evaluate the clustering solution using the elbow method. Finally, we will interpret the results and make a decision about whether the chosen clustering model should be implemented in the company.
+
+We will follow this basic workflow when we work with K-Means Cluster Analysis:
+
+1.  Explore the data.
+2.  Select the variables to include in the cluster analysis.
+3.  Standardize the variables so that differences in scale do not influence the clustering.
+4.  Choose the number of clusters, $k$.
+5.  Run the K-means algorithm.
+6.  Inspect, interpret, and visualize the resulting clusters. If the data contain more than two variables, we can use PCA to represent the clusters in two dimensions.
+
+## Multidimensional K-means Cluster Analysis
+
+### Learning objectives
+
+After completing this lab, you should be able to:
+
+-   prepare data for cluster analysis;
+-   standardize variables;
+-   perform a k-means cluster analysis;
+-   use the elbow method to select the number of clusters;
+-   visualize multidimensional clusters using PCA;
+-   evaluate how well-separated the clusters are;
+-   interpret the clusters;
+-   make a recommendation based on the analysis.
+
+### Exercise 1: Multidimensional K-means Cluster Analysis
+
+#### Setup
+
+We begin by clearing the Environment and loading the packages used in the lab.
+
+```{r}
+#| message: false
+
+
+# Clear Environment
+rm(list = ls())
+
+# Load packages
+library(tidyverse)
+library(cluster)
+library(factoextra)
+
+source("Functions/EDA_functions.R")
+source("Functions/Cluster_functions.R")
+
+```
+
+Import a dataset that we will work with.
+
+```{r}
+# Import data
+df <- read.csv("Data/customer_data.csv")
+
+head(df)
+```
+
+**Questions:**\
+- How many observations are in the dataset?\
+- How many variables are in the dataset?\
+- Which variables are numeric?\
+- Are there any variables that should **not** be included in the cluster analysis? Why?
+
+#### Select variables for clustering
+
+K-means clustering is based on numerical distances. We therefore need to select the numeric variables that we want the algorithm to use. Suppose the dataset contains an ID variable called `customer_id`. We do not want to use the ID when forming clusters.
+
+```{r}
+df_cluster <- df |>
+  select(where(is.numeric)) |>
+  select(-customer_id)
+```
+
+If your dataset does not contain `customer_id`, remove the final line:
+
+``` r
+select(-customer_id)
+```
+
+Inspect the selected variables.
+
+```{r}
+head(df_cluster)
+```
+
+**Questions:**\
+- Which variables are now included in the cluster analysis?\
+- Why should an identification number such as `customer_id` not be included?\
+- Why does k-means generally require numerical variables?
+
+#### Check missing values
+
+Before running the cluster analysis, check whether the selected variables contain missing values.
+
+```{r}
+colSums(is.na(df_cluster))
+```
+
+For simplicity, we remove observations containing missing values.
+
+```{r}
+df_cluster <- df_cluster |>
+  drop_na()
+```
+
+**Questions:**\
+- Were there any missing values?\
+- How many observations remain after removing missing values?
+
+#### Examine the variables
+
+Before clustering, inspect the descriptive statistics.
+
+```{r}
+summary(df_cluster)
+```
+
+The variables may be measured on very different scales. For example:
+
+-   age may range from 18 to 80;
+-   annual income may range from 20,000 to 150,000;
+-   satisfaction may range from 1 to 10.
+
+Because k-means uses distances, variables with larger numerical scales can otherwise dominate the clustering solution.
+
+**Questions:**\
+- Why could it be problematic to perform k-means clustering directly on variables measured on very different scales?
+
+#### Scaling: Standardize the variables
+
+We standardize the variables. After standardization, each variable has approximately:\
+- mean = 0;\
+- standard deviation = 1.
+
+```{r}
+df_scaled <- df_cluster |>
+  scale() |>
+  as.data.frame()
+```
+
+Inspect the standardized data.
+
+```{r}
+head(df_scaled)
+```
+
+Check the means.
+
+```{r}
+round(colMeans(df_scaled), 2)
+```
+
+Check the standard deviations.
+
+```{r}
+round(sapply(df_scaled, sd), 2)
+```
+
+**Questions:**\
+- What are the approximate means of the standardized variables?\
+- What are the approximate standard deviations?\
+- Why is standardization especially important for k-means clustering?
+
+#### How many clusters should we use?
+
+K-means requires us to choose the number of clusters, (k), before estimating the model. One common method for selecting (k) is the **elbow method**. The elbow method compares the total within-cluster variation for different values of (k).
+
+```{r}
+set.seed(123)
+
+fviz_nbclust(
+  df_scaled,
+  kmeans,
+  method = "wss",
+  k.max = 10
+)
+```
+
+The vertical axis shows the **within-cluster sum of squares**. As the number of clusters increases, the within-cluster variation decreases. However, adding more and more clusters eventually produces only small improvements. We look for an **elbow** in the plot: a point where adding another cluster produces a much smaller improvement.
+
+**Questions:**\
+- Where do you see an elbow in the figure?\
+- How many clusters would you choose?\
+- Is the choice completely obvious?
+
+#### Run the k-means model
+
+Suppose that we decide to use **three clusters**. We set a seed to make the results reproducible.
+
+```{r}
+set.seed(123)
+
+km <- kmeans(
+  df_scaled,
+  centers = 3,
+  nstart = 25
+)
+```
+
+#### Add cluster membership to the data
+
+Count the observations in each cluster.
+
+```{r}
+table(km$cluster)
+```
+
+#### Examine the cluster centers
+
+The cluster centers help us understand what characterizes each cluster. The centers stored in the k-means model are based on the **standardized variables**.
+
+```{r}
+km$centers
+```
+
+Values above zero indicate that the cluster is above the overall mean for that variable. Values below zero indicate that the cluster is below the overall mean.
+
+**Questions:** Study the cluster centers.\
+- What seems to characterize Cluster 1?\
+- What seems to characterize Cluster 2?\
+- What seems to characterize Cluster 3?\
+- Which variables appear to distinguish the clusters most strongly?
+
+#### Interpret clusters using the original scale
+
+Standardized values are useful for clustering because they ensure that variables measured on different scales contribute more equally to the analysis. However, standardized values can be difficult to interpret. To better understand the clusters, we can therefore calculate the average of each variable on its original scale within each cluster.
+
+For this step, we will introduce two new functions: `across()` and `where()`. This is the only time we will use these functions in this lab, so you do not need to understand them in detail. It is enough to copy the code and make the necessary changes to fit your dataset.
+
+First, however, we need to extract the cluster assignments from the K-means model and add them to our original, unscaled data frame:
+
+```{r}
+df_results <- df_cluster |>
+  mutate(
+    cluster = factor(km$cluster)
+  )
+```
+
+Inspect the result.
+
+```{r}
+head(df_results)
+```
+
+We can now calculate summary statistics for the variables on their original scale:
+
+```{r}
+cluster_summary <- df_results |>
+  group_by(cluster) |>
+  summarise(
+    across(
+      where(is.numeric),
+      ~ mean(.x, na.rm = TRUE)
+    )
+  )
+
+cluster_summary
+```
+
+**Questions:**\
+- Describe Cluster 1\
+- Describe Cluster 2\
+- Describe Cluster 3\
+- Can you give each cluster a meaningful business-oriented name?
+
+For example:
+
+-   "High-value customers"
+-   "Price-sensitive customers"
+-   "Occasional customers"
+
+Your names should be based on the actual characteristics of your clusters.
+
+#### Visualize many variables?
+
+In the first lab on cluster analysis we only had two variables. In this lab we have more. This means that the observations exist in a **multidimensional space**. To visualize the clusters, we use **Principal Component Analysis (PCA)**. PCA summarizes the variation in many variables using a smaller number of dimensions (in our case: 2!). We will not focus on how to perform PCA or on the mathematical details behind it. However, you should understand the basic idea and purpose of PCA, as this will help you interpret the visualizations we create.
+
+We will use the factoextra package. Here is the code:
+
+```{r}
+fviz_cluster(
+  km,
+  data = df_scaled,
+  geom = "point",
+  ellipse.type = "convex",
+  ggtheme = theme_minimal()
+)
+```
+
+**Questions:**\
+- Do the clusters appear clearly separated?\
+- Is there considerable overlap between any clusters?\
+- Which clusters appear most similar?\
+- Does the PCA visualization support the idea that three meaningful clusters exist?
+
+#### Compare alternative models
+
+Suppose you are considering models with 2, 3, and 4 clusters. Run all three models.
+
+```{r}
+set.seed(123)
+
+km2 <- kmeans(
+  df_scaled,
+  centers = 2,
+  nstart = 25
+)
+
+km3 <- kmeans(
+  df_scaled,
+  centers = 3,
+  nstart = 25
+)
+
+km4 <- kmeans(
+  df_scaled,
+  centers = 4,
+  nstart = 25
+)
+```
+
+Calculate the total within-cluster sum of squares (WSS) for each model and compare the results.
+
+```{r}
+comparison <- data.frame(
+  clusters = c(2, 3, 4),
+  WSS = c(
+    km2$tot.withinss,
+    km3$tot.withinss,
+    km4$tot.withinss
+  )
+)
+
+comparison
+```
+
+WSS will always decrease as we add more clusters because observations can be grouped into increasingly smaller and more homogeneous clusters. Therefore, we should not simply choose the model with the lowest WSS.
+
+Instead, we should consider **how much the WSS decreases** when moving from 2 to 3 clusters and from 3 to 4 clusters. If adding another cluster results in only a small additional decrease in WSS, the more complex model may not provide much improvement.
+
+This is the same logic that underlies the **elbow method**. We can examine the change in WSS explicitly:
+
+```{r}
+comparison <- comparison |>
+  mutate(
+    WSS_reduction = lag(WSS) - WSS
+  )
+
+comparison
+```
+
+**Questions:**\
+- How much does WSS decrease when moving from 2 to 3 clusters?\
+- How much does it decrease when moving from 3 to 4 clusters?\
+- Which model is easiest to interpret?
+
+#### Business interpretation
+
+Imagine that you work for a company that wants to use the clusters to develop different strategies for different groups of customers. For example, the company could use the clusters for:
+
+-   targeted marketing;
+-   personalized offers;
+-   customer retention;
+-   pricing strategies;
+-   product recommendations.
+
+Study your cluster summaries again.
+
+```{r}
+cluster_summary
+```
+
+**Questions:**\
+- What practical differences exist between the clusters?\
+- Could the company realistically use these clusters to make different decisions?\
+- What strategy would you recommend for each cluster?\
+- Are the differences between the clusters large enough to justify treating them differently?
+
+#### Implementation decision
+
+You are now responsible for recommending whether the company should implement the clustering model. Consider the following evidence:
+
+-   the elbow method;
+-   the silhouette analysis;
+-   the PCA visualization;
+-   the size of the clusters;
+-   how distinct the cluster profiles are;
+-   whether the clusters have meaningful business interpretations.
+
+#### Final task
+
+Write a short recommendation to management. Your recommendation should answer the following questions:
+
+1.  How many clusters do you recommend?
+2.  What characterizes the clusters?
+3.  How well-separated are they?
+4.  Are the clusters meaningful from a business perspective?
+5.  Should the company implement the clustering model?
+
+Conclude with one of the following recommendations:
+
+**Implement the model**
+
+or
+
+**Do not implement the model**
+
+Briefly justify your decision.

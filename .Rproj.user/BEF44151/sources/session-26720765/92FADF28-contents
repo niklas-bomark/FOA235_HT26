@@ -1,0 +1,363 @@
+---
+title: "Lab 2"
+---
+
+Read and follow the instructions provided in Chapters 5 and 6 of the course compendium before starting the lab.
+
+Work in groups of **2–3 students**. Start with Exercise 1 and continue to Exercise 2 if you have time.
+
+------------------------------------------------------------------------
+
+## Exercise 1
+
+This section is related to **Chapter 5** in the course compendium. Lets first prepare the R session. We start by clearing the Environment, loading the required packages, loading the course-specific EDA functions, and importing the cleaned dataset. You don't need to understand the code below in detail. Just press 'Run Current Chunk', green triangle, top right corner.
+
+```{r}
+# Clear environment
+rm(list = ls())
+
+# Load packages and functions
+library(tidyverse)
+library(scales)
+
+# The file `EDA_functions.R` contains helper functions that we will use to create consistent plots throughout the course.
+source("Functions/EDA_functions.R")
+
+# Import the dataset
+df <- read.csv("Data/data_edits.csv")
+
+```
+
+Use **the course compendium** as a guide for what code you should paste into this lab document. If you need more code chunks you can insert them by going to **Insert -\> Executable Cell -\> R** (You will have to be in the Visual mode).
+
+Take a first look at the data. Paste the code into the code chunk to view the first six rows of the data frame we just imported.
+
+```{r}
+
+
+```
+
+Look at the data using the function `summary()`
+
+```{r}
+
+
+```
+
+### Editing data
+
+We will make some changes to the data. Paste the relevant code into the code chunks below to edit and transform the data, You will find the code in the course compendium:
+
+#### Variable names
+
+Rename the variables:
+
+```{r}
+
+```
+
+#### Relevance
+
+Select relevant variables:
+
+```{r}
+
+```
+
+#### Mutate
+
+Create a new variable called 'price' and the variable called 'revenue':
+
+```{r}
+
+```
+
+#### Group
+
+Calculate the mean revenue by region:
+
+```{r}
+
+```
+
+#### Factors
+
+Transform the variable region to a factor variable (without order):
+
+```{r}
+
+```
+
+#### Filter
+
+Keep only price values that are 60 or higher:
+
+```{r}
+
+```
+
+#### Create new categorical and binary variables
+
+Create a new age variable that is split into two age categories:
+
+```{r}
+
+```
+
+#### Missing values (NAs)
+
+Look at the data for missing values, and remove them:
+
+```{r}
+
+```
+
+#### Our new dataset
+
+Take a look at the new dataset. Does it look good?
+
+```{r}
+
+```
+
+#### Save data
+
+Save the new dataset in the folder Data and name the file: 'df_clean.csv'
+
+```{r}
+
+```
+
+### Describing Data
+
+This section is related to **Chapter 6** in the course compendium. Start by clearing the environment, load packages, functions and import the edited data. Use the following code:
+
+```{r}
+#| message: false
+#| echo: false
+
+# Clear environment
+rm(list = ls())
+
+# Load packages and functions
+library(tidyverse)
+library(scales)
+
+# The file `EDA_functions.R` contains helper functions that we will use to create consistent plots throughout the course.
+source("Functions/EDA_functions.R")
+
+# Import the cleaned dataset
+df_clean <- read.csv("Data/df_clean.csv")
+```
+
+### Univariate analysis
+
+The R functions below can be used to calculate common descriptive statistics. For each description, write the appropriate R code in the space provided. Apply the specified function to the relevant variable in the data frame and run the code to calculate the statistic.
+
+```{r}
+# Minimum value: min() returns the smallest value.
+
+
+
+# Maximum value: max() returns the largest value.
+
+
+
+# Range (minimum and maximum): range() returns both the minimum and maximum values.
+
+
+
+# Mean: mean() calculates the arithmetic mean (average).
+
+
+
+# Median: median() returns the middle value when the observations are ordered.
+
+
+
+# Standard deviation: sd() calculates the standard deviation, which describes how spread out the observations are around the mean.
+
+
+
+# Variance: var() calculates the variance, another measure of spread.
+
+
+
+# Quantiles: quantile() returns selected percentiles of the distribution, including the first quartile (25%), median (50%), and third quartile (75%).
+
+
+```
+
+We can also use summary() to obtain several important summary statistics at once. Try yourself below:
+
+```{r}
+
+
+```
+
+##### Missing values
+
+If a variable contains missing values (NA), many of these functions will return NA instead of calculating the statistic. To tell R to ignore missing values when performing the calculation, add the argument na.rm = TRUE to the function.
+
+Try this by calculating the mean, standard deviation, and range of the age variable while ignoring any missing values. You will find the code in section 6.2.11 in the course compendium.
+
+```{r}
+
+
+```
+
+##### Histogram
+
+Create a histogram of the age variable:
+
+```{r}
+
+
+```
+
+**Questions:** - Where are most of the observations located? - Is the distribution symmetric or skewed? - Does the distribution have one clear peak or several peaks? - Are there any gaps in the distribution? - Are there any unusual or extreme observations?
+
+##### Boxplot for one numerical variable
+
+Create a boxplot of the income variable:
+
+```{r}
+
+
+```
+
+**Questions:** - Where is the median located? - Where are the middle 50% of the observations? - How spread out are the observations? - Does the distribution appear symmetric or skewed? - Are there any potential outliers beyond the whiskers? - If comparing groups, how do their centers, spreads, and outliers differ?
+
+#### Categorical variables
+
+##### Frequency table
+
+Create a frequency table showing the number of observations in each category of the region variable.
+
+```{r}
+
+
+```
+
+##### Frequency table with percentages
+
+Create a frequency table showing the percentage of observations in each category of the region variable:
+
+```{r}
+
+
+```
+
+##### Bar chart
+
+Create a bar chart showing the number of observations in each category of the region variable:
+
+```{r}
+
+
+```
+
+**Questions:** - Which category is most common? - Which category is least common? - Are observations distributed evenly across categories?
+
+### Bivariate analysis
+
+Bivariate analysis means examining **two variables at the same time**. The appropriate method depends on the types of the two variables. Common combinations are:
+
+-   numerical + numerical,
+-   numerical + categorical,
+-   categorical + categorical
+
+#### Numerical + numerical
+
+When both variables are numerical, we are often interested in whether they are related.
+
+##### Scatterplot
+
+Create a scatterplot showing the relationship between the 'age' and 'income' variables:
+
+```{r}
+
+
+```
+
+**Questions:** - Is there a positive or negative relationship? - Is the relationship approximately linear? - How strong does the relationship appear? - Are there unusual observations? - Are there clusters or other patterns?
+
+##### Correlation
+
+Calculate the correlation between the 'age' and 'income' variables:
+
+```{r}
+
+
+```
+
+#### Numerical + categorical
+
+When one variable is numerical and the other is categorical, we often want to compare the distribution of the numerical variable across groups.
+
+##### Grouped histogram
+
+Create a grouped histogram to compare the distribution of income between the three groups in the variable 'region':
+
+```{r}
+
+
+```
+
+##### Boxplot by group
+
+Create a grouped boxplot to compare the distribution of 'age' between the three groups in the variable 'region.'
+
+```{r}
+
+
+```
+
+#### Categorical + categorical
+
+##### Cross Table
+
+Create a cross table to examine the relationship between the two categorical variables: 'age_cat' and 'region':
+
+```{r}
+
+
+```
+
+To examine percentages within each age category:
+
+```{r}
+
+
+```
+
+When interpreting a cross table, ask whether the distribution across one categorical variable appears to differ across the categories of the other variable.
+
+------------------------------------------------------------------------
+
+## Exercise 2
+
+Use the dataset `df_clean` to complete the following exercises.
+
+Start by clearing the environment, load packages, functions and import the edited data. Use the following code:
+
+```{r}
+
+
+```
+
+#### Univariate analysis
+
+1.  Describe the distribution of `age`. Create a histogram and a boxplot.
+2.  Describe the distribution of `income`. Create a histogram and a boxplot.
+3.  Which `group` category is most common?
+4.  What percentage of observations belongs to each group?
+5.  Are there potential outliers in `income`?
+
+#### Bivariate analysis
+
+1.  Is there a relationship between `age` and `income`? Create a scatterplot.
+2.  Does the distribution of `income` differ across `group`? Create a grouped boxplot.
+3.  Which group has the highest median income?
+4.  Does the distribution of `group` differ across `age_cat`?
+5.  Which visualization or table is most appropriate for each of these questions?

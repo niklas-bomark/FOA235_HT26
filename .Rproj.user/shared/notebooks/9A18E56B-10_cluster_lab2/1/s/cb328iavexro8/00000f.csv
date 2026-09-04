@@ -1,7 +1,0 @@
-"0","fviz_cluster("
-"0","  km,"
-"0","  data = df_scaled,"
-"0","  geom = ""point"","
-"0","  ellipse.type = ""convex"","
-"0","  ggtheme = theme_minimal()"
-"0",")"

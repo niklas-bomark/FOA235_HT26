@@ -1,8 +1,0 @@
-"0","df_clean |>"
-"0","  group_by(region) |>"
-"0","  summarise("
-"0","    n = n(),"
-"0","    mean_sales = mean(revenue),"
-"0","    min_sales = min(revenue),"
-"0","    max_sales = max(revenue)"
-"0","  )"

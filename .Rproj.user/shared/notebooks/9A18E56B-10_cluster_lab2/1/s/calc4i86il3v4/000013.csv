@@ -1,8 +1,0 @@
-"0","set.seed(123)"
-"0",""
-"0","fviz_nbclust("
-"0","  df_scaled,"
-"0","  kmeans,"
-"0","  method = ""wss"","
-"0","  k.max = 10"
-"0",")"

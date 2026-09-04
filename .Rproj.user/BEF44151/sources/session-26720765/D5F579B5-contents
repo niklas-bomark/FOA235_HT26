@@ -1,0 +1,305 @@
+---
+title: "Lab 4"
+---
+
+Read and follow the instructions provided in Chapter 9 of the course compendium before starting the lab.
+
+------------------------------------------------------------------------
+
+## Lab 4: Basic K-means
+
+### Exercise 1: Your First K-Means Cluster Analysis
+
+In this exercise, we will work with a simulated dataset containing two variables and two underlying groups. Because the data are simulated, we know that there are two groups. However, we will not provide this information to the K-means algorithm. Instead, we will investigate whether K-means can identify the groups based only on similarities and differences between the observations.
+
+The idea for the exercise is based on the Lab presented under section 12.5.3 Clustering in An Introduction to Statistical Learning with Applications in R.
+
+#### Setup
+
+Start by clearing the environment and loading the packages and functions used in the lab.
+
+```{r}
+#| message: false
+
+
+# Clearing the environment
+rm(list = ls())
+
+# Loading packages
+library(tidyverse)
+library(factoextra)
+
+source("Functions/EDA_functions.R")
+source("Functions/Cluster_functions.R")
+```
+
+#### Generate the data
+
+Run the following code:
+
+```{r}
+set.seed(2)
+
+df <- data.frame(
+  x1 = rnorm(50),
+  x2 = rnorm(50)
+)
+
+# Create a mean shift for the first 25 observations
+df$x1[1:25] <- df$x1[1:25] + 5
+df$x2[1:25] <- df$x2[1:25] - 6
+```
+
+The dataset contains 50 observations and two variables, x1 and x2.
+
+#### Explore the data
+
+Visualize the two variables using the course function:
+
+```{r}
+
+
+```
+
+**Questions:** 
+- Based only on the figure, do the observations appear to form distinct groups? 
+- If so, how many groups do you see?
+
+#### Select the variables for clustering
+
+For this exercise, we will use both variables. Therefore we will not do anything.
+
+#### Scaling: Standardize the variables
+
+Scale the variables by standardizing them to have a mean of 0 and a standard deviation of 1.
+
+```{r}
+
+```
+
+**Question:** 
+- Why do we standardize variables before performing K-means clustering?
+
+
+#### Run K-means clustering
+
+Use K-means to identify clusters. Set K to a number that you think is reasonable:
+
+```{r}
+
+
+```
+
+How many observations were assigned to each cluster?
+
+```{r}
+
+
+```
+
+#### Visualize the clusters
+
+We can now visualize the results using our course function:
+
+```{r}
+
+
+
+```
+
+**Questions:**
+- Does K-means appear to have successfully identified the two groups? 
+- Compare the cluster plot with the original scatterplot. 
+- What has K-means added to our understanding of the data?
+
+#### What happens if we choose the wrong (k)?
+
+Run K-means again, but this time specify (k=3):
+
+```{r}
+
+
+```
+
+Visualize the results:
+
+```{r}
+
+
+```
+
+**Questions:** 
+- What happens when you ask K-means to find three clusters? 
+- Does the existence of three clusters in the output mean that there are actually three meaningful groups in the data? 
+- What does this tell you about the importance of choosing (k)?
+
+### Exercise 2: Unknown Number of Groups
+
+In the previous exercise, we knew the appropriate value of k because we generated the data ourselves. In practice, however, we usually do not know how many meaningful groups exist in the data.
+
+In this exercise, you will work with a new dataset. Although the data are simulated, you should treat them as if they were real data. You do not know how many underlying groups were used to generate the observations.
+
+Your task is to explore the data, choose a reasonable value of k, perform K-means clustering, and interpret the resulting clusters.
+
+#### Setup
+
+Start by clearing the environment and loading the packages and functions used in the lab.
+
+```{r}
+# Clearing the environment
+rm(list = ls())
+
+# Loading packages
+library(tidyverse)
+library(factoextra)
+
+source("Functions/EDA_functions.R")
+source("Functions/Cluster_functions.R")
+```
+
+#### Import the data
+
+Import the dataset:
+
+```{r}
+# add ../ if error in path
+
+```
+
+#### Explore the data
+
+Visualize the relationship between the two variables using the course function:
+
+```{r}
+
+
+```
+
+#### Select the variables for clustering
+
+Select the relevant variables to be included in the analysis: 
+
+```{r}
+
+
+```
+
+
+#### Standardize the variables
+
+Scale the variables by standardizing them to have a mean of 0 and a standard deviation of 1:
+
+```{r}
+
+
+```
+
+
+#### Choose the number of clusters
+
+Run K-means repeatedly using different values of k and compare the within-cluster sum of squares:
+
+```{r}
+
+
+```
+
+
+**Questions:**
+-   What happens to the within-cluster sum of squares as k increases?
+-   Where do you see an elbow in the figure?
+-   Based on the elbow method, what value of k would you choose?
+-   Is the choice completely unambiguous?
+
+
+#### Run K-means
+
+Use the value of k that you selected and run the code for K-means cluster:
+
+```{r}
+
+
+```
+
+Examine the number of observations in each cluster:
+
+```{r}
+
+
+```
+
+**Questions:**
+-   How many observations were assigned to each cluster?
+-   Are the clusters approximately equal in size?
+-   Would equal cluster sizes necessarily be expected in real data?
+
+
+#### Visualize the clusters
+
+Use the R package `factoextra` to visualize the results:
+
+```{r}
+
+
+```
+
+**Questions:**
+-   Do the resulting clusters correspond to the patterns you observed in the original scatterplot?
+-   Are the clusters clearly separated?
+-   Are there observations close to the boundaries between clusters?
+-   Does the value of k you selected still appear reasonable after inspecting the clustering result?
+
+#### Interpret the clusters
+
+We standardized the variables before running K-means because the algorithm is based on distances between observations. However, for interpretation, it is often more useful to return to the original scale of the variables.
+
+Add the cluster assignments to the original data:
+
+```{r}
+
+
+```
+
+Calculate the mean of each original variable for each cluster:
+
+```{r}
+
+
+```
+
+**Questions:**
+-   How many observations belong to each cluster?
+-   What is the average value of x1 and x2 in each cluster?
+-   How do the clusters differ from one another?
+-   How would you describe each cluster in words based on its original values?
+
+
+#### A Compact K-means Workflow
+
+It is convenient to keep the main steps in one code chunk. Change only the value of number of `centers` and re-run the chunk:
+
+```{r}
+set.seed(123)
+
+# 1. Run k-means
+km <- kmeans(
+  cluster_data_scaled,
+  centers = 3,
+  nstart = 25
+)
+
+# 2. Visualize the result
+fviz_cluster(
+  km,
+  data = cluster_data_scaled,
+  geom = "point",
+  ellipse.type = "convex",
+  ggtheme = theme_minimal()
+)
+```
+
+
+
+#### Should we use the model?
+
+Should we use the model in our firm? Is it a good model?

@@ -1,5 +1,10 @@
 ---
-title: "Lab6"
+title: "Linear Regression: Lab 1"
+subtitle: "Introduction to Supervised Learning and Prediction"
+format: html
+execute:
+  warning: false
+  message: false
 ---
 
 ## Introduction
@@ -38,14 +43,17 @@ After completing this lab, you should be able to:
 We begin by clearing the Environment and loading the packages used in the lab.
 
 ```{r}
+#| message: false
+
+
 # Clear Environment
 rm(list = ls())
 
 # Load packages
 library(tidyverse)
 
-source("../Functions/EDA_functions.R")
-source("../Functions/linear_regression_functions.R")
+source("Functions/EDA_functions.R")
+source("Functions/linear_regression_functions.R")
 ```
 
 ### Import the data
@@ -54,21 +62,19 @@ In this lab, imagine that we work for a company that wants to understand and pre
 
 ```{r}
 # Import the data
-df <- read.csv("../Data/regression_data.csv")
+df <- read.csv("Data/regression_data.csv")
 ```
 
 Take a first look at the data.
 
 ```{r}
-
-
+head(df)
 ```
 
 Inspect the descriptive statistics.
 
 ```{r}
-
-
+summary(df)
 ```
 
 #### Questions
@@ -101,12 +107,16 @@ This simply means that we are interested in whether information about marketing 
 
 ### Explore the relationship
 
-Before fitting a model, we should always explore the data. Because both variables are quantitative, a scatter plot is useful.
+Before fitting a model, we should always explore the data. Because both variables are quantitative, a scatterplot is useful.
 
 ```{r}
-
-
-
+scatterplot(
+  df,
+  marketing,
+  sales,
+  xlab = "Marketing",
+  ylab = "Sales"
+)
 ```
 
 #### Questions
@@ -143,23 +153,22 @@ The model tries to find the line that best represents the relationship between m
 We use the `lm()` function to estimate a linear regression model.
 
 ```{r}
-
-
-
+model <- lm(
+  sales ~ marketing,
+  data = df
+)
 ```
 
 View the estimated coefficients.
 
 ```{r}
-
-
+coef(model)
 ```
 
 You can also inspect a more detailed model summary.
 
 ```{r}
-
-
+summary(model)
 ```
 
 #### Questions
@@ -188,9 +197,14 @@ The intercept of 20 means that the model predicts sales of 20 when marketing is 
 We can add the fitted regression line to the scatter plot.
 
 ```{r}
-
-
-
+plot_regression_line(
+  data = df,
+  model = model,
+  xvar = marketing,
+  yvar = sales,
+  xlab = "Marketing",
+  ylab = "Sales"
+)
 ```
 
 #### Questions
@@ -204,9 +218,14 @@ We can add the fitted regression line to the scatter plot.
 Once we have fitted a model, we can use it to make predictions. Suppose marketing is equal to 30.
 
 ```{r}
+new_customer <- data.frame(
+  marketing = 30
+)
 
-
-
+predict(
+  model,
+  newdata = new_customer
+)
 ```
 
 #### Questions
@@ -219,15 +238,13 @@ Once we have fitted a model, we can use it to make predictions. Suppose marketin
 We can also calculate a prediction for every observation in the dataset.
 
 ```{r}
-
-
+df$predicted_sales <- predict(model)
 ```
 
 Inspect the results.
 
 ```{r}
-
-
+head(df)
 ```
 
 We now have:
@@ -246,24 +263,28 @@ $$
 Calculate the errors.
 
 ```{r}
-
-
-
+df <- df |>
+  mutate(
+    error = sales - predicted_sales
+  )
 ```
 
 Inspect the results.
 
 ```{r}
-
-
+head(df)
 ```
 
 We can plot errors with a residual plot:
 
 ```{r}
-
-
-
+# Plot the prediction errors
+plot_residuals(
+  data = df,
+  xvar = marketing,
+  errorvar = error,
+  xlab = "Marketing"
+)
 ```
 
 Each point shows the prediction error for one observation. The dashed horizontal line represents an error of zero, meaning that the prediction was exactly correct.
@@ -294,17 +315,21 @@ The opposite problem is underfitting. This occurs when the model is too simple t
 Our goal is therefore not simply to minimize prediction error on the training data. We want to build a model that generalizes well to new, unseen data. We will return to overfitting, underfitting, and how to evaluate models using separate datasets later in a few sections.
 
 ```{r}
+mae <- mean(
+  abs(df$error)
+)
 
-
-
+mae
 ```
 
 The **Root Mean Squared Error (RMSE)**.
 
 ```{r}
+rmse <- sqrt(
+  mean(df$error^2)
+)
 
-
-
+rmse
 ```
 
 #### Questions
@@ -340,17 +365,18 @@ In this lab, we will use:
 We use our `split_data()` function to randomly divide the observations into training and test data.
 
 ```{r}
-
-
-
+data_split <- split_data(
+  df,
+  train_prop = 0.70,
+  test_prop = 0.30
+)
 ```
 
 Create two data frames:
 
 ```{r}
-
-
-
+train_data <- data_split$train_data
+test_data <- data_split$test_data
 ```
 
 #### Questions
@@ -366,17 +392,16 @@ Create two data frames:
 We now estimate the model using **only the training data**.
 
 ```{r}
-
-
-
+model_train <- lm(
+  sales ~ marketing,
+  data = train_data
+)
 ```
 
 Inspect the model.
 
 ```{r}
-
-
-
+summary(model_train)
 ```
 
 ### Calculate predictions and errors for the training data
@@ -384,10 +409,29 @@ Inspect the model.
 We can first examine how well the model predicts the observations that were used to fit it.
 
 ```{r}
+train_data$predicted_sales <- predict(
+  model_train,
+  newdata = train_data
+)
 
+# Calculate the prediction errors.
+train_data <- train_data |>
+  mutate(
+    error = sales - predicted_sales
+  )
 
+# Calculate MAE.
+train_mae <- mean(
+  abs(train_data$error)
+)
 
+# Calculate RMSE.
+train_rmse <- sqrt(
+  mean(train_data$error^2)
+)
 
+train_mae
+train_rmse
 ```
 
 The **training error** tells us how well the model fits the observations that were used to estimate it. Lower values of MAE and RMSE indicate that the predictions are closer to the observed values.
@@ -396,28 +440,42 @@ However, training performance does not tell us how well the model will predict n
 
 ### Model comparison using training data
 
-In this first lab, we have fitted only one model. In later labs, however, we will fit and compare several alternative models.
-
-We can examine how well alternative models fit the **training data** by comparing measures such as MAE and RMSE. A smaller training error means that a model fits the training observations more closely. However, an important principle is that:
-
-**Better fit to the training data does not necessarily mean better predictions for new data.**
-
-A more flexible model can sometimes fit the training observations extremely well without performing equally well on new observations. We will return to this issue.
+In this first lab, we have fitted only one model. In later labs, however, we will fit and compare several alternative models. We can examine how well alternative models fit the **training data** by comparing measures such as MAE and RMSE. A smaller training error means that a model fits the training observations more closely. A more flexible model can sometimes fit the training observations extremely well without performing equally well on new observations.
 
 Think of the workflow as:
 
-**Training data → fit and develop models**
+-   Training data → fit and develop models
 
-**Test data → evaluate predictive performance on new observations**
+-   Test data → evaluate predictive performance on new observations
 
 ### Evaluate the model using test data
 
 We now use the fitted model to predict observations in the **test data**. Importantly, the model is **not fitted again** using the test data. We use the model that was estimated from the training data.
 
 ```{r}
+test_data$predicted_sales <- predict(
+  model_train,
+  newdata = test_data
+)
 
+# Calculate the test errors.
+test_data <- test_data |>
+  mutate(
+    error = sales - predicted_sales
+  )
 
+# Calculate the test MAE.
+test_mae <- mean(
+  abs(test_data$error)
+)
 
+# Calculate the test RMSE.
+test_rmse <- sqrt(
+  mean(test_data$error^2)
+)
+
+test_mae
+test_rmse
 ```
 
 The **test error** tells us how well the model predicts observations that were not used when estimating the model. It therefore gives us a better indication of how well the model is likely to perform when making predictions for new observations.
@@ -427,14 +485,25 @@ The **test error** tells us how well the model predicts observations that were n
 It is useful to compare the training and test performance side by side.
 
 ```{r}
+performance <- data.frame(
+  Dataset = c(
+    "Training",
+    "Test"
+  ),
+  MAE = c(
+    train_mae,
+    test_mae
+  ),
+  RMSE = c(
+    train_rmse,
+    test_rmse
+  )
+)
 
-
-
+performance
 ```
 
-The **training error** tells us how well the model fits the data that were used to estimate it. The **test error** tells us how well the fitted model predicts new observations that were not used during model fitting.
-
-A useful pattern to look for is whether performance becomes substantially worse when moving from the training data to the test data.
+The **training error** tells us how well the model fits the data that were used to estimate it. The **test error** tells us how well the fitted model predicts new observations that were not used during model fitting. A useful pattern to look for is whether performance becomes substantially worse when moving from the training data to the test data.
 
 For example, suppose a model has:
 
@@ -458,38 +527,6 @@ Despite fitting the training data extremely well, the second model performs much
 4.  What does the difference between training and test performance tell us?
 5.  Which error gives us the best indication of how well the model predicts new observations?
 
-### The modeling workflow
-
-We have now completed our first supervised learning workflow:
-
-**1. Define the problem**
-
-What do we want to predict?
-
-**2. Select outcome and predictor variables**
-
-What is $y$, and what information can we use as $x$?
-
-**3. Split the data**
-
-Create training and test data.
-
-**4. Fit the model**
-
-Use the training data to estimate the model.
-
-**5. Examine training performance**
-
-Evaluate how well the model fits the training observations.
-
-**6. Evaluate predictive performance**
-
-Use the fitted model to predict the test observations.
-
-**7. Compare training and test performance**
-
-Examine how well the model generalizes from the training data to new observations.
-
 ### Final Exercise
 
 Imagine that you are presenting your analysis to the company.
@@ -505,37 +542,3 @@ Answer the following questions.
 7.  How does the test RMSE compare with the training RMSE?
 8.  Why do we evaluate the model on data that were not used to fit it?
 9.  Based on the test performance, do you think marketing contains useful information for predicting sales? Explain briefly.
-
-### Summary
-
-K-means and linear regression represent two different types of machine learning.
-
-**K-means clustering** is unsupervised:
-
--   there is no outcome variable;
--   the algorithm searches for groups in the data.
-
-**Linear regression** is supervised:
-
--   there is an outcome variable;
--   predictors are used to explain or predict the outcome.
-
-In this lab, we introduced a basic supervised learning workflow:
-
-1.  identify the outcome and predictors;
-2.  explore their relationship;
-3.  split the data into training and test data;
-4.  fit the model using the training data;
-5.  examine the model's performance on the training data;
-6.  use the fitted model to predict the test data;
-7.  evaluate predictive performance using the test data;
-8.  compare training and test performance.
-
-The two datasets have different roles:
-
--   **training data** are used to fit and develop models;
--   **test data** are used to evaluate how well fitted models predict new observations.
-
-Training performance tells us how well a model fits observations it has already seen. Test performance tells us how well the model generalizes to observations it has not seen before.
-
-In later labs, we will fit increasingly sophisticated predictive models and examine an important challenge in supervised learning: a model that fits the training data better does not necessarily predict new observations better. This will lead us to the concepts of **overfitting, model complexity, and model selection**.

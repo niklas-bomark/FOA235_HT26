@@ -25,32 +25,35 @@ In this lab, we will introduce a basic modeling workflow for supervised learning
 
 We will begin this workflow using **linear regression**. In chapter 12 and 13 we will use a similar workflow but with logistic regression.
 
+Read Sections 3.2 and 3.3 in *An Introduction to Statistical Learning - with Applications in R* before working with the lab. Also read relevant parts of Chapter 6 in *An Introduction to Statistical Learning - with Applications in R* before working with the lab.
+
 ### Learning objectives
 
 After completing this lab, you should be able to:
 
--   distinguish between outcome and predictor variables
--   explain the basic idea behind linear regression
--   fit a simple linear regression model in R
--   interpret the intercept and slope
--   calculate predicted values
--   understand the difference between observed and predicted values
--   calculate prediction errors
--   explain why we separate training, and test data
+- distinguish between outcome and predictor variables
+- explain the basic idea behind linear regression
+- fit a simple linear regression model in R
+- interpret the intercept and slope
+- calculate predicted values
+- understand the difference between observed and predicted values
+- calculate prediction errors
+- explain why we separate training, and test data
+
+
+## Exercise 1: Simple Linear Regression
 
 ### Prepare the R session
 
 We begin by clearing the Environment and loading the packages used in the lab.
 
 ```{r}
-#| message: false
-
-
 # Clear Environment
 rm(list = ls())
 
 # Load packages
 library(tidyverse)
+library(ggplot2)
 
 source("Functions/EDA_functions.R")
 source("Functions/linear_regression_functions.R")
@@ -58,7 +61,7 @@ source("Functions/linear_regression_functions.R")
 
 ### Import the data
 
-In this lab, imagine that we work for a company that wants to understand and predict **sales**. The company has collected information about its marketing activities. Lets import some data.
+In the first part of this lab, imagine that we work for a company that wants to understand and predict **sales**. The company has collected information about its marketing activities. Lets import some data.
 
 ```{r}
 # Import the data
@@ -69,12 +72,14 @@ Take a first look at the data.
 
 ```{r}
 head(df)
+
 ```
 
 Inspect the descriptive statistics.
 
 ```{r}
 summary(df)
+
 ```
 
 #### Questions
@@ -89,19 +94,17 @@ summary(df)
 
 In supervised learning, we distinguish between outcome variables and predictor variables.
 
--   The **outcome variable** is the variable we want to explain or predict.
--   The **predictor variable** contains information that we use to make that prediction.
+- The **outcome variable** is the variable we want to explain or predict.
+- The **predictor variables** contain information that we use to make that prediction.
 
-Suppose we want to predict `sales` using `marketing`. In this case:
+We will start with a simple linear regression model with only one predictor. Suppose we want to predict `sales` using `marketing`. In this case:
 
--   `sales` is the outcome variable;
--   `marketing` is the predictor variable.
+- `sales` is the outcome variable;
+- `marketing` is the predictor variable.
 
 We can write this relationship as:
 
-$$
-Sales = f(Marketing)
-$$
+$$Sales = f(Marketing)$$
 
 This simply means that we are interested in whether information about marketing can help us understand or predict sales.
 
@@ -117,6 +120,8 @@ scatterplot(
   xlab = "Marketing",
   ylab = "Sales"
 )
+
+
 ```
 
 #### Questions
@@ -129,22 +134,18 @@ scatterplot(
 
 Linear regression describes the relationship between an outcome variable and one or more predictor variables using a line. For a simple linear regression with one predictor, the fitted model can be written as:
 
-$$
-\hat{y} = b_0 + b_1x
-$$
+$$\hat{y} = b_0 + b_1x$$
 
 where:
 
--   $\hat{y}$ is the predicted value of the outcome
--   $b_0$ is the **intercept**
--   $b_1$ is the **slope**
--   $x$ is the predictor variable
+- $\hat{y}$ is the predicted value of the outcome
+- $b_0$ is the **intercept**
+- $b_1$ is the **slope**
+- $x$ is the predictor variable
 
 For our example:
 
-$$
-\widehat{Sales} = b_0 + b_1 Marketing
-$$
+$$\widehat{Sales} = b_0 + b_1 Marketing$$
 
 The model tries to find the line that best represents the relationship between marketing and sales. The position and slope of this line are determined by two coefficients, $b_0$ and $b_1$, which are estimated from the data. Together, these coefficients define the best-fitting line—the line that minimizes the squared differences between the observed sales values and the values predicted by the model.
 
@@ -157,6 +158,7 @@ model <- lm(
   sales ~ marketing,
   data = df
 )
+
 ```
 
 View the estimated coefficients.
@@ -182,9 +184,7 @@ summary(model)
 
 Suppose the estimated model is:
 
-$$
-\widehat{Sales} = 20 + 2.5 \times Marketing
-$$
+$$\widehat{Sales} = 20 + 2.5 \times Marketing$$
 
 The intercept of 20 means that the model predicts sales of 20 when marketing is 0. The slope of 2.5 means that a one-unit increase in marketing is associated with an increase of 2.5 units in predicted sales.
 
@@ -238,7 +238,11 @@ predict(
 We can also calculate a prediction for every observation in the dataset.
 
 ```{r}
-df$predicted_sales <- predict(model)
+
+df <- df |>
+  mutate(
+    predicted_sales = predict(model)
+  )
 ```
 
 Inspect the results.
@@ -249,16 +253,14 @@ head(df)
 
 We now have:
 
--   the observed value: `sales`;
--   the model's prediction: `predicted_sales`.
+- the observed value: `sales`;
+- the model's prediction: `predicted_sales`.
 
 ### Prediction error
 
 A model will normally not predict every observation perfectly. The difference between the observed value and the predicted value is called a **residual** or prediction error.
 
-$$
-Error = Observed - Predicted
-$$
+$$Error = Observed - Predicted$$
 
 Calculate the errors.
 
@@ -273,6 +275,7 @@ Inspect the results.
 
 ```{r}
 head(df)
+
 ```
 
 We can plot errors with a residual plot:
@@ -289,264 +292,191 @@ plot_residuals(
 
 Each point shows the prediction error for one observation. The dashed horizontal line represents an error of zero, meaning that the prediction was exactly correct.
 
--   Points above zero are observations where the model predicted too little.
--   Points below zero are observations where the model predicted too much.
--   Points close to zero represent relatively accurate predictions.
+- Points above zero are observations where the model predicted too little.
+- Points below zero are observations where the model predicted too much.
+- Points close to zero represent relatively accurate predictions.
 
 #### Questions
 
--   Are the errors generally centered around zero?
--   Are there observations with particularly large errors?
--   Do you see any systematic pattern in the errors?
--   Find an observation with a positive error. What does a positive error mean?
--   Find an observation with a negative error. What does a negative error mean?
--   Would a perfect model have large or small errors?
+- Are the errors generally centered around zero?
+- Are there observations with particularly large errors?
+- Do you see any systematic pattern in the errors?
+- Find an observation with a positive error. What does a positive error mean?
+- Find an observation with a negative error. What does a negative error mean?
+- Would a perfect model have large or small errors?
 
 ### Measure prediction error
 
-To evaluate a model, we need to summarize its prediction errors. A common measures is **Mean Absolute Error (MAE)**. MAE calculates the average absolute difference between observed and predicted values. RMSE also measures prediction errors, but gives greater weight to large errors because the errors are squared before they are averaged. In this lab we will mostly focus on MAE.
+To evaluate a model, we need to summarize its prediction errors. A common measures is **Mean Squared Error (MSE)**. MAE calculates the average squared difference between observed and predicted values.
 
-For both measures, **lower values** indicate better predictive performance. Ideally, we want MAE and RMSE to be as small as possible. A value of zero would mean that the model predicts every observation perfectly.
+For the MSE, **lower values** indicate better predictive performance. Ideally, we want it to be as small as possible. A value of zero would mean that the model predicts every observation perfectly. We will return to evaluating models using the MSE in the next lab.
 
-However, a very low prediction error does not necessarily mean that we have a good model. What matters is where we evaluate the model. A model can achieve very low MAE and RMSE on the data used to train it simply because it has learned that particular dataset very well. If the model fits the training data too closely, it may perform poorly when predicting new observations. This is called overfitting.
-
-The opposite problem is underfitting. This occurs when the model is too simple to capture important patterns in the data, resulting in relatively large prediction errors on both the training data and new data.
-
-Our goal is therefore not simply to minimize prediction error on the training data. We want to build a model that generalizes well to new, unseen data. We will return to overfitting, underfitting, and how to evaluate models using separate datasets later in a few sections.
+Try calculate the MSE below (remember that we already calculated the prediction errors).
 
 ```{r}
-mae <- mean(
-  abs(df$error)
-)
 
-mae
-```
+mse <- mean(df$error^2)
 
-The **Root Mean Squared Error (RMSE)**.
-
-```{r}
-rmse <- sqrt(
-  mean(df$error^2)
-)
-
-rmse
+mse
 ```
 
 #### Questions
 
-1.  What is the MAE of the model?
-2.  What is the RMSE?
-3.  Would you prefer a model with a smaller or larger prediction error?
+1.  What is the MSE of the model?
+2.  Would you prefer a model with a smaller or larger prediction error?
 
-### Training and test data
 
-So far, we have fitted and evaluated the model using the **same data**. This creates a problem. The real purpose of a predictive model is usually to make predictions for **new observations that the model has not seen before**.
+## Exercise 2: Multiple linear regression
 
-We therefore divide the data into two parts:
+Usually, we want to use much more information to predict the outcome than what can be captured in a single variable. Therefore, we use multiple linear regression, where we have several predictor variables.
 
--   **training data** — used to fit and develop models;
--   **test data** — used to evaluate how well the model predicts new, unseen observations.
-
-::: callout-important
-### Why do we need test data?
-
-A model is fitted using the training data and will therefore tend to perform well on those observations. However, good performance on the training data does not necessarily mean that the model will perform equally well on new data.
-
-The test data contain observations that were not used to fit the model. They therefore allow us to evaluate how well the model generalizes to new observations.
-:::
-
-In this lab, we will use:
-
--   70% training data;
--   30% test data.
-
-### Create training and test data
-
-We use our `split_data()` function to randomly divide the observations into training and test data.
+For this part, we will work with a real dataset. The dataset, containing the prices and other attributes of almost 54,000 diamonds, is included in the `ggplot2` package. A description of the data can be inspected using the command `?diamonds`.
 
 ```{r}
-data_split <- split_data(
-  df,
-  train_prop = 0.70,
-  test_prop = 0.30
-)
-```
+# Import the data
+df2 <- diamonds
 
-Create two data frames:
-
-```{r}
-train_data <- data_split$train_data
-test_data <- data_split$test_data
+# Get variable descriptions
+?diamonds
 ```
 
 #### Questions
 
-1.  How many observations are in the training data?
-2.  How many observations are in the test data?
-3.  What is the purpose of the training data?
-4.  What is the purpose of the test data?
-5.  Why is it useful to evaluate a model on observations that were not used to fit it?
+1.  How many variables are there? Which ones are quantitative (numeric) and which ones are qualitative (categorical)?
+2.  Which variables do you think would be most useful for predicting the `price` of diamonds?
 
-### Fit the model using training data
+### Fitting the first model
 
-We now estimate the model using **only the training data**.
+Normally, we would start by exploring the relationship between the outcome, `price`, and the potential predictors in the dataset (see the steps in the first half of the lab). Even though they are important, we will skip these steps for this part of the lab so that we have time to build more complicated models. You should try to do those steps on your own after the lab, using the code presented in the first half.
+
+For this modelling process, we will focus more on predicting values of the outcome and less on explaining the relationship between the predictors and the outcome. We start by fitting a simple linear regression model with `carat` as the predictor:
 
 ```{r}
-model_train <- lm(
-  sales ~ marketing,
-  data = train_data
+model1 <- lm(
+  price ~ carat,
+  data = df2
+)
+
+
+```
+
+We can quickly inspect the model using the `summary()` function, or just look at certain aspects of the summary. We will look at the adjusted coefficient of determination, $R^2$(adjusted). This is a measure of how well the model explains the variation in the outcome, but adjusted for the number of terms (predictors) in the model. A higher adjusted $R^2$ means that a model is better at explaining variation in the response.
+
+```{r}
+adj_R2_model1 <- summary(model1)$adj.r.squared
+adj_R2_model1
+```
+
+The adjusted $R^2$ can only take values between 0 and 1, so a value of 0.85 is pretty high. As before, we can also calculate the prediction errors for this model. This time, we will **not** save the values in our data frame, but as separate objects instead:
+
+```{r}
+predictions_model1 <- predict(model1)
+
+error_model1 <- df2$price - predictions_model1
+```
+
+Next, calculate the MSE for the first model:
+
+```{r}
+mse_model1 <- mean(error_model1^2)
+
+mse_model1
+
+```
+
+For the MSE, a smaller value is better because it means the predictions are more correct, on average. But without having anything to compare it too, we can't really say if the value we got is "good" or "bad". Note that it wouldn't make sense to compare the MSE we got here with the one from exercise 1, because the two models are predicting completely **different** outcomes with **different** data sets. What we can compare, however, is how good different models based on the **same** data are at predicting the **same** outcome, i.e., diamond prices.
+
+### Fitting several models
+
+So, let's build a bigger, more complicated model for diamond prices, using all the predictors available. If we want to use all variables in a dataframe as predictors, we can use the formula `y ~ .` when specifying the regression model. This way, R will automatically add all variables - except the response, of course - as predictors in the model. (This is the reason we didn't save the predictions from the previous model in the data frame).
+
+```{r}
+model2 <- lm(
+  price ~ .,
+  data = df2
 )
 ```
 
-Inspect the model.
+As for the first model, we aren't really interested in interpreting the coefficients here, but only in how well our model performs. Calculate the adjusted $R^2$, prediction errors and MSE for this second model as well, and save the values as new objects using the same naming scheme. We will compare those values later.
 
 ```{r}
-summary(model_train)
+adj_R2_model2 <- summary(model2)$adj.r.squared
+
+predictions_model2 <- predict(model2)
+
+error_model2 <- df2$price - predictions_model2
+
+mse_model2 <- mean(error_model2^2)
 ```
 
-### Calculate predictions and errors for the training data
-
-We can first examine how well the model predicts the observations that were used to fit it.
+Lastly, we will build an even more complicated model. This third model will have an interaction term between `carat` and `cut`. Specifying a model like this means that we think that the relationship between carat and price is different for diamonds with different values of the variable cut. For example, it could be that the price of a diamond with an "ideal" cut increases more with carat than it does for diamonds with a "fair" cut. You do not need to understand the details of how interaction terms work for this lab.
 
 ```{r}
-train_data$predicted_sales <- predict(
-  model_train,
-  newdata = train_data
+model3 <- lm(
+  price ~ . + carat*cut, 
+  data = df2
 )
-
-# Calculate the prediction errors.
-train_data <- train_data |>
-  mutate(
-    error = sales - predicted_sales
-  )
-
-# Calculate MAE.
-train_mae <- mean(
-  abs(train_data$error)
-)
-
-# Calculate RMSE.
-train_rmse <- sqrt(
-  mean(train_data$error^2)
-)
-
-train_mae
-train_rmse
 ```
 
-The **training error** tells us how well the model fits the observations that were used to estimate it. Lower values of MAE and RMSE indicate that the predictions are closer to the observed values.
-
-However, training performance does not tell us how well the model will predict new observations. For that, we need the test data.
-
-### Model comparison using training data
-
-In this first lab, we have fitted only one model. In later labs, however, we will fit and compare several alternative models.
-
-We can examine how well alternative models fit the **training data** by comparing measures such as MAE and RMSE. A smaller training error means that a model fits the training observations more closely. However, an important principle is that:
-
-**Better fit to the training data does not necessarily mean better predictions for new data.**
-
-A more flexible model can sometimes fit the training observations extremely well without performing equally well on new observations. We will return to this issue.
-
-Think of the workflow as:
-
-**Training data → fit and develop models**
-
-**Test data → evaluate predictive performance on new observations**
-
-### Evaluate the model using test data
-
-We now use the fitted model to predict observations in the **test data**. Importantly, the model is **not fitted again** using the test data. We use the model that was estimated from the training data.
+Calculate and save the adjusted $R^2$, prediction errors and MSE for the third model.
 
 ```{r}
-test_data$predicted_sales <- predict(
-  model_train,
-  newdata = test_data
-)
+adj_R2_model3 <- summary(model3)$adj.r.squared
 
-# Calculate the test errors.
-test_data <- test_data |>
-  mutate(
-    error = sales - predicted_sales
-  )
+predictions_model3 <- predict(model3)
 
-# Calculate the test MAE.
-test_mae <- mean(
-  abs(test_data$error)
-)
+error_model3 <- df2$price - predictions_model3
 
-# Calculate the test RMSE.
-test_rmse <- sqrt(
-  mean(test_data$error^2)
-)
-
-test_mae
-test_rmse
+mse_model3 <- mean(error_model3^2)
 ```
 
-The **test error** tells us how well the model predicts observations that were not used when estimating the model. It therefore gives us a better indication of how well the model is likely to perform when making predictions for new observations.
+### Comparing the output
 
-### Compare model performance
-
-It is useful to compare the training and test performance side by side.
+Lastly, lets create a table to compare the two values (adjusted $R^2$ and MSE) over the three different models:
 
 ```{r}
-performance <- data.frame(
-  Dataset = c(
-    "Training",
-    "Test"
-  ),
-  MAE = c(
-    train_mae,
-    test_mae
-  ),
-  RMSE = c(
-    train_rmse,
-    test_rmse
+comparison <- data.frame(
+  Model = c(1, 2, 3),
+  adj.R2 = c(
+    adj_R2_model1, 
+    adj_R2_model2,
+    adj_R2_model3
+  ), 
+  MSE = c(
+    mse_model1, 
+    mse_model2,
+    mse_model3
   )
 )
 
-performance
+comparison
 ```
-
-The **training error** tells us how well the model fits the data that were used to estimate it. The **test error** tells us how well the fitted model predicts new observations that were not used during model fitting.
-
-A useful pattern to look for is whether performance becomes substantially worse when moving from the training data to the test data.
-
-For example, suppose a model has:
-
--   training RMSE = 2.1;
--   test RMSE = 2.3.
-
-The model performs similarly on training and test data.
-
-Now suppose another model has:
-
--   training RMSE = 0.5;
--   test RMSE = 4.8.
-
-Despite fitting the training data extremely well, the second model performs much worse on new observations. This can be a sign of **overfitting**, which we will discuss in more detail later.
 
 #### Questions
 
-1.  What is the training RMSE?
-2.  What is the test RMSE?
-3.  Is the test RMSE higher or lower than the training RMSE?
-4.  What does the difference between training and test performance tell us?
-5.  Which error gives us the best indication of how well the model predicts new observations?
+1.  Which of the three models is best at describing the variation in the outcome in our data? Which one is best at predicting the outcomes in our data?
+2.  Do you see any potential problems with the modelling approach we took in the second half?
 
-### Final Exercise
+### Summary
 
-Imagine that you are presenting your analysis to the company.
+K-means and linear regression represent two different types of machine learning.
 
-Answer the following questions.
+**K-means clustering** is unsupervised:
 
-1.  What is the outcome variable in your model?
-2.  What is the predictor variable?
-3.  Describe the relationship between marketing and sales.
-4.  Interpret the estimated slope.
-5.  What is the training RMSE?
-6.  What is the test RMSE?
-7.  How does the test RMSE compare with the training RMSE?
-8.  Why do we evaluate the model on data that were not used to fit it?
-9.  Based on the test performance, do you think marketing contains useful information for predicting sales? Explain briefly.
+- there is no outcome variable;
+- the algorithm searches for groups in the data.
+
+**Linear regression** is supervised:
+
+- there is an outcome variable;
+- predictors are used to explain or predict the outcome.
+
+In this lab, we introduced part of a basic supervised learning workflow:
+
+1.  identify the outcome and predictors;
+2.  explore their relationship;
+3.  fit the model
+4.  examine the model's performance
+5.  use the fitted model to predict the outcome
+
+In later labs, we will fit increasingly sophisticated predictive models and examine an important challenge in supervised learning: a model that fits the training data better does not necessarily predict new observations better. This will lead us to the concepts of **overfitting, model complexity, and model selection**.

@@ -238,7 +238,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Chapters/12_linear_regression_lab2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Linear Regression: Lab 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab7</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -849,16 +849,16 @@ glm(formula = purchase ~ website_visits, family = binomial, data = train_data)
 
 Coefficients:
                Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)    -3.08168    0.49508  -6.225 4.83e-10 ***
-website_visits  0.42139    0.06281   6.709 1.96e-11 ***
+(Intercept)    -3.25999    0.49489  -6.587 4.48e-11 ***
+website_visits  0.43277    0.06242   6.934 4.10e-12 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 385.74  on 279  degrees of freedom
-Residual deviance: 322.60  on 278  degrees of freedom
-AIC: 326.6
+    Null deviance: 387.25  on 279  degrees of freedom
+Residual deviance: 318.81  on 278  degrees of freedom
+AIC: 322.81
 
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
@@ -901,8 +901,8 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Predicted
 Actual   0   1
-     0  88  39
-     1  43 110</code></pre>
+     0  91  41
+     1  46 102</code></pre>
 </div>
 </div>
 </section>
@@ -916,7 +916,7 @@ Actual   0   1
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>train_accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7071429</code></pre>
+<pre><code>[1] 0.6892857</code></pre>
 </div>
 </div>
 <p>Extract the four parts of the confusion matrix.</p>
@@ -938,19 +938,19 @@ Actual   0   1
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>train_accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7071429</code></pre>
+<pre><code>[1] 0.6892857</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>train_precision</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.738255</code></pre>
+<pre><code>[1] 0.7132867</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>train_recall</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7189542</code></pre>
+<pre><code>[1] 0.6891892</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>train_specificity</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6929134</code></pre>
+<pre><code>[1] 0.6893939</code></pre>
 </div>
 </div>
 <section id="questions-10" class="level4" data-number="13.4.3.1">
@@ -992,8 +992,8 @@ Actual   0   1
 <div class="cell-output cell-output-stdout">
 <pre><code>      Predicted
 Actual   0   1
-     0  37  90
-     1  16 137</code></pre>
+     0  40  92
+     1  11 137</code></pre>
 </div>
 </div>
 <p>Now try a threshold of 0.70.</p>
@@ -1018,8 +1018,8 @@ Actual   0   1
 <div class="cell-output cell-output-stdout">
 <pre><code>      Predicted
 Actual   0   1
-     0 118   9
-     1  92  61</code></pre>
+     0 118  14
+     1  84  64</code></pre>
 </div>
 </div>
 <section id="questions-11" class="level4" data-number="13.5.1.1">
@@ -1096,8 +1096,8 @@ Threshold selection
 <div class="cell-output cell-output-stdout">
 <pre><code>      Predicted
 Actual  0  1
-     0 36 20
-     1 22 42</code></pre>
+     0 33 18
+     1 19 50</code></pre>
 </div>
 </div>
 <p>Calculate test accuracy.</p>
@@ -1109,7 +1109,7 @@ Actual  0  1
 <span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>test_accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.65</code></pre>
+<pre><code>[1] 0.6916667</code></pre>
 </div>
 </div>
 <p>Extract the values.</p>
@@ -1131,19 +1131,19 @@ Actual  0  1
 <div class="cell">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>test_accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.65</code></pre>
+<pre><code>[1] 0.6916667</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>test_precision</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6774194</code></pre>
+<pre><code>[1] 0.7352941</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>test_recall</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.65625</code></pre>
+<pre><code>[1] 0.7246377</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>test_specificity</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6428571</code></pre>
+<pre><code>[1] 0.6470588</code></pre>
 </div>
 </div>
 <section id="questions-12" class="level4" data-number="13.6.2.1">
@@ -1187,8 +1187,8 @@ Actual  0  1
 <span id="cb85-24"><a href="#cb85-24" aria-hidden="true" tabindex="-1"></a>performance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Dataset  Accuracy Precision    Recall Specificity
-1 Training 0.7071429 0.7382550 0.7189542   0.6929134
-2     Test 0.6500000 0.6774194 0.6562500   0.6428571</code></pre>
+1 Training 0.6892857 0.7132867 0.6891892   0.6893939
+2     Test 0.6916667 0.7352941 0.7246377   0.6470588</code></pre>
 </div>
 </div>
 <p>The <strong>training results</strong> tell us how well the model classifies observations that were used to estimate the model.</p>
@@ -1646,8 +1646,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../Chapters/12_linear_regression_lab2.html" class="pagination-link" aria-label="Linear Regression: Lab 2">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Linear Regression: Lab 2</span></span>
+      <a href="../Chapters/12_linear_regression_lab2.html" class="pagination-link" aria-label="Lab7">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab7</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

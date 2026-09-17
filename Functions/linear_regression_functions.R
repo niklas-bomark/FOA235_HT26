@@ -4,15 +4,14 @@
 split_data <- function(df, 
                        train_prop = 0.70, 
                        test_prop = 0.30,
-                       seed = 123) {
+                       set_seed = 123) {
   
   # Check that proportions sum to 1
   if (train_prop + test_prop != 1) {
     stop("The proportions must sum to 1.")
   }
-  
-  # Set seed
-  set.seed(seed)
+
+  set.seed = set_seed
   
   # Number of observations
   n <- nrow(df)

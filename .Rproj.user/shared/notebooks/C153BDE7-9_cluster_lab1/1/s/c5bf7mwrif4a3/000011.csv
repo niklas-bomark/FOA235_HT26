@@ -1,6 +1,0 @@
-"0","plot_kmeans_clusters("
-"0","  data = cluster_data_scaled,"
-"0","  var1 = ""x1"","
-"0","  var2 = ""x2"","
-"0","  km = km3"
-"0",")"

@@ -1,0 +1,47 @@
+---
+title: "INL1"
+author: "Niklas Bomark"
+date: "2026-09-10"
+format: pdf
+editor: 
+  markdown: 
+    wrap: sentence
+  editor: visual
+---
+
+## Inledning
+
+Här skriver ni en inledning. 
+
+
+## Databeskrivning
+
+Här beskriver ni ert datamaterial och definierar era variabler. 
+
+```{r}
+# Ni lägger in kodrutor - code chunks - där ni behöver
+```
+
+## Utforskande dataanalys
+
+Här presenterar och visar ni er utforskande dataanalys. EDA.
+
+
+## Exempel 1 (metod 1) - Logistisk regression
+
+Här presenterar och visar ni er första analys i arbetet. 
+
+
+## Exempel 2 (metod 2) - Regressionsanalys
+
+Här presenterar och visar ni er andra analys i arbetet. 
+
+
+## Min syn på analys
+
+Här beskriver ni hur ni ser på dataanalys. 
+
+
+## Referenser
+
+Här lägger ni in referenser. 

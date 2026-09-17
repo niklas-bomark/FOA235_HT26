@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>12&nbsp; Linear Regression: Lab 2 – FOA235 – Business Analytics</title>
+<title>12&nbsp; Lab7 – FOA235 – Business Analytics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -144,7 +144,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Chapters/12_linear_regression_lab2.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Linear Regression: Lab 2</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Chapters/12_linear_regression_lab2.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab7</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -238,7 +238,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Chapters/12_linear_regression_lab2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Linear Regression: Lab 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab7</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -271,23 +271,20 @@ window.Quarto = {
   <li><a href="#explore-the-data" id="toc-explore-the-data" class="nav-link" data-scroll-target="#explore-the-data"><span class="header-section-number">12.1.4</span> Explore the Data</a></li>
   <li><a href="#training-and-test-data" id="toc-training-and-test-data" class="nav-link" data-scroll-target="#training-and-test-data"><span class="header-section-number">12.1.5</span> Training and Test Data</a></li>
   <li><a href="#split-the-data" id="toc-split-the-data" class="nav-link" data-scroll-target="#split-the-data"><span class="header-section-number">12.1.6</span> Split the Data</a></li>
-  <li><a href="#model-1-a-simple-model" id="toc-model-1-a-simple-model" class="nav-link" data-scroll-target="#model-1-a-simple-model"><span class="header-section-number">12.1.7</span> Model 1: A Simple Model</a></li>
-  <li><a href="#model-2-multiple-regression" id="toc-model-2-multiple-regression" class="nav-link" data-scroll-target="#model-2-multiple-regression"><span class="header-section-number">12.1.8</span> Model 2: Multiple Regression</a></li>
-  <li><a href="#model-3-a-more-complicated-model" id="toc-model-3-a-more-complicated-model" class="nav-link" data-scroll-target="#model-3-a-more-complicated-model"><span class="header-section-number">12.1.9</span> Model 3: A More Complicated Model</a></li>
+  <li><a href="#model-1-a-simple-model" id="toc-model-1-a-simple-model" class="nav-link" data-scroll-target="#model-1-a-simple-model"><span class="header-section-number">12.1.7</span> Model 1: A simple model</a></li>
+  <li><a href="#model-2-all-predictors" id="toc-model-2-all-predictors" class="nav-link" data-scroll-target="#model-2-all-predictors"><span class="header-section-number">12.1.8</span> Model 2: All predictors</a></li>
+  <li><a href="#model-3-a-very-complicated-model" id="toc-model-3-a-very-complicated-model" class="nav-link" data-scroll-target="#model-3-a-very-complicated-model"><span class="header-section-number">12.1.9</span> Model 3: A very complicated model</a></li>
   <li><a href="#make-predictions-on-the-training-data" id="toc-make-predictions-on-the-training-data" class="nav-link" data-scroll-target="#make-predictions-on-the-training-data"><span class="header-section-number">12.1.10</span> Make Predictions on the Training Data</a></li>
   <li><a href="#calculate-training-errors" id="toc-calculate-training-errors" class="nav-link" data-scroll-target="#calculate-training-errors"><span class="header-section-number">12.1.11</span> Calculate Training Errors</a></li>
-  <li><a href="#compare-models-using-rmse" id="toc-compare-models-using-rmse" class="nav-link" data-scroll-target="#compare-models-using-rmse"><span class="header-section-number">12.1.12</span> Compare Models Using RMSE</a></li>
+  <li><a href="#compare-models-using-mse" id="toc-compare-models-using-mse" class="nav-link" data-scroll-target="#compare-models-using-mse"><span class="header-section-number">12.1.12</span> Compare Models Using MSE</a></li>
   <li><a href="#create-a-model-comparison-table" id="toc-create-a-model-comparison-table" class="nav-link" data-scroll-target="#create-a-model-comparison-table"><span class="header-section-number">12.1.13</span> Create a Model Comparison Table</a></li>
-  <li><a href="#select-a-model" id="toc-select-a-model" class="nav-link" data-scroll-target="#select-a-model"><span class="header-section-number">12.1.14</span> Select a Model</a></li>
-  <li><a href="#your-model-selection" id="toc-your-model-selection" class="nav-link" data-scroll-target="#your-model-selection"><span class="header-section-number">12.1.15</span> Your Model Selection</a></li>
-  <li><a href="#create-the-selected-model" id="toc-create-the-selected-model" class="nav-link" data-scroll-target="#create-the-selected-model"><span class="header-section-number">12.1.16</span> Create the Selected Model</a></li>
-  <li><a href="#evaluate-the-selected-model-using-test-data" id="toc-evaluate-the-selected-model-using-test-data" class="nav-link" data-scroll-target="#evaluate-the-selected-model-using-test-data"><span class="header-section-number">12.1.17</span> Evaluate the Selected Model Using Test Data</a></li>
-  <li><a href="#calculate-test-rmse" id="toc-calculate-test-rmse" class="nav-link" data-scroll-target="#calculate-test-rmse"><span class="header-section-number">12.1.18</span> Calculate Test RMSE</a></li>
-  <li><a href="#compare-training-and-test-performance" id="toc-compare-training-and-test-performance" class="nav-link" data-scroll-target="#compare-training-and-test-performance"><span class="header-section-number">12.1.19</span> Compare Training and Test Performance</a></li>
-  <li><a href="#plot-observed-and-predicted-sales" id="toc-plot-observed-and-predicted-sales" class="nav-link" data-scroll-target="#plot-observed-and-predicted-sales"><span class="header-section-number">12.1.20</span> Plot Observed and Predicted Sales</a></li>
-  <li><a href="#plot-the-prediction-errors" id="toc-plot-the-prediction-errors" class="nav-link" data-scroll-target="#plot-the-prediction-errors"><span class="header-section-number">12.1.21</span> Plot the Prediction Errors</a></li>
-  <li><a href="#from-model-evaluation-to-business-decision" id="toc-from-model-evaluation-to-business-decision" class="nav-link" data-scroll-target="#from-model-evaluation-to-business-decision"><span class="header-section-number">12.1.22</span> From Model Evaluation to Business Decision</a></li>
-  <li><a href="#final-management-recommendation" id="toc-final-management-recommendation" class="nav-link" data-scroll-target="#final-management-recommendation"><span class="header-section-number">12.1.23</span> Final Management Recommendation</a></li>
+  <li><a href="#evaluate-the-model-using-the-test-data" id="toc-evaluate-the-model-using-the-test-data" class="nav-link" data-scroll-target="#evaluate-the-model-using-the-test-data"><span class="header-section-number">12.1.14</span> Evaluate the model using the test data</a></li>
+  <li><a href="#other-considerations-when-selecting-a-model" id="toc-other-considerations-when-selecting-a-model" class="nav-link" data-scroll-target="#other-considerations-when-selecting-a-model"><span class="header-section-number">12.1.15</span> Other considerations when selecting a model</a></li>
+  <li><a href="#plot-observed-and-predicted-prices" id="toc-plot-observed-and-predicted-prices" class="nav-link" data-scroll-target="#plot-observed-and-predicted-prices"><span class="header-section-number">12.1.16</span> Plot observed and predicted prices</a></li>
+  <li><a href="#plot-the-prediction-errors" id="toc-plot-the-prediction-errors" class="nav-link" data-scroll-target="#plot-the-prediction-errors"><span class="header-section-number">12.1.17</span> Plot the Prediction Errors</a></li>
+  <li><a href="#from-model-evaluation-to-business-decision" id="toc-from-model-evaluation-to-business-decision" class="nav-link" data-scroll-target="#from-model-evaluation-to-business-decision"><span class="header-section-number">12.1.18</span> From Model Evaluation to Business Decision</a></li>
+  <li><a href="#final-management-recommendation" id="toc-final-management-recommendation" class="nav-link" data-scroll-target="#final-management-recommendation"><span class="header-section-number">12.1.19</span> Final Management Recommendation</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">12.1.20</span> Summary</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -297,8 +294,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Linear Regression: Lab 2</span></h1>
-<p class="subtitle lead">Model Selection, Validation and Business Decision</p>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab7</span></h1>
 </div>
 
 
@@ -321,21 +317,36 @@ window.Quarto = {
 <ol type="1">
 <li>identify an outcome variable;</li>
 <li>identify predictor variables;</li>
-<li>split the data into training and test data;</li>
-<li>fit a linear regression model using training data;</li>
-<li>make predictions;</li>
-<li>calculate prediction errors;</li>
-<li>evaluate predictive performance using test data.</li>
+<li>fit a linear regression model;</li>
+<li>compare the performance of different models.</li>
 </ol>
-<p>In this lab, we take the next step. In practice, we usually have <strong>several possible models</strong>. Some models are simple, while others include more predictors or more complex relationships.</p>
-<p>We will turn to multiple regression analysis. Read Sections 3.2 and 3.3 in <em>An Introduction to Statistical Learning - with Applications in R</em> before working with the lab. Also read relevant parts of Chapter 6 in <em>An Introduction to Statistical Learning - with Applications in R</em> before working with the lab.</p>
-<p>In this lab we will extend our modeling workflow to include <strong>model comparison and model selection</strong>. The workflow will be:</p>
-<p><strong>Business problem → Split data → Fit candidate models → Compare models → Select one model → Evaluate on test data → Business decision</strong></p>
-<p>We will continue to split the data into:</p>
+<p>The main problem with the modelling approach we took in the second half of Lab6 (apart from not inspecting the data properly before modelling) was that we used the same data to <strong>train</strong> the models as we used to <strong>evaluate</strong> their performance. This can lead to a problem called <strong>overfitting</strong>. A more complicated model will almost always be better at predicting the outcome for the same data set and observations it was trained on, but it might not be the best for predicting the outcome for <strong>new</strong> observations. In practical business applications, however, predicting new observations is the entire point of building machine learning models.</p>
+<p>In this lab, we therefore divide the data into two parts:</p>
 <ul>
-<li><strong>training data</strong> — used to fit and compare models;</li>
-<li><strong>test data</strong> — used to evaluate how well the selected model predicts new observations.</li>
+<li><strong>training data</strong> — used to fit and develop models;</li>
+<li><strong>test data</strong> — used to evaluate how well the model predicts new, unseen observations.</li>
 </ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why do we need test data?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A model is fitted using the training data and will therefore tend to perform well on those observations. However, good performance on the training data does not necessarily mean that the model will perform equally well on new data.</p>
+<p>The test data contain observations that were not used to fit the model. They therefore allow us to evaluate how well the model generalizes to new observations.</p>
+</div>
+</div>
+<p>In this lab, we will use:</p>
+<ul>
+<li>70% training data;</li>
+<li>30% test data.</li>
+</ul>
+<p>In addition to <strong>splitting the data,</strong> our modeling workflow will still include <strong>model comparison and model selection</strong> like we did in the previous lab. The new workflow will be:</p>
+<p><strong>Business problem → Split data → Fit candidate models → Compare models → Select one model → Evaluate on test data → Business decision</strong></p>
 <section id="learning-objectives" class="level3" data-number="12.1.1">
 <h3 data-number="12.1.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">12.1.1</span> Learning objectives</h3>
 <p>After completing this lab, you should be able to:</p>
@@ -346,7 +357,6 @@ window.Quarto = {
 <li>compare alternative models;</li>
 <li>select a model based on training performance and other relevant considerations;</li>
 <li>evaluate the selected model using test data;</li>
-<li>visualize prediction errors;</li>
 <li>translate model performance into a business recommendation.</li>
 </ul>
 </section>
@@ -357,60 +367,96 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/EDA_functions.R"</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/linear_regression_functions.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.0     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.6.0
+✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+✔ purrr     1.2.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/EDA_functions.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'scales'
+
+The following object is masked from 'package:purrr':
+
+    discard
+
+The following object is masked from 'package:readr':
+
+    col_factor
+
+
+Attaching package: 'rlang'
+
+The following objects are masked from 'package:purrr':
+
+    flatten, flatten_chr, flatten_dbl, flatten_int, flatten_lgl,
+    flatten_raw, invoke, splice</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"Functions/linear_regression_functions.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="import-the-data" class="level3" data-number="12.1.3">
 <h3 data-number="12.1.3" class="anchored" data-anchor-id="import-the-data"><span class="header-section-number">12.1.3</span> Import the Data</h3>
-<p>We continue with a sales prediction problem. The company wants to predict <code>sales</code> using information about its marketing activities, prices, competitors, and customers.</p>
+<p>We continue with the <code>diamonds</code> data from the previous lab.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/regression_data2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Take a first look at the data.</p>
+<p>Take a first look at the data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  sales marketing price competitors income
-1 212.0      35.9  41.2           5  68461
-2 185.7      80.9  42.0           8  48683
-3 217.1      46.8  37.2           2  56138
-4 244.8      89.5  24.8           3  52567
-5 216.4      94.6  41.9           6  47767
-6  95.5      14.1  30.7           7  48555</code></pre>
+<pre><code># A tibble: 6 × 10
+  carat cut       color clarity depth table price     x     y     z
+  &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+2  0.21 Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+3  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+4  0.29 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+5  0.31 Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+6  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48</code></pre>
 </div>
 </div>
 <p>Inspect the descriptive statistics.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     sales         marketing         price        competitors   
- Min.   : 44.3   Min.   :10.00   Min.   :20.10   Min.   :1.000  
- 1st Qu.:136.7   1st Qu.:32.10   1st Qu.:35.60   1st Qu.:3.000  
- Median :167.2   Median :52.90   Median :50.75   Median :5.000  
- Mean   :168.3   Mean   :54.58   Mean   :49.96   Mean   :4.674  
- 3rd Qu.:201.3   3rd Qu.:75.97   3rd Qu.:65.33   3rd Qu.:7.000  
- Max.   :318.7   Max.   :99.90   Max.   :79.70   Max.   :8.000  
-     income     
- Min.   :20000  
- 1st Qu.:41976  
- Median :50033  
- Mean   :50272  
- 3rd Qu.:57615  
- Max.   :88209  </code></pre>
+<pre><code>     carat               cut        color        clarity          depth      
+ Min.   :0.2000   Fair     : 1610   D: 6775   SI1    :13065   Min.   :43.00  
+ 1st Qu.:0.4000   Good     : 4906   E: 9797   VS2    :12258   1st Qu.:61.00  
+ Median :0.7000   Very Good:12082   F: 9542   SI2    : 9194   Median :61.80  
+ Mean   :0.7979   Premium  :13791   G:11292   VS1    : 8171   Mean   :61.75  
+ 3rd Qu.:1.0400   Ideal    :21551   H: 8304   VVS2   : 5066   3rd Qu.:62.50  
+ Max.   :5.0100                     I: 5422   VVS1   : 3655   Max.   :79.00  
+                                    J: 2808   (Other): 2531                  
+     table           price             x                y         
+ Min.   :43.00   Min.   :  326   Min.   : 0.000   Min.   : 0.000  
+ 1st Qu.:56.00   1st Qu.:  950   1st Qu.: 4.710   1st Qu.: 4.720  
+ Median :57.00   Median : 2401   Median : 5.700   Median : 5.710  
+ Mean   :57.46   Mean   : 3933   Mean   : 5.731   Mean   : 5.735  
+ 3rd Qu.:59.00   3rd Qu.: 5324   3rd Qu.: 6.540   3rd Qu.: 6.540  
+ Max.   :95.00   Max.   :18823   Max.   :10.740   Max.   :58.900  
+                                                                  
+       z         
+ Min.   : 0.000  
+ 1st Qu.: 2.910  
+ Median : 3.530  
+ Mean   : 3.539  
+ 3rd Qu.: 4.040  
+ Max.   :31.800  
+                 </code></pre>
 </div>
 </div>
-<section id="questions" class="level4" data-number="12.1.3.1">
-<h4 data-number="12.1.3.1" class="anchored" data-anchor-id="questions"><span class="header-section-number">12.1.3.1</span> Questions</h4>
-<ol type="1">
-<li>How many observations are in the dataset?</li>
-<li>Which variable is the outcome variable?</li>
-<li>Which variables could potentially be used as predictors?</li>
-<li>Why might using several predictors improve our predictions?</li>
-</ol>
-</section>
 </section>
 <section id="explore-the-data" class="level3" data-number="12.1.4">
 <h3 data-number="12.1.4" class="anchored" data-anchor-id="explore-the-data"><span class="header-section-number">12.1.4</span> Explore the Data</h3>
@@ -423,66 +469,37 @@ window.Quarto = {
 </ul>
 <p>A correlation matrix allows us to quickly examine these relationships across several variables at the same time.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">|&gt;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            sales marketing price competitors income
-sales        1.00      0.49 -0.42       -0.37   0.38
-marketing    0.49      1.00  0.04       -0.01  -0.01
-price       -0.42      0.04  1.00        0.01   0.01
-competitors -0.37     -0.01  0.01        1.00  -0.09
-income       0.38     -0.01  0.01       -0.09   1.00</code></pre>
+<pre><code>      carat depth table price     x     y    z
+carat  1.00  0.03  0.18  0.92  0.98  0.95 0.95
+depth  0.03  1.00 -0.30 -0.01 -0.03 -0.03 0.09
+table  0.18 -0.30  1.00  0.13  0.20  0.18 0.15
+price  0.92 -0.01  0.13  1.00  0.88  0.87 0.86
+x      0.98 -0.03  0.20  0.88  1.00  0.97 0.97
+y      0.95 -0.03  0.18  0.87  0.97  1.00 0.95
+z      0.95  0.09  0.15  0.86  0.97  0.95 1.00</code></pre>
 </div>
 </div>
-<p>Visualize some important relationships with a scatterplot. Let’s choose marketing and sales first, and then price and sales. You can easily change the variables.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  df,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  marketing,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  sales,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Marketing"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Sales"</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="12_linear_regression_lab2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  df,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  price,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  sales,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Price"</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Sales"</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="12_linear_regression_lab2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="questions-1" class="level4" data-number="12.1.4.1">
-<h4 data-number="12.1.4.1" class="anchored" data-anchor-id="questions-1"><span class="header-section-number">12.1.4.1</span> Questions</h4>
+<section id="questions" class="level4" data-number="12.1.4.1">
+<h4 data-number="12.1.4.1" class="anchored" data-anchor-id="questions"><span class="header-section-number">12.1.4.1</span> Questions</h4>
 <ol type="1">
-<li>Which variables appear to be related to sales?</li>
+<li>Which variables appear to be related to price?</li>
 <li>Which relationships appear positive?</li>
 <li>Which relationships appear negative?</li>
-<li>Are there predictors that appear to contain little information about sales?</li>
+<li>Are there predictors that appear to contain little information about price?</li>
+<li>Do any of the predictors seem to have strong correlations with each other?</li>
 </ol>
 </section>
 </section>
 <section id="training-and-test-data" class="level3" data-number="12.1.5">
 <h3 data-number="12.1.5" class="anchored" data-anchor-id="training-and-test-data"><span class="header-section-number">12.1.5</span> Training and Test Data</h3>
-<p>As in the previous lab, we divide the data into <strong>training data</strong> and <strong>test data</strong>.</p>
+<p>We divide the data into <strong>training data</strong> and <strong>test data</strong>.</p>
 <table class="caption-top table">
+<caption>In this lab, we use:</caption>
 <thead>
 <tr class="header">
 <th>Dataset</th>
@@ -500,7 +517,6 @@ income       0.38     -0.01  0.01       -0.09   1.00</code></pre>
 </tr>
 </tbody>
 </table>
-<p>In this lab, we use:</p>
 <ul>
 <li>70% training data;</li>
 <li>30% test data.</li>
@@ -525,101 +541,114 @@ Important
 <h3 data-number="12.1.6" class="anchored" data-anchor-id="split-the-data"><span class="header-section-number">12.1.6</span> Split the Data</h3>
 <p>Use the <code>split_data()</code> function to divide the data into training and test data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_split <span class="ot">&lt;-</span> <span class="fu">split_data</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  df,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">train_prop =</span> <span class="fl">0.70</span>,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">test_prop =</span> <span class="fl">0.30</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data_split <span class="ot">&lt;-</span> <span class="fu">split_data</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  df,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">train_prop =</span> <span class="fl">0.70</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">test_prop =</span> <span class="fl">0.30</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create two data frames:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> data_split<span class="sc">$</span>train_data</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> data_split<span class="sc">$</span>test_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> data_split<span class="sc">$</span>train_data</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> data_split<span class="sc">$</span>test_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="model-1-a-simple-model" class="level3" data-number="12.1.7">
-<h3 data-number="12.1.7" class="anchored" data-anchor-id="model-1-a-simple-model"><span class="header-section-number">12.1.7</span> Model 1: A Simple Model</h3>
-<p>We begin with a simple model using only <code>marketing</code>.</p>
+<h3 data-number="12.1.7" class="anchored" data-anchor-id="model-1-a-simple-model"><span class="header-section-number">12.1.7</span> Model 1: A simple model</h3>
+<p>We will start by fitting the same three models as we did in the last lab, but this time only using the training data. The first is a simple linear regression model that only uses <code>carat</code> as a predictor.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  sales <span class="sc">~</span> marketing,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> train_data</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  price <span class="sc">~</span> carat,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> train_data</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Inspect the model.</p>
+<p>We can inspect a quick summary of the model, even though we will not be focusing on interpreting the coefficients this time.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = sales ~ marketing, data = train_data)
+lm(formula = price ~ carat, data = train_data)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--108.997  -25.475   -0.167   27.766  137.451 
+-18626.5   -805.9    -19.5    542.9  12726.3 
 
 Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 121.76618    4.98610   24.42   &lt;2e-16 ***
-marketing     0.86457    0.08275   10.45   &lt;2e-16 ***
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -2260.35      15.62  -144.7   &lt;2e-16 ***
+carat        7765.43      16.83   461.5   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 40.48 on 348 degrees of freedom
-Multiple R-squared:  0.2388,    Adjusted R-squared:  0.2366 
-F-statistic: 109.2 on 1 and 348 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1550 on 37756 degrees of freedom
+Multiple R-squared:  0.8494,    Adjusted R-squared:  0.8494 
+F-statistic: 2.13e+05 on 1 and 37756 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>This model assumes:</p>
-<p><span class="math display">\[
-Sales = b_0 + b_1 Marketing
-\]</span></p>
-<section id="questions-2" class="level4" data-number="12.1.7.1">
-<h4 data-number="12.1.7.1" class="anchored" data-anchor-id="questions-2"><span class="header-section-number">12.1.7.1</span> Questions</h4>
+<section id="questions-1" class="level4" data-number="12.1.7.1">
+<h4 data-number="12.1.7.1" class="anchored" data-anchor-id="questions-1"><span class="header-section-number">12.1.7.1</span> Questions</h4>
 <ol type="1">
-<li>What is the estimated coefficient for marketing?</li>
-<li>Is the relationship positive or negative?</li>
-<li>What does the coefficient mean?</li>
+<li>Does <code>carat</code> seem to be related to <code>price</code>? If so, describe the relationship.</li>
+<li>What is the adjusted <span class="math inline">\(R^2\)</span> for this model? Is it roughly the same as last time?</li>
 </ol>
 </section>
 </section>
-<section id="model-2-multiple-regression" class="level3" data-number="12.1.8">
-<h3 data-number="12.1.8" class="anchored" data-anchor-id="model-2-multiple-regression"><span class="header-section-number">12.1.8</span> Model 2: Multiple Regression</h3>
-<p>Our second model includes two predictors.</p>
+<section id="model-2-all-predictors" class="level3" data-number="12.1.8">
+<h3 data-number="12.1.8" class="anchored" data-anchor-id="model-2-all-predictors"><span class="header-section-number">12.1.8</span> Model 2: All predictors</h3>
+<p>Next, let’s fit a model using all the available predictors, and look at a summary of this as well.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  sales <span class="sc">~</span> marketing <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    price,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> train_data</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Inspect the model.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  price <span class="sc">~</span> .,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> train_data</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = sales ~ marketing + price, data = train_data)
+lm(formula = price ~ ., data = train_data)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--94.968 -24.510  -0.134  21.165 107.229 
+     Min       1Q   Median       3Q      Max 
+-21391.1   -592.1   -185.6    375.5  10731.9 
 
 Coefficients:
              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 175.91143    6.67845   26.34   &lt;2e-16 ***
-marketing     0.91274    0.07207   12.66   &lt;2e-16 ***
-price        -1.15408    0.10830  -10.66   &lt;2e-16 ***
+(Intercept)  5710.838    471.317  12.117  &lt; 2e-16 ***
+carat       11312.071     59.220 191.016  &lt; 2e-16 ***
+cut.L         605.189     26.821  22.564  &lt; 2e-16 ***
+cut.Q        -321.379     21.501 -14.947  &lt; 2e-16 ***
+cut.C         149.058     18.552   8.034 9.67e-16 ***
+cut^4         -15.422     14.829  -1.040  0.29836    
+color.L     -1958.307     20.720 -94.514  &lt; 2e-16 ***
+color.Q      -697.864     18.821 -37.079  &lt; 2e-16 ***
+color.C      -174.603     17.610  -9.915  &lt; 2e-16 ***
+color^4        34.101     16.207   2.104  0.03538 *  
+color^5       -97.476     15.295  -6.373 1.87e-10 ***
+color^6       -41.904     13.877  -3.020  0.00253 ** 
+clarity.L    4094.080     36.236 112.983  &lt; 2e-16 ***
+clarity.Q   -1974.874     33.814 -58.404  &lt; 2e-16 ***
+clarity.C     992.979     28.939  34.312  &lt; 2e-16 ***
+clarity^4    -373.290     23.071 -16.180  &lt; 2e-16 ***
+clarity^5     246.653     18.843  13.090  &lt; 2e-16 ***
+clarity^6      12.763     16.431   0.777  0.43730    
+clarity^7      94.868     14.497   6.544 6.07e-11 ***
+depth         -62.642      5.329 -11.755  &lt; 2e-16 ***
+table         -25.858      3.497  -7.393 1.46e-13 ***
+x           -1123.439     49.686 -22.611  &lt; 2e-16 ***
+y             100.784     39.785   2.533  0.01131 *  
+z             -46.561     35.596  -1.308  0.19087    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 35.19 on 347 degrees of freedom
-Multiple R-squared:  0.4265,    Adjusted R-squared:  0.4232 
-F-statistic:   129 on 2 and 347 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1131 on 37734 degrees of freedom
+Multiple R-squared:  0.9199,    Adjusted R-squared:  0.9199 
+F-statistic: 1.885e+04 on 23 and 37734 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<section id="questions-3" class="level4" data-number="12.1.8.1">
-<h4 data-number="12.1.8.1" class="anchored" data-anchor-id="questions-3"><span class="header-section-number">12.1.8.1</span> Questions</h4>
+<section id="questions-2" class="level4" data-number="12.1.8.1">
+<h4 data-number="12.1.8.1" class="anchored" data-anchor-id="questions-2"><span class="header-section-number">12.1.8.1</span> Questions</h4>
 <ol type="1">
 <li>Which predictors are included in Model 2?</li>
 <li>Which coefficients are positive?</li>
@@ -628,66 +657,36 @@ F-statistic:   129 on 2 and 347 DF,  p-value: &lt; 2.2e-16</code></pre>
 </ol>
 </section>
 </section>
-<section id="model-3-a-more-complicated-model" class="level3" data-number="12.1.9">
-<h3 data-number="12.1.9" class="anchored" data-anchor-id="model-3-a-more-complicated-model"><span class="header-section-number">12.1.9</span> Model 3: A More Complicated Model</h3>
-<p>Let’s construct a more complicated model by including all available predictor variables.</p>
+<section id="model-3-a-very-complicated-model" class="level3" data-number="12.1.9">
+<h3 data-number="12.1.9" class="anchored" data-anchor-id="model-3-a-very-complicated-model"><span class="header-section-number">12.1.9</span> Model 3: A very complicated model</h3>
+<p>In the previous lab, the last model we built contained an interaction term between two of the predictors. Today, we will build a model that contains pairwise interactions between <strong>all</strong> of the predictors. We will treat this as a kind of “black-box” model. That is to say, we will use the output of the model to make predictions, but we don’t necessarily need to know exactly how these predictions are made.</p>
+<p><strong>Note</strong> that because of its size, running the code to fit the third model will take some time.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  sales <span class="sc">~</span> marketing <span class="sc">+</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    price <span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    competitors <span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    income,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> train_data</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  price <span class="sc">~</span> .<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> train_data</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Inspect the model.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = sales ~ marketing + price + competitors + income, 
-    data = train_data)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--65.291 -16.629  -0.214  18.899  82.083 
-
-Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  1.386e+02  8.102e+00   17.11   &lt;2e-16 ***
-marketing    9.122e-01  5.345e-02   17.06   &lt;2e-16 ***
-price       -1.158e+00  8.045e-02  -14.40   &lt;2e-16 ***
-competitors -6.358e+00  6.081e-01  -10.46   &lt;2e-16 ***
-income       1.336e-03  1.144e-04   11.68   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 26.08 on 345 degrees of freedom
-Multiple R-squared:  0.6867,    Adjusted R-squared:  0.6831 
-F-statistic:   189 on 4 and 345 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<p>Model 3 is more complicated than Model 2.</p>
+<p>We will not inspect the coefficients for this last model.</p>
 </section>
 <section id="make-predictions-on-the-training-data" class="level3" data-number="12.1.10">
 <h3 data-number="12.1.10" class="anchored" data-anchor-id="make-predictions-on-the-training-data"><span class="header-section-number">12.1.10</span> Make Predictions on the Training Data</h3>
 <p>We now use each model to predict the observations in the <strong>training data</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pred1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  model1,</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> train_data</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>pred2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  model2,</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> train_data</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>pred3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  model3,</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> train_data</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pred1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  model1,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> train_data</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>pred2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  model2,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> train_data</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>pred3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  model3,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> train_data</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Remember that these are the same observations that were used to fit the models. We are therefore measuring how well each model fits the <strong>training data</strong>.</p>
 </section>
@@ -695,72 +694,62 @@ F-statistic:   189 on 4 and 345 DF,  p-value: &lt; 2.2e-16</code></pre>
 <h3 data-number="12.1.11" class="anchored" data-anchor-id="calculate-training-errors"><span class="header-section-number">12.1.11</span> Calculate Training Errors</h3>
 <p>Calculate the prediction errors for each model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>error1 <span class="ot">&lt;-</span> train_data<span class="sc">$</span>sales <span class="sc">-</span> pred1</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>error2 <span class="ot">&lt;-</span> train_data<span class="sc">$</span>sales <span class="sc">-</span> pred2</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>error3 <span class="ot">&lt;-</span> train_data<span class="sc">$</span>sales <span class="sc">-</span> pred3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>train_error1 <span class="ot">&lt;-</span> train_data<span class="sc">$</span>price <span class="sc">-</span> pred1</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>train_error2 <span class="ot">&lt;-</span> train_data<span class="sc">$</span>price <span class="sc">-</span> pred2</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>train_error3 <span class="ot">&lt;-</span> train_data<span class="sc">$</span>price <span class="sc">-</span> pred3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="compare-models-using-rmse" class="level3" data-number="12.1.12">
-<h3 data-number="12.1.12" class="anchored" data-anchor-id="compare-models-using-rmse"><span class="header-section-number">12.1.12</span> Compare Models Using RMSE</h3>
-<p>We compare the models using <strong>Root Mean Squared Error (RMSE)</strong>.</p>
-<p><span class="math display">\[
-RMSE =
-\sqrt{
+<section id="compare-models-using-mse" class="level3" data-number="12.1.12">
+<h3 data-number="12.1.12" class="anchored" data-anchor-id="compare-models-using-mse"><span class="header-section-number">12.1.12</span> Compare Models Using MSE</h3>
+<p>We compare the models using the <strong>Mean Squared Error (MSE)</strong>.</p>
+<p><span class="math display">\[MSE =
 \frac{1}{n}
 \sum
-(y_i - \hat{y}_i)^2
-}
-\]</span></p>
-<p>A smaller RMSE indicates that the predictions are, on average, closer to the observed values.</p>
+(y_i - \hat{y}_i)^2.\]</span></p>
+<p>A smaller MSE indicates that the predictions are, on average, closer to the observed values.</p>
 </section>
 <section id="create-a-model-comparison-table" class="level3" data-number="12.1.13">
 <h3 data-number="12.1.13" class="anchored" data-anchor-id="create-a-model-comparison-table"><span class="header-section-number">12.1.13</span> Create a Model Comparison Table</h3>
-<p>Calculate the training RMSE for each model.</p>
+<p>Calculate the training MSE for each model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>rmse1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(error1<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>rmse2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(error2<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>rmse3 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(error3<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>model_comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="fu">c</span>(</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 1: Marketing"</span>,</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 2: Marketing + Price"</span>,</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 3: Full model"</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">training_RMSE =</span> <span class="fu">c</span>(</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    rmse1,</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    rmse2,</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    rmse3</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>model_comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) We calculate the mean and save it to a new object</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>train_mse1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(train_error1<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>train_mse2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(train_error2<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>train_mse3 <span class="ot">&lt;-</span> <span class="fu">mean</span>(train_error3<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) we create a new data frame called model_comparison</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>model_comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="fu">c</span>(</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 1: Carat"</span>,</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 2: All predictors"</span>,</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 3: All interactions"</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">training_MSE =</span> <span class="fu">c</span>(</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    train_mse1,</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    train_mse2,</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    train_mse3</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>model_comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                       model training_RMSE
-1         Model 1: Marketing      40.36181
-2 Model 2: Marketing + Price      35.03423
-3        Model 3: Full model      25.89412</code></pre>
+<pre><code>                      model training_MSE
+1            Model 1: Carat    2403329.3
+2   Model 2: All predictors    1277973.1
+3 Model 3: All interactions     444252.4</code></pre>
 </div>
 </div>
-<p>Sort the models from lowest to highest training RMSE.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>model_comparison <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(training_RMSE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                       model training_RMSE
-1        Model 3: Full model      25.89412
-2 Model 2: Marketing + Price      35.03423
-3         Model 1: Marketing      40.36181</code></pre>
-</div>
-</div>
-<section id="questions-4" class="level4" data-number="12.1.13.1">
-<h4 data-number="12.1.13.1" class="anchored" data-anchor-id="questions-4"><span class="header-section-number">12.1.13.1</span> Questions</h4>
+<section id="questions-3" class="level4" data-number="12.1.13.1">
+<h4 data-number="12.1.13.1" class="anchored" data-anchor-id="questions-3"><span class="header-section-number">12.1.13.1</span> Questions</h4>
 <ol type="1">
-<li>Which model has the lowest training RMSE?</li>
-<li>Which model has the highest training RMSE?</li>
+<li>Which model has the lowest training MSE?</li>
+<li>Which model has the highest training MSE?</li>
 <li>How large are the differences?</li>
-<li>Does adding more predictors reduce the training error?</li>
-<li>Does the most complicated model have the lowest training RMSE?</li>
+<li>Does adding more predictors and more complicated terms reduce the training error?</li>
+<li>Does the most complicated model have the lowest training MSE?</li>
+<li>Do you think the model with the lowest training MSE will also perform best on the test data?</li>
 </ol>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -772,182 +761,159 @@ Training performance and model complexity
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A model with a lower training RMSE fits the training observations more closely. However, this does <strong>not necessarily mean that it will make better predictions for new observations</strong>.</p>
+<p>A model with a lower training MSE fits the training observations more closely. However, this does <strong>not necessarily mean that it will make better predictions for new observations</strong>.</p>
 <p>As models become more flexible, they can fit the training data increasingly well. Eventually, a model may begin to fit patterns that are specific to the training observations rather than patterns that generalize to new data. This is called <strong>overfitting</strong>.</p>
 </div>
 </div>
 </section>
 </section>
-<section id="select-a-model" class="level3" data-number="12.1.14">
-<h3 data-number="12.1.14" class="anchored" data-anchor-id="select-a-model"><span class="header-section-number">12.1.14</span> Select a Model</h3>
-<p>You must now select <strong>one model</strong>.</p>
-<p>Consider:</p>
+<section id="evaluate-the-model-using-the-test-data" class="level3" data-number="12.1.14">
+<h3 data-number="12.1.14" class="anchored" data-anchor-id="evaluate-the-model-using-the-test-data"><span class="header-section-number">12.1.14</span> Evaluate the model using the test data</h3>
+<p>So far, we have only compared how well the three models perform on the training data. A more complex model will almost always have a lower <strong>training</strong> MSE, but that doesn’t necessarily correspond to a lower <strong>test</strong> MSE. Next, let’s see how the models perform on the test data, which wasn’t used to train the models.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We first create predictions, but on the test data</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>pred1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  model1,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> test_data</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>pred2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  model2,</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> test_data</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>pred3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  model3,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> test_data</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co"># We calculate the errors</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>test_error1 <span class="ot">&lt;-</span> test_data<span class="sc">$</span>price <span class="sc">-</span> pred1</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>test_error2 <span class="ot">&lt;-</span> test_data<span class="sc">$</span>price <span class="sc">-</span> pred2</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>test_error3 <span class="ot">&lt;-</span> test_data<span class="sc">$</span>price <span class="sc">-</span> pred3</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="co"># We calculate the MSE</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>test_mse1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(test_error1<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>test_mse2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(test_error2<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>test_mse3 <span class="ot">&lt;-</span> <span class="fu">mean</span>(test_error3<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Add the new test MSE as a column to our comparison table.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We create a new data frame comparing training and test MSE</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>model_comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="fu">c</span>(</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 1: Carat"</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 2: All predictors"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 3: All interactions"</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">training_MSE =</span> <span class="fu">c</span>(</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    train_mse1,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    train_mse2,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    train_mse3</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  ), </span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">test_MSE =</span> <span class="fu">c</span>(</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    test_mse1,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    test_mse2,</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    test_mse3</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>model_comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      model training_MSE test_MSE
+1            Model 1: Carat    2403329.3  2385510
+2   Model 2: All predictors    1277973.1  1275971
+3 Model 3: All interactions     444252.4 10929486</code></pre>
+</div>
+</div>
+<section id="questions-4" class="level4" data-number="12.1.14.1">
+<h4 data-number="12.1.14.1" class="anchored" data-anchor-id="questions-4"><span class="header-section-number">12.1.14.1</span> Questions</h4>
+<ol type="1">
+<li>Which models have the lowest and highest test MSE?</li>
+<li>How large are the differences in test MSE between models?</li>
+<li>Which models have the largest and smallest difference between training- and test MSE?</li>
+<li>Which model do you think performs best overall?</li>
+</ol>
+</section>
+</section>
+<section id="other-considerations-when-selecting-a-model" class="level3" data-number="12.1.15">
+<h3 data-number="12.1.15" class="anchored" data-anchor-id="other-considerations-when-selecting-a-model"><span class="header-section-number">12.1.15</span> Other considerations when selecting a model</h3>
+<p>There are several other aspects, apart from training- and test MSE, that could be important when selecting which model to implement in practice. Such as:</p>
 <ul>
-<li>training RMSE</li>
 <li>model complexity</li>
 <li>interpretability</li>
 <li>whether the improvement over simpler models is meaningful</li>
 <li>cost of collecting data</li>
+<li>computational costs.</li>
 </ul>
-<p>Do not simply assume that the model with the most predictors is necessarily the best model for predicting new observations.</p>
+<p>Different aspects can be more or less important in different business contexts. For example, sometimes we are only interested in the predictions of the model, and other times we might want to be able to interpret its coefficients in order to understand more about the problem at hand.</p>
 </section>
-<section id="your-model-selection" class="level3" data-number="12.1.15">
-<h3 data-number="12.1.15" class="anchored" data-anchor-id="your-model-selection"><span class="header-section-number">12.1.15</span> Your Model Selection</h3>
-<p><strong>Selected model:</strong></p>
-<p>Write your answer here.</p>
-<p><strong>Reason for selecting this model:</strong></p>
-<p>Write your answer here.</p>
-</section>
-<section id="create-the-selected-model" class="level3" data-number="12.1.16">
-<h3 data-number="12.1.16" class="anchored" data-anchor-id="create-the-selected-model"><span class="header-section-number">12.1.16</span> Create the Selected Model</h3>
-<p>Assign your selected model to <code>selected_model</code>.</p>
+<section id="plot-observed-and-predicted-prices" class="level3" data-number="12.1.16">
+<h3 data-number="12.1.16" class="anchored" data-anchor-id="plot-observed-and-predicted-prices"><span class="header-section-number">12.1.16</span> Plot observed and predicted prices</h3>
+<p>Choose the model you think would work best in practice, based on the considerations above. Assign your selected model to <code>selected_model</code>.</p>
 <p>For example, if you selected Model 2:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>selected_model <span class="ot">&lt;-</span> model2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Change this if you selected another model.</p>
-</section>
-<section id="evaluate-the-selected-model-using-test-data" class="level3" data-number="12.1.17">
-<h3 data-number="12.1.17" class="anchored" data-anchor-id="evaluate-the-selected-model-using-test-data"><span class="header-section-number">12.1.17</span> Evaluate the Selected Model Using Test Data</h3>
-<p>We now evaluate the selected model using observations that were <strong>not used to fit the model</strong>.</p>
-<p>Make predictions for the test observations.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>test_prediction <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  selected_model,</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> test_data</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>selected_model <span class="ot">&lt;-</span> model3</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>test_prediction <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  selected_model,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> test_data</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a dataset containing the observed values, predictions, and errors.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>test_results <span class="ot">&lt;-</span> test_data <span class="sc">|&gt;</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">predicted_sales =</span> test_prediction,</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">error =</span> sales <span class="sc">-</span> predicted_sales</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>test_results <span class="ot">&lt;-</span> test_data <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">predicted_price =</span> test_prediction,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">error =</span> price <span class="sc">-</span> predicted_price</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Inspect the results.</p>
+<p>We can visualize how closely the predicted prices correspond to the observed prices in the test data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    sales marketing price competitors income predicted_sales      error
-323 107.5      23.2  56.3           2  37693        132.1121 -24.612123
-367 138.7      27.4  29.4           8  49158        166.9904 -28.290426
-108 145.8      64.8  69.4           1  45789        154.9635  -9.163528
-216 185.3      73.1  43.1           5  50837        192.8916  -7.591605
-490 229.3      85.1  46.0           3  62114        200.4976  28.802383
-380 171.3      97.4  57.9           5  31179        197.9907 -26.690712</code></pre>
-</div>
-</div>
-</section>
-<section id="calculate-test-rmse" class="level3" data-number="12.1.18">
-<h3 data-number="12.1.18" class="anchored" data-anchor-id="calculate-test-rmse"><span class="header-section-number">12.1.18</span> Calculate Test RMSE</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>test_rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(test_results<span class="sc">$</span>error<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>test_rmse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 31.34427</code></pre>
-</div>
-</div>
-<p>The <strong>test RMSE</strong> tells us how well the selected model predicts observations that were not used to fit it. This gives us a better indication of the model’s predictive performance on new observations.</p>
-<section id="questions-5" class="level4" data-number="12.1.18.1">
-<h4 data-number="12.1.18.1" class="anchored" data-anchor-id="questions-5"><span class="header-section-number">12.1.18.1</span> Questions</h4>
-<ol type="1">
-<li>Does the model appear to generalize well to new observations?</li>
-</ol>
-</section>
-</section>
-<section id="compare-training-and-test-performance" class="level3" data-number="12.1.19">
-<h3 data-number="12.1.19" class="anchored" data-anchor-id="compare-training-and-test-performance"><span class="header-section-number">12.1.19</span> Compare Training and Test Performance</h3>
-<p>We can now directly compare the selected model’s performance on the training and test data.</p>
-<p>First, save the training RMSE for your selected model. For example, if you selected Model 2:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>selected_train_rmse <span class="ot">&lt;-</span> rmse2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Change this if you selected another model.</p>
-<p>Create a comparison table.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>performance <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Dataset =</span> <span class="fu">c</span>(</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Training"</span>,</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Test"</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">RMSE =</span> <span class="fu">c</span>(</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    selected_train_rmse,</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    test_rmse</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>performance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Dataset     RMSE
-1 Training 35.03423
-2     Test 31.34427</code></pre>
-</div>
-</div>
-<p>The <strong>training RMSE</strong> tells us how well the selected model fits observations that were used to estimate it.</p>
-<p>The <strong>test RMSE</strong> tells us how well the same model predicts new observations.</p>
-<p>If the training error is very low but the test error is substantially higher, this can indicate that the model does not generalize well to new observations.</p>
-<p>This is one of the reasons why training performance alone should not be interpreted as evidence that a model will make good predictions for new data.</p>
-<section id="questions-6" class="level4" data-number="12.1.19.1">
-<h4 data-number="12.1.19.1" class="anchored" data-anchor-id="questions-6"><span class="header-section-number">12.1.19.1</span> Questions</h4>
-<ol type="1">
-<li>How large is the difference between training and test RMSE?</li>
-<li>Does predictive performance become worse on the test data?</li>
-<li>What might a large difference between training and test RMSE indicate?</li>
-<li>Which RMSE gives us the best indication of how well the model predicts new observations?</li>
-</ol>
-</section>
-</section>
-<section id="plot-observed-and-predicted-sales" class="level3" data-number="12.1.20">
-<h3 data-number="12.1.20" class="anchored" data-anchor-id="plot-observed-and-predicted-sales"><span class="header-section-number">12.1.20</span> Plot Observed and Predicted Sales</h3>
-<p>We can visualize how closely the predicted sales correspond to the observed sales in the test data.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_predictions</span>(</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  test_results,</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">observed =</span> sales,</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">predicted =</span> predicted_sales,</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Observed Sales"</span>,</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Predicted Sales"</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_predictions</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  test_results,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">observed =</span> price,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">predicted =</span> predicted_price,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Observed Price"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Predicted Price"</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="12_linear_regression_lab2_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12_linear_regression_lab2_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The dashed line represents perfect predictions:</p>
-<p><span class="math display">\[
-Observed = Predicted
-\]</span></p>
+<p><span class="math display">\[Observed = Predicted\]</span></p>
 <p>Points close to the line represent relatively accurate predictions.</p>
-<section id="questions-7" class="level4" data-number="12.1.20.1">
-<h4 data-number="12.1.20.1" class="anchored" data-anchor-id="questions-7"><span class="header-section-number">12.1.20.1</span> Questions</h4>
+<section id="questions-5" class="level4" data-number="12.1.16.1">
+<h4 data-number="12.1.16.1" class="anchored" data-anchor-id="questions-5"><span class="header-section-number">12.1.16.1</span> Questions</h4>
 <ol type="1">
 <li>Are most observations close to the line?</li>
 <li>Are there observations with particularly poor predictions?</li>
 <li>Does the model appear to systematically predict too high or too low?</li>
+<li>Are there patterns for when the model performs better or worse?</li>
 </ol>
 </section>
 </section>
-<section id="plot-the-prediction-errors" class="level3" data-number="12.1.21">
-<h3 data-number="12.1.21" class="anchored" data-anchor-id="plot-the-prediction-errors"><span class="header-section-number">12.1.21</span> Plot the Prediction Errors</h3>
+<section id="plot-the-prediction-errors" class="level3" data-number="12.1.17">
+<h3 data-number="12.1.17" class="anchored" data-anchor-id="plot-the-prediction-errors"><span class="header-section-number">12.1.17</span> Plot the Prediction Errors</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the prediction errors</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_residuals</span>(</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> test_results,</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xvar =</span> predicted_sales,</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">errorvar =</span> error,</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Predicted Sales"</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the prediction errors</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_residuals</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> test_results,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xvar =</span> predicted_price,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">errorvar =</span> error,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Predicted Price"</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="12_linear_regression_lab2_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12_linear_regression_lab2_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -958,8 +924,8 @@ Observed = Predicted
 <li>a <strong>positive error</strong> means that the model predicted too little;</li>
 <li>a <strong>negative error</strong> means that the model predicted too much.</li>
 </ul>
-<section id="questions-8" class="level4" data-number="12.1.21.1">
-<h4 data-number="12.1.21.1" class="anchored" data-anchor-id="questions-8"><span class="header-section-number">12.1.21.1</span> Questions</h4>
+<section id="questions-6" class="level4" data-number="12.1.17.1">
+<h4 data-number="12.1.17.1" class="anchored" data-anchor-id="questions-6"><span class="header-section-number">12.1.17.1</span> Questions</h4>
 <ol type="1">
 <li>Are the errors generally centered around zero?</li>
 <li>Are there particularly large prediction errors?</li>
@@ -968,9 +934,9 @@ Observed = Predicted
 </ol>
 </section>
 </section>
-<section id="from-model-evaluation-to-business-decision" class="level3" data-number="12.1.22">
-<h3 data-number="12.1.22" class="anchored" data-anchor-id="from-model-evaluation-to-business-decision"><span class="header-section-number">12.1.22</span> From Model Evaluation to Business Decision</h3>
-<p>A model having a relatively low RMSE does not automatically mean that the company should implement it. Management also needs to consider whether the predictions are sufficiently accurate to be <strong>useful for the business problem</strong>.</p>
+<section id="from-model-evaluation-to-business-decision" class="level3" data-number="12.1.18">
+<h3 data-number="12.1.18" class="anchored" data-anchor-id="from-model-evaluation-to-business-decision"><span class="header-section-number">12.1.18</span> From Model Evaluation to Business Decision</h3>
+<p>A model having a relatively low MSE does not automatically mean that the company should implement it. Management also needs to consider whether the predictions are sufficiently accurate to be <strong>useful for the business problem</strong>.</p>
 <p>For example, consider:</p>
 <ul>
 <li>How costly are prediction errors?</li>
@@ -990,29 +956,28 @@ Observed = Predicted
 <p>Is the selected model good enough to use?</p>
 </blockquote>
 </section>
-<section id="final-management-recommendation" class="level3" data-number="12.1.23">
-<h3 data-number="12.1.23" class="anchored" data-anchor-id="final-management-recommendation"><span class="header-section-number">12.1.23</span> Final Management Recommendation</h3>
+<section id="final-management-recommendation" class="level3" data-number="12.1.19">
+<h3 data-number="12.1.19" class="anchored" data-anchor-id="final-management-recommendation"><span class="header-section-number">12.1.19</span> Final Management Recommendation</h3>
 <p>Imagine that you are presenting your analysis to company management. Prepare a short recommendation.</p>
-<section id="model-selection" class="level4" data-number="12.1.23.1">
-<h4 data-number="12.1.23.1" class="anchored" data-anchor-id="model-selection"><span class="header-section-number">12.1.23.1</span> Model Selection</h4>
+<section id="model-selection" class="level4" data-number="12.1.19.1">
+<h4 data-number="12.1.19.1" class="anchored" data-anchor-id="model-selection"><span class="header-section-number">12.1.19.1</span> Model Selection</h4>
 <ol type="1">
 <li>Which models did you compare?</li>
 <li>Which model did you select?</li>
 <li>Why did you select this model?</li>
-<li>What was its training RMSE?</li>
+<li>What was its training MSE?</li>
 </ol>
 </section>
-<section id="test-performance" class="level4" data-number="12.1.23.2">
-<h4 data-number="12.1.23.2" class="anchored" data-anchor-id="test-performance"><span class="header-section-number">12.1.23.2</span> Test Performance</h4>
+<section id="test-performance" class="level4" data-number="12.1.19.2">
+<h4 data-number="12.1.19.2" class="anchored" data-anchor-id="test-performance"><span class="header-section-number">12.1.19.2</span> Test Performance</h4>
 <ol start="5" type="1">
-<li>What was the test RMSE?</li>
-<li>How did the test RMSE compare with the training RMSE?</li>
+<li>What was the test MSE?</li>
+<li>How did the test MSE compare with the training MSE?</li>
 <li>Does the model appear to generalize well to new observations?</li>
-<li>What did you learn from the prediction error plot?</li>
 </ol>
 </section>
-<section id="business-decision" class="level4" data-number="12.1.23.3">
-<h4 data-number="12.1.23.3" class="anchored" data-anchor-id="business-decision"><span class="header-section-number">12.1.23.3</span> Business Decision</h4>
+<section id="business-decision" class="level4" data-number="12.1.19.3">
+<h4 data-number="12.1.19.3" class="anchored" data-anchor-id="business-decision"><span class="header-section-number">12.1.19.3</span> Business Decision</h4>
 <ol start="9" type="1">
 <li>Does the model appear to provide useful predictions?</li>
 <li>Are there important limitations?</li>
@@ -1023,9 +988,21 @@ Observed = Predicted
 <p>or</p>
 <p><strong>Do not implement the model</strong></p>
 <p>Briefly justify your decision.</p>
-
-
 </section>
+</section>
+<section id="summary" class="level3" data-number="12.1.20">
+<h3 data-number="12.1.20" class="anchored" data-anchor-id="summary"><span class="header-section-number">12.1.20</span> Summary</h3>
+<p>In the previous lab we learned the basic idea of supervised learning. In this lab, we extended that idea to <strong>model comparison</strong>. We learned that different models can produce different prediction errors and that model complexity does not automatically produce better predictions for new observations.</p>
+<p>We continued to use two different datasets:</p>
+<ul>
+<li><strong>training data</strong> are used to fit, develop, and compare models;</li>
+<li><strong>test data</strong> are used to evaluate predictive performance on new observations.</li>
+</ul>
+<p>An important distinction is that a low <strong>training error</strong> tells us that a model fits the training observations well. It does not necessarily tell us that the model will make accurate predictions for new observations. The <strong>test error</strong> allows us to examine how well the model generalizes to data that were not used to fit it.</p>
+<p>Finally, predictive modeling does not end when we calculate MSE. The final question is whether the model produces predictions that are sufficiently accurate and useful to support the company’s decisions.</p>
+<p>In the next labs, we will continue to develop this predictive modeling workflow and introduce other methods.</p>
+
+
 </section>
 </section>
 

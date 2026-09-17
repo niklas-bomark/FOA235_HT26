@@ -1,2 +1,15 @@
 /.quarto/
 .Rproj.user
+.RData
+.Rhistory
+
+.RData
+.Rhistory
+
+# R/RStudio local files
+.RData
+.Rhistory
+.Rproj.user/
+
+# macOS
+.DS_Store

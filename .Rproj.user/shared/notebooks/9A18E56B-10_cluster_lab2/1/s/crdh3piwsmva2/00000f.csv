@@ -1,3 +1,0 @@
-"0","df_cluster <- df |>"
-"0","  select(where(is.numeric)) |>"
-"0","  select(-customer_id)"

@@ -1,5 +1,0 @@
-"0","df_clean |>"
-"0","  group_by(region) |>"
-"0","  summarise("
-"0","    mean_revenues = mean(revenue)"
-"0","  )"

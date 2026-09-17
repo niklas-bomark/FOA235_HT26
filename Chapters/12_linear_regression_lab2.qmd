@@ -1,5 +1,10 @@
 ---
-title: "Lab7"
+title: "Linear Regression: Lab 2"
+subtitle: "Supervised Learning and Prediction"
+format: html
+execute:
+  warning: false
+  message: false
 ---
 
 ## Introduction
@@ -15,8 +20,8 @@ The main problem with the modelling approach we took in the second half of Lab6 
 
 In this lab, we therefore divide the data into two parts:
 
-- **training data** — used to fit and develop models;
-- **test data** — used to evaluate how well the model predicts new, unseen observations.
+-   **training data** — used to fit and develop models;
+-   **test data** — used to evaluate how well the model predicts new, unseen observations.
 
 ::: callout-important
 ### Why do we need test data?
@@ -28,8 +33,8 @@ The test data contain observations that were not used to fit the model. They the
 
 In this lab, we will use:
 
-- 70% training data;
-- 30% test data.
+-   70% training data;
+-   30% test data.
 
 In addition to **splitting the data,** our modeling workflow will still include **model comparison and model selection** like we did in the previous lab. The new workflow will be:
 
@@ -39,13 +44,13 @@ In addition to **splitting the data,** our modeling workflow will still include 
 
 After completing this lab, you should be able to:
 
-- explain the difference between training and test data;
-- fit several regression models;
-- calculate and compare training errors;
-- compare alternative models;
-- select a model based on training performance and other relevant considerations;
-- evaluate the selected model using test data;
-- translate model performance into a business recommendation.
+-   explain the difference between training and test data;
+-   fit several regression models;
+-   calculate and compare training errors;
+-   compare alternative models;
+-   select a model based on training performance and other relevant considerations;
+-   evaluate the selected model using test data;
+-   translate model performance into a business recommendation.
 
 ### Prepare the R session
 
@@ -87,9 +92,9 @@ Before building models, we should understand the variables in our data and the r
 
 Correlation measures the strength and direction of the linear relationship between two variables. Correlation values range from -1 to 1:
 
-- values close to 1 indicate a strong positive relationship;
-- values close to -1 indicate a strong negative relationship;
-- values close to 0 indicate a weak or no linear relationship.
+-   values close to 1 indicate a strong positive relationship;
+-   values close to -1 indicate a strong negative relationship;
+-   values close to 0 indicate a weak or no linear relationship.
 
 A correlation matrix allows us to quickly examine these relationships across several variables at the same time.
 
@@ -121,8 +126,8 @@ We divide the data into **training data** and **test data**.
 
 : In this lab, we use:
 
-- 70% training data;
-- 30% test data.
+-   70% training data;
+-   30% test data.
 
 ::: callout-important
 #### Important
@@ -393,11 +398,11 @@ model_comparison
 
 There are several other aspects, apart from training- and test MSE, that could be important when selecting which model to implement in practice. Such as:
 
-- model complexity
-- interpretability
-- whether the improvement over simpler models is meaningful
-- cost of collecting data
-- computational costs.
+-   model complexity
+-   interpretability
+-   whether the improvement over simpler models is meaningful
+-   cost of collecting data
+-   computational costs.
 
 Different aspects can be more or less important in different business contexts. For example, sometimes we are only interested in the predictions of the model, and other times we might want to be able to interpret its coefficients in order to understand more about the problem at hand.
 
@@ -474,9 +479,9 @@ plot_residuals(
 
 Remember:
 
-- an error close to **0** represents an accurate prediction;
-- a **positive error** means that the model predicted too little;
-- a **negative error** means that the model predicted too much.
+-   an error close to **0** represents an accurate prediction;
+-   a **positive error** means that the model predicted too little;
+-   a **negative error** means that the model predicted too much.
 
 #### Questions
 
@@ -491,11 +496,11 @@ A model having a relatively low MSE does not automatically mean that the company
 
 For example, consider:
 
-- How costly are prediction errors?
-- Is the prediction accuracy good enough for the intended decision?
-- Is the model understandable?
-- Is the required data available when predictions need to be made?
-- Are there observations for which the model performs particularly poorly?
+-   How costly are prediction errors?
+-   Is the prediction accuracy good enough for the intended decision?
+-   Is the model understandable?
+-   Is the required data available when predictions need to be made?
+-   Are there observations for which the model performs particularly poorly?
 
 This means that there are two related decisions:
 
@@ -542,15 +547,14 @@ or
 
 Briefly justify your decision.
 
-
 ### Summary
 
 In the previous lab we learned the basic idea of supervised learning. In this lab, we extended that idea to **model comparison**. We learned that different models can produce different prediction errors and that model complexity does not automatically produce better predictions for new observations.
 
 We continued to use two different datasets:
 
-- **training data** are used to fit, develop, and compare models;
-- **test data** are used to evaluate predictive performance on new observations.
+-   **training data** are used to fit, develop, and compare models;
+-   **test data** are used to evaluate predictive performance on new observations.
 
 An important distinction is that a low **training error** tells us that a model fits the training observations well. It does not necessarily tell us that the model will make accurate predictions for new observations. The **test error** allows us to examine how well the model generalizes to data that were not used to fit it.
 

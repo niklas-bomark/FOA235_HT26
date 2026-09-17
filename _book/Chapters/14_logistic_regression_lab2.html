@@ -237,7 +237,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Chapters/12_linear_regression_lab2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Linear Regression: Lab 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab7</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -621,16 +621,16 @@ glm(formula = purchase ~ website_visits, family = binomial, data = train_data)
 
 Coefficients:
                Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)    -2.35189    0.30120  -7.808 5.79e-15 ***
-website_visits  0.23286    0.03439   6.770 1.28e-11 ***
+(Intercept)    -1.99259    0.29162  -6.833 8.33e-12 ***
+website_visits  0.20249    0.03396   5.962 2.50e-09 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 750.41  on 559  degrees of freedom
-Residual deviance: 698.92  on 558  degrees of freedom
-AIC: 702.92
+    Null deviance: 759.09  on 559  degrees of freedom
+Residual deviance: 720.06  on 558  degrees of freedom
+AIC: 724.06
 
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
@@ -643,17 +643,17 @@ glm(formula = purchase ~ website_visits + customer_age, family = binomial,
 
 Coefficients:
                 Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)    -1.805449   0.441838  -4.086 4.38e-05 ***
-website_visits  0.232922   0.034513   6.749 1.49e-11 ***
-customer_age   -0.013234   0.007987  -1.657   0.0975 .  
+(Intercept)    -1.619292   0.428714  -3.777 0.000159 ***
+website_visits  0.203533   0.034003   5.986 2.15e-09 ***
+customer_age   -0.009041   0.007710  -1.173 0.240975    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 750.41  on 559  degrees of freedom
-Residual deviance: 696.16  on 557  degrees of freedom
-AIC: 702.16
+    Null deviance: 759.09  on 559  degrees of freedom
+Residual deviance: 718.69  on 557  degrees of freedom
+AIC: 724.69
 
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
@@ -666,24 +666,24 @@ glm(formula = purchase ~ website_visits + customer_age + discount_used +
     data = train_data)
 
 Coefficients:
-                   Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)        -5.12699    0.71735  -7.147 8.86e-13 ***
-website_visits      0.25970    0.03732   6.958 3.44e-12 ***
-customer_age       -0.01434    0.00844  -1.699  0.08938 .  
-discount_used       0.65082    0.20286   3.208  0.00134 ** 
-previous_purchases  0.34890    0.06244   5.588 2.30e-08 ***
-pages_viewed        0.09956    0.03066   3.248  0.00116 ** 
-time_on_site        0.03650    0.01406   2.595  0.00945 ** 
+                    Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)        -4.693404   0.685932  -6.842 7.79e-12 ***
+website_visits      0.223346   0.036393   6.137 8.41e-10 ***
+customer_age       -0.007139   0.008092  -0.882  0.37762    
+discount_used       0.595957   0.194642   3.062  0.00220 ** 
+previous_purchases  0.270834   0.055675   4.865 1.15e-06 ***
+pages_viewed        0.089786   0.028458   3.155  0.00160 ** 
+time_on_site        0.040568   0.013278   3.055  0.00225 ** 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 750.41  on 559  degrees of freedom
-Residual deviance: 631.53  on 553  degrees of freedom
-AIC: 645.53
+    Null deviance: 759.09  on 559  degrees of freedom
+Residual deviance: 663.82  on 553  degrees of freedom
+AIC: 677.82
 
-Number of Fisher Scoring iterations: 4</code></pre>
+Number of Fisher Scoring iterations: 3</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -744,7 +744,7 @@ Threshold = 0.50
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>accuracy_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6535714</code></pre>
+<pre><code>[1] 0.6446429</code></pre>
 </div>
 </div>
 </section>
@@ -774,7 +774,7 @@ Threshold = 0.50
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>accuracy_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6553571</code></pre>
+<pre><code>[1] 0.6464286</code></pre>
 </div>
 </div>
 </section>
@@ -804,7 +804,7 @@ Threshold = 0.50
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>accuracy_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7035714</code></pre>
+<pre><code>[1] 0.6910714</code></pre>
 </div>
 </div>
 </section>
@@ -828,9 +828,9 @@ Threshold = 0.50
 <span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>model_comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Model  Accuracy
-1 Model 1 0.6535714
-2 Model 2 0.6553571
-3 Model 3 0.7035714</code></pre>
+1 Model 1 0.6446429
+2 Model 2 0.6464286
+3 Model 3 0.6910714</code></pre>
 </div>
 </div>
 <p>We can also sort the models from highest to lowest accuracy.</p>
@@ -839,9 +839,9 @@ Threshold = 0.50
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Accuracy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Model  Accuracy
-1 Model 3 0.7035714
-2 Model 2 0.6553571
-3 Model 1 0.6535714</code></pre>
+1 Model 3 0.6910714
+2 Model 2 0.6464286
+3 Model 1 0.6446429</code></pre>
 </div>
 </div>
 <section id="questions-5" class="level3" data-number="14.11.1">
@@ -913,19 +913,19 @@ Training accuracy
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    purchase website_visits time_on_site pages_viewed previous_purchases
-515        1             10         22.1           11                  3
-716        1              7         23.8           14                  7
-486        0              5         21.2           12                  0
-551        0              7         17.0            5                  2
-743        0              4         18.5            5                  3
-46         0              5         19.2           12                  1
+448        0              5         25.3           11                  2
+710        0              7         19.1            7                  4
+756        0              8         18.8            9                  5
+540        0              6         27.6            6                  3
+59         1             12         19.6           13                  3
+543        0             11          6.2            9                  2
     discount_used customer_age predicted_probability
-515             0           23            0.52221875
-716             0           31            0.72141635
-486             0           43            0.07753565
-551             0           47            0.10277979
-743             0           31            0.09007079
-46              0           37            0.10770562</code></pre>
+448             0           34             0.2203336
+710             0           56             0.2605527
+756             0           49             0.4178657
+540             0           53             0.2208338
+59              1           26             0.7634945
+543             0           52             0.2676482</code></pre>
 </div>
 </div>
 </section>
@@ -947,19 +947,19 @@ Training accuracy
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    purchase website_visits time_on_site pages_viewed previous_purchases
-515        1             10         22.1           11                  3
-716        1              7         23.8           14                  7
-486        0              5         21.2           12                  0
-551        0              7         17.0            5                  2
-743        0              4         18.5            5                  3
-46         0              5         19.2           12                  1
+448        0              5         25.3           11                  2
+710        0              7         19.1            7                  4
+756        0              8         18.8            9                  5
+540        0              6         27.6            6                  3
+59         1             12         19.6           13                  3
+543        0             11          6.2            9                  2
     discount_used customer_age predicted_probability predicted_class
-515             0           23            0.52221875               1
-716             0           31            0.72141635               1
-486             0           43            0.07753565               0
-551             0           47            0.10277979               0
-743             0           31            0.09007079               0
-46              0           37            0.10770562               0</code></pre>
+448             0           34             0.2203336               0
+710             0           56             0.2605527               0
+756             0           49             0.4178657               0
+540             0           53             0.2208338               0
+59              1           26             0.7634945               1
+543             0           52             0.2676482               0</code></pre>
 </div>
 </div>
 </section>
@@ -977,8 +977,8 @@ Training accuracy
 <div class="cell-output cell-output-stdout">
 <pre><code>      Predicted
 Actual   0   1
-     0 114  25
-     1  55  46</code></pre>
+     0 125  25
+     1  39  51</code></pre>
 </div>
 </div>
 <p>A confusion matrix contains four possible outcomes:</p>
@@ -1028,7 +1028,7 @@ Actual   0   1
 <span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6666667</code></pre>
+<pre><code>[1] 0.7333333</code></pre>
 </div>
 </div>
 </section>
@@ -1040,7 +1040,7 @@ Actual   0   1
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>precision</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6478873</code></pre>
+<pre><code>[1] 0.6710526</code></pre>
 </div>
 </div>
 </section>
@@ -1052,7 +1052,7 @@ Actual   0   1
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>recall</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.4554455</code></pre>
+<pre><code>[1] 0.5666667</code></pre>
 </div>
 </div>
 </section>
@@ -1064,7 +1064,7 @@ Actual   0   1
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>specificity</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8201439</code></pre>
+<pre><code>[1] 0.8333333</code></pre>
 </div>
 </div>
 </section>

@@ -31,15 +31,14 @@ Read Sections 3.2 and 3.3 in *An Introduction to Statistical Learning - with App
 
 After completing this lab, you should be able to:
 
-- distinguish between outcome and predictor variables
-- explain the basic idea behind linear regression
-- fit a simple linear regression model in R
-- interpret the intercept and slope
-- calculate predicted values
-- understand the difference between observed and predicted values
-- calculate prediction errors
-- explain why we separate training, and test data
-
+-   distinguish between outcome and predictor variables
+-   explain the basic idea behind linear regression
+-   fit a simple linear regression model in R
+-   interpret the intercept and slope
+-   calculate predicted values
+-   understand the difference between observed and predicted values
+-   calculate prediction errors
+-   explain why we separate training, and test data
 
 ## Exercise 1: Simple Linear Regression
 
@@ -94,13 +93,13 @@ summary(df)
 
 In supervised learning, we distinguish between outcome variables and predictor variables.
 
-- The **outcome variable** is the variable we want to explain or predict.
-- The **predictor variables** contain information that we use to make that prediction.
+-   The **outcome variable** is the variable we want to explain or predict.
+-   The **predictor variables** contain information that we use to make that prediction.
 
 We will start with a simple linear regression model with only one predictor. Suppose we want to predict `sales` using `marketing`. In this case:
 
-- `sales` is the outcome variable;
-- `marketing` is the predictor variable.
+-   `sales` is the outcome variable;
+-   `marketing` is the predictor variable.
 
 We can write this relationship as:
 
@@ -138,10 +137,10 @@ $$\hat{y} = b_0 + b_1x$$
 
 where:
 
-- $\hat{y}$ is the predicted value of the outcome
-- $b_0$ is the **intercept**
-- $b_1$ is the **slope**
-- $x$ is the predictor variable
+-   $\hat{y}$ is the predicted value of the outcome
+-   $b_0$ is the **intercept**
+-   $b_1$ is the **slope**
+-   $x$ is the predictor variable
 
 For our example:
 
@@ -253,8 +252,8 @@ head(df)
 
 We now have:
 
-- the observed value: `sales`;
-- the model's prediction: `predicted_sales`.
+-   the observed value: `sales`;
+-   the model's prediction: `predicted_sales`.
 
 ### Prediction error
 
@@ -292,18 +291,18 @@ plot_residuals(
 
 Each point shows the prediction error for one observation. The dashed horizontal line represents an error of zero, meaning that the prediction was exactly correct.
 
-- Points above zero are observations where the model predicted too little.
-- Points below zero are observations where the model predicted too much.
-- Points close to zero represent relatively accurate predictions.
+-   Points above zero are observations where the model predicted too little.
+-   Points below zero are observations where the model predicted too much.
+-   Points close to zero represent relatively accurate predictions.
 
 #### Questions
 
-- Are the errors generally centered around zero?
-- Are there observations with particularly large errors?
-- Do you see any systematic pattern in the errors?
-- Find an observation with a positive error. What does a positive error mean?
-- Find an observation with a negative error. What does a negative error mean?
-- Would a perfect model have large or small errors?
+-   Are the errors generally centered around zero?
+-   Are there observations with particularly large errors?
+-   Do you see any systematic pattern in the errors?
+-   Find an observation with a positive error. What does a positive error mean?
+-   Find an observation with a negative error. What does a negative error mean?
+-   Would a perfect model have large or small errors?
 
 ### Measure prediction error
 
@@ -324,7 +323,6 @@ mse
 
 1.  What is the MSE of the model?
 2.  Would you prefer a model with a smaller or larger prediction error?
-
 
 ## Exercise 2: Multiple linear regression
 
@@ -463,13 +461,13 @@ K-means and linear regression represent two different types of machine learning.
 
 **K-means clustering** is unsupervised:
 
-- there is no outcome variable;
-- the algorithm searches for groups in the data.
+-   there is no outcome variable;
+-   the algorithm searches for groups in the data.
 
 **Linear regression** is supervised:
 
-- there is an outcome variable;
-- predictors are used to explain or predict the outcome.
+-   there is an outcome variable;
+-   predictors are used to explain or predict the outcome.
 
 In this lab, we introduced part of a basic supervised learning workflow:
 
